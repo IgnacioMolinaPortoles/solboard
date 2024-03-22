@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
+		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
+		7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5F2BAD198C009E40F1 /* ViewController.swift */; };
+		7395FE632BAD198C009E40F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE612BAD198C009E40F1 /* Main.storyboard */; };
+		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
+		7395FE682BAD198D009E40F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */; };
+		7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE722BAD198D009E40F1 /* SolboardTests.swift */; };
+		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
+		7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7395FE6F2BAD198D009E40F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7395FE502BAD198C009E40F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7395FE572BAD198C009E40F1;
+			remoteInfo = Solboard;
+		};
+		7395FE792BAD198D009E40F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7395FE502BAD198C009E40F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7395FE572BAD198C009E40F1;
+			remoteInfo = Solboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7395FE582BAD198C009E40F1 /* Solboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7395FE5F2BAD198C009E40F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7395FE622BAD198C009E40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7395FE642BAD198D009E40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7395FE672BAD198D009E40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7395FE692BAD198D009E40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7395FE722BAD198D009E40F1 /* SolboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardTests.swift; sourceTree = "<group>"; };
+		7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITests.swift; sourceTree = "<group>"; };
+		7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7395FE552BAD198C009E40F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE6B2BAD198D009E40F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE752BAD198D009E40F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7395FE4F2BAD198C009E40F1 = {
+			isa = PBXGroup;
+			children = (
+				7395FE5A2BAD198C009E40F1 /* Solboard */,
+				7395FE712BAD198D009E40F1 /* SolboardTests */,
+				7395FE7B2BAD198D009E40F1 /* SolboardUITests */,
+				7395FE592BAD198C009E40F1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7395FE592BAD198C009E40F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7395FE582BAD198C009E40F1 /* Solboard.app */,
+				7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */,
+				7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
+			isa = PBXGroup;
+			children = (
+				7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */,
+				7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */,
+				7395FE5F2BAD198C009E40F1 /* ViewController.swift */,
+				7395FE612BAD198C009E40F1 /* Main.storyboard */,
+				7395FE642BAD198D009E40F1 /* Assets.xcassets */,
+				7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */,
+				7395FE692BAD198D009E40F1 /* Info.plist */,
+			);
+			path = Solboard;
+			sourceTree = "<group>";
+		};
+		7395FE712BAD198D009E40F1 /* SolboardTests */ = {
+			isa = PBXGroup;
+			children = (
+				7395FE722BAD198D009E40F1 /* SolboardTests.swift */,
+			);
+			path = SolboardTests;
+			sourceTree = "<group>";
+		};
+		7395FE7B2BAD198D009E40F1 /* SolboardUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */,
+				7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */,
+			);
+			path = SolboardUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7395FE572BAD198C009E40F1 /* Solboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7395FE822BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "Solboard" */;
+			buildPhases = (
+				7395FE542BAD198C009E40F1 /* Sources */,
+				7395FE552BAD198C009E40F1 /* Frameworks */,
+				7395FE562BAD198C009E40F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Solboard;
+			productName = Solboard;
+			productReference = 7395FE582BAD198C009E40F1 /* Solboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7395FE6D2BAD198D009E40F1 /* SolboardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7395FE852BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardTests" */;
+			buildPhases = (
+				7395FE6A2BAD198D009E40F1 /* Sources */,
+				7395FE6B2BAD198D009E40F1 /* Frameworks */,
+				7395FE6C2BAD198D009E40F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7395FE702BAD198D009E40F1 /* PBXTargetDependency */,
+			);
+			name = SolboardTests;
+			productName = SolboardTests;
+			productReference = 7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7395FE772BAD198D009E40F1 /* SolboardUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7395FE882BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardUITests" */;
+			buildPhases = (
+				7395FE742BAD198D009E40F1 /* Sources */,
+				7395FE752BAD198D009E40F1 /* Frameworks */,
+				7395FE762BAD198D009E40F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7395FE7A2BAD198D009E40F1 /* PBXTargetDependency */,
+			);
+			name = SolboardUITests;
+			productName = SolboardUITests;
+			productReference = 7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7395FE502BAD198C009E40F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					7395FE572BAD198C009E40F1 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+					7395FE6D2BAD198D009E40F1 = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = 7395FE572BAD198C009E40F1;
+					};
+					7395FE772BAD198D009E40F1 = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = 7395FE572BAD198C009E40F1;
+					};
+				};
+			};
+			buildConfigurationList = 7395FE532BAD198C009E40F1 /* Build configuration list for PBXProject "Solboard" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7395FE4F2BAD198C009E40F1;
+			productRefGroup = 7395FE592BAD198C009E40F1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7395FE572BAD198C009E40F1 /* Solboard */,
+				7395FE6D2BAD198D009E40F1 /* SolboardTests */,
+				7395FE772BAD198D009E40F1 /* SolboardUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7395FE562BAD198C009E40F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7395FE682BAD198D009E40F1 /* LaunchScreen.storyboard in Resources */,
+				7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */,
+				7395FE632BAD198C009E40F1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE6C2BAD198D009E40F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE762BAD198D009E40F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7395FE542BAD198C009E40F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */,
+				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
+				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE6A2BAD198D009E40F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7395FE742BAD198D009E40F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */,
+				7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7395FE702BAD198D009E40F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7395FE572BAD198C009E40F1 /* Solboard */;
+			targetProxy = 7395FE6F2BAD198D009E40F1 /* PBXContainerItemProxy */;
+		};
+		7395FE7A2BAD198D009E40F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7395FE572BAD198C009E40F1 /* Solboard */;
+			targetProxy = 7395FE792BAD198D009E40F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7395FE612BAD198C009E40F1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7395FE622BAD198C009E40F1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7395FE672BAD198D009E40F1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7395FE802BAD198D009E40F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7395FE812BAD198D009E40F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7395FE832BAD198D009E40F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Solboard/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.Solboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7395FE842BAD198D009E40F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Solboard/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.Solboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7395FE862BAD198D009E40F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Solboard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Solboard";
+			};
+			name = Debug;
+		};
+		7395FE872BAD198D009E40F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Solboard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Solboard";
+			};
+			name = Release;
+		};
+		7395FE892BAD198D009E40F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Solboard;
+			};
+			name = Debug;
+		};
+		7395FE8A2BAD198D009E40F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 86FX98RR5R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Solboard;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7395FE532BAD198C009E40F1 /* Build configuration list for PBXProject "Solboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7395FE802BAD198D009E40F1 /* Debug */,
+				7395FE812BAD198D009E40F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7395FE822BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "Solboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7395FE832BAD198D009E40F1 /* Debug */,
+				7395FE842BAD198D009E40F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7395FE852BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7395FE862BAD198D009E40F1 /* Debug */,
+				7395FE872BAD198D009E40F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7395FE882BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7395FE892BAD198D009E40F1 /* Debug */,
+				7395FE8A2BAD198D009E40F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7395FE502BAD198C009E40F1 /* Project object */;
+}
