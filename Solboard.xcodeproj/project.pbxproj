@@ -10,12 +10,18 @@
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
 		7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5F2BAD198C009E40F1 /* ViewController.swift */; };
-		7395FE632BAD198C009E40F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE612BAD198C009E40F1 /* Main.storyboard */; };
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
-		7395FE682BAD198D009E40F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */; };
 		7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE722BAD198D009E40F1 /* SolboardTests.swift */; };
 		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
 		7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */; };
+		73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644962BB271BF000E6424 /* SplashScreenViewController.swift */; };
+		73A644992BB271BF000E6424 /* SplashScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A644972BB271BF000E6424 /* SplashScreenViewController.xib */; };
+		73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A6449C2BB2740E000E6424 /* Coordinator.swift */; };
+		73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644A22BB276B8000E6424 /* ImportWalletViewController.swift */; };
+		73A644A52BB276B8000E6424 /* ImportWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A644A32BB276B8000E6424 /* ImportWalletViewController.xib */; };
+		73A644A92BB30D0E000E6424 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644A82BB30D0E000E6424 /* TabbarController.swift */; };
+		73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644AB2BB30DC2000E6424 /* HomeViewController.swift */; };
+		73A644AE2BB30DC2000E6424 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A644AC2BB30DC2000E6424 /* HomeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,15 +46,21 @@
 		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7395FE5F2BAD198C009E40F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7395FE622BAD198C009E40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7395FE642BAD198D009E40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7395FE672BAD198D009E40F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7395FE692BAD198D009E40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE722BAD198D009E40F1 /* SolboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardTests.swift; sourceTree = "<group>"; };
 		7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITests.swift; sourceTree = "<group>"; };
 		7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		73A644962BB271BF000E6424 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		73A644972BB271BF000E6424 /* SplashScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashScreenViewController.xib; sourceTree = "<group>"; };
+		73A6449C2BB2740E000E6424 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		73A644A22BB276B8000E6424 /* ImportWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletViewController.swift; sourceTree = "<group>"; };
+		73A644A32BB276B8000E6424 /* ImportWalletViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportWalletViewController.xib; sourceTree = "<group>"; };
+		73A644A82BB30D0E000E6424 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
+		73A644AB2BB30DC2000E6424 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		73A644AC2BB30DC2000E6424 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +111,12 @@
 		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
 			isa = PBXGroup;
 			children = (
+				73A6449B2BB27401000E6424 /* Navigation */,
+				73A644952BB2719A000E6424 /* Scenes */,
 				7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */,
 				7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */,
 				7395FE5F2BAD198C009E40F1 /* ViewController.swift */,
-				7395FE612BAD198C009E40F1 /* Main.storyboard */,
 				7395FE642BAD198D009E40F1 /* Assets.xcassets */,
-				7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */,
 				7395FE692BAD198D009E40F1 /* Info.plist */,
 			);
 			path = Solboard;
@@ -125,6 +137,68 @@
 				7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */,
 			);
 			path = SolboardUITests;
+			sourceTree = "<group>";
+		};
+		73A644952BB2719A000E6424 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				73A644AA2BB30DB0000E6424 /* HomeModule */,
+				73A644A12BB276A0000E6424 /* ImportWalletModule */,
+				73A6449A2BB271C4000E6424 /* SplashScreenModule */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		73A6449A2BB271C4000E6424 /* SplashScreenModule */ = {
+			isa = PBXGroup;
+			children = (
+				73A644962BB271BF000E6424 /* SplashScreenViewController.swift */,
+				73A644972BB271BF000E6424 /* SplashScreenViewController.xib */,
+			);
+			path = SplashScreenModule;
+			sourceTree = "<group>";
+		};
+		73A6449B2BB27401000E6424 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				73A644A72BB30CF7000E6424 /* Tabbar */,
+				73A644A62BB30CEA000E6424 /* Coordinator */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		73A644A12BB276A0000E6424 /* ImportWalletModule */ = {
+			isa = PBXGroup;
+			children = (
+				73A644A22BB276B8000E6424 /* ImportWalletViewController.swift */,
+				73A644A32BB276B8000E6424 /* ImportWalletViewController.xib */,
+			);
+			path = ImportWalletModule;
+			sourceTree = "<group>";
+		};
+		73A644A62BB30CEA000E6424 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				73A6449C2BB2740E000E6424 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		73A644A72BB30CF7000E6424 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				73A644A82BB30D0E000E6424 /* TabbarController.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		73A644AA2BB30DB0000E6424 /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				73A644AB2BB30DC2000E6424 /* HomeViewController.swift */,
+				73A644AC2BB30DC2000E6424 /* HomeViewController.xib */,
+			);
+			path = HomeModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,9 +305,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7395FE682BAD198D009E40F1 /* LaunchScreen.storyboard in Resources */,
+				73A644992BB271BF000E6424 /* SplashScreenViewController.xib in Resources */,
 				7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */,
-				7395FE632BAD198C009E40F1 /* Main.storyboard in Resources */,
+				73A644A52BB276B8000E6424 /* ImportWalletViewController.xib in Resources */,
+				73A644AE2BB30DC2000E6424 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +335,12 @@
 			files = (
 				7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */,
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
+				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
+				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
+				73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */,
+				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
+				73A644A92BB30D0E000E6424 /* TabbarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,25 +375,6 @@
 			targetProxy = 7395FE792BAD198D009E40F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		7395FE612BAD198C009E40F1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7395FE622BAD198C009E40F1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7395FE662BAD198D009E40F1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7395FE672BAD198D009E40F1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7395FE802BAD198D009E40F1 /* Debug */ = {
@@ -446,8 +507,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Solboard/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreenViewController.xib;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -474,8 +534,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Solboard/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreenViewController.xib;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

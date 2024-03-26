@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportWalletViewController" customModule="Solboard" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOb-g7-58B">
+                    <rect key="frame" x="22" y="99" width="349" height="48"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vje-bn-saS">
+                    <rect key="frame" x="22" y="734" width="349" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="5IB-ef-OnZ"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Continue">
+                        <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="onContinueButtonTapDo:" destination="-1" eventType="touchUpInside" id="0QG-cd-9Sr"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste here the address you want to watch" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wj2-KB-ylx">
+                    <rect key="frame" x="22" y="167" width="349" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LSn-it-vsu">
+                    <rect key="frame" x="22" y="295" width="349" height="65"/>
+                    <color key="backgroundColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="hfa-q5-W4N"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                </textView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="vje-bn-saS" secondAttribute="bottom" constant="34" id="0kz-zk-Bzq"/>
+                <constraint firstItem="vje-bn-saS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="4Jk-gl-Vrw"/>
+                <constraint firstItem="wj2-KB-ylx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="5s0-yf-8YT"/>
+                <constraint firstItem="ZOb-g7-58B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="CKT-Qm-7Fy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vje-bn-saS" secondAttribute="trailing" constant="22" id="aRE-KY-rsP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZOb-g7-58B" secondAttribute="trailing" constant="22" id="cYK-8G-5Pm"/>
+                <constraint firstItem="LSn-it-vsu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="eTE-bA-nUg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LSn-it-vsu" secondAttribute="trailing" constant="22" id="gsu-tU-gJb"/>
+                <constraint firstItem="ZOb-g7-58B" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="kYc-Rj-6L8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wj2-KB-ylx" secondAttribute="trailing" constant="22" id="pXc-g8-Mkt"/>
+                <constraint firstItem="LSn-it-vsu" firstAttribute="top" secondItem="wj2-KB-ylx" secondAttribute="bottom" constant="80" id="sAv-IZ-Qgl"/>
+                <constraint firstItem="wj2-KB-ylx" firstAttribute="top" secondItem="ZOb-g7-58B" secondAttribute="bottom" constant="20" id="sVt-w9-sbR"/>
+            </constraints>
+            <point key="canvasLocation" x="122.90076335877862" y="19.718309859154932"/>
+        </view>
+    </objects>
+</document>
