@@ -21,6 +21,14 @@
 		73A644A92BB30D0E000E6424 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644A82BB30D0E000E6424 /* TabbarController.swift */; };
 		73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644AB2BB30DC2000E6424 /* HomeViewController.swift */; };
 		73A644AE2BB30DC2000E6424 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73A644AC2BB30DC2000E6424 /* HomeViewController.xib */; };
+		73A644B22BB51BE6000E6424 /* PersistenceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644B12BB51BE6000E6424 /* PersistenceProtocol.swift */; };
+		73A644B52BB52034000E6424 /* UserDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 73A644B32BB52034000E6424 /* UserDataModel.xcdatamodeld */; };
+		73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644BB2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift */; };
+		73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644BC2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift */; };
+		73A644C02BB521B9000E6424 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644BF2BB521B9000E6424 /* CoreDataManager.swift */; };
+		73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C22BB54076000E6424 /* PresentationManager.swift */; };
+		73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */; };
+		73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C72BB5414B000E6424 /* DataManagerMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +67,14 @@
 		73A644A82BB30D0E000E6424 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		73A644AB2BB30DC2000E6424 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		73A644AC2BB30DC2000E6424 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		73A644B12BB51BE6000E6424 /* PersistenceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceProtocol.swift; sourceTree = "<group>"; };
+		73A644B42BB52034000E6424 /* SolboardUserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SolboardUserModel.xcdatamodel; sourceTree = "<group>"; };
+		73A644BB2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		73A644BC2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		73A644BF2BB521B9000E6424 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		73A644C22BB54076000E6424 /* PresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManager.swift; sourceTree = "<group>"; };
+		73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManagerTests.swift; sourceTree = "<group>"; };
+		73A644C72BB5414B000E6424 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +125,14 @@
 		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
 			isa = PBXGroup;
 			children = (
+				73A644AF2BB51B9A000E6424 /* Services */,
 				73A6449B2BB27401000E6424 /* Navigation */,
 				73A644952BB2719A000E6424 /* Scenes */,
 				7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */,
 				7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */,
 				7395FE642BAD198D009E40F1 /* Assets.xcassets */,
 				7395FE692BAD198D009E40F1 /* Info.plist */,
+				73A644B32BB52034000E6424 /* UserDataModel.xcdatamodeld */,
 			);
 			path = Solboard;
 			sourceTree = "<group>";
@@ -122,7 +140,9 @@
 		7395FE712BAD198D009E40F1 /* SolboardTests */ = {
 			isa = PBXGroup;
 			children = (
+				73A644C62BB54124000E6424 /* Mocks */,
 				7395FE722BAD198D009E40F1 /* SolboardTests.swift */,
+				73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */,
 			);
 			path = SolboardTests;
 			sourceTree = "<group>";
@@ -160,6 +180,7 @@
 			children = (
 				73A644A72BB30CF7000E6424 /* Tabbar */,
 				73A644A62BB30CEA000E6424 /* Coordinator */,
+				73A644C22BB54076000E6424 /* PresentationManager.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -196,6 +217,49 @@
 				73A644AC2BB30DC2000E6424 /* HomeViewController.xib */,
 			);
 			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		73A644AF2BB51B9A000E6424 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				73A644B02BB51BA0000E6424 /* Persistence */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		73A644B02BB51BA0000E6424 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				73A644B12BB51BE6000E6424 /* PersistenceProtocol.swift */,
+				73A644BA2BB520AC000E6424 /* CoreData */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		73A644BA2BB520AC000E6424 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				73A644BF2BB521B9000E6424 /* CoreDataManager.swift */,
+				73A644C12BB52E9C000E6424 /* Entity */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		73A644C12BB52E9C000E6424 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				73A644BB2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift */,
+				73A644BC2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		73A644C62BB54124000E6424 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				73A644C72BB5414B000E6424 /* DataManagerMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,9 +397,15 @@
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
+				73A644B22BB51BE6000E6424 /* PersistenceProtocol.swift in Sources */,
+				73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */,
 				73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */,
+				73A644C02BB521B9000E6424 /* CoreDataManager.swift in Sources */,
 				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
+				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
+				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
+				73A644B52BB52034000E6424 /* UserDataModel.xcdatamodeld in Sources */,
 				73A644A92BB30D0E000E6424 /* TabbarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +415,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */,
+				73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */,
+				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +734,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		73A644B32BB52034000E6424 /* UserDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				73A644B42BB52034000E6424 /* SolboardUserModel.xcdatamodel */,
+			);
+			currentVersion = 73A644B42BB52034000E6424 /* SolboardUserModel.xcdatamodel */;
+			path = UserDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7395FE502BAD198C009E40F1 /* Project object */;
 }

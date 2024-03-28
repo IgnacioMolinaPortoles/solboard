@@ -6,34 +6,39 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var currentScene: UIWindowScene?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let uiWindowScene = (scene as? UIWindowScene) else { return }
-        currentScene = uiWindowScene
-        
-        let navigationController = UINavigationController()
-        
-        let mainCoordinator = LoginCoordinator(navigationController: navigationController)
-        mainCoordinator.start()
-        
-        setRootViewController(navigationController)
-    }
-    
-    func setRootViewController(_ viewController: UIViewController) {
-        guard let scene = currentScene else { return }
-            
-        window = UIWindow(windowScene: scene)
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
-     }
+       func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+           guard let uiWindowScene = (scene as? UIWindowScene),
+                 let persistentContainer = UIApplication.appDelegate?.persistentContainer
+           else { return }
+           
+           currentScene = uiWindowScene
+           
+           let userCoreDataManager = UserCoreDataManager(context: persistentContainer.viewContext)
+           
+           let loginCoordinator = LoginCoordinator(navigationController: UINavigationController())
+           let tabsCoordinators = [HomeCoordinator(navigationController: UINavigationController())]
+           
+           let presentationManager = PresentationManager(dataManager: userCoreDataManager,
+                                                         loginCoordinator: loginCoordinator,
+                                                         tabsCoordinators: tabsCoordinators)
+           
+           setRootViewController(presentationManager.getNavigation())
+       }
+       
+       func setRootViewController(_ viewController: UIViewController) {
+           guard let scene = currentScene else { return }
+           
+           window = UIWindow(windowScene: scene)
+           window?.rootViewController = viewController
+           window?.makeKeyAndVisible()
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

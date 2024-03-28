@@ -46,7 +46,7 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     func buildHome() {
         navigationController.viewControllers.removeAll()
         
-        let vc = TabbarController()
+        let vc = TabbarController(tabs: [HomeCoordinator(navigationController: UINavigationController())])
         guard let sceneDelegate = UIApplication.sceneDelegate else { return }
         sceneDelegate.setRootViewController(vc)
     }
@@ -69,6 +69,10 @@ class HomeCoordinator: Coordinator {
 }
 
 extension UIApplication {
+    static var appDelegate: AppDelegate? {
+        shared.delegate as? AppDelegate
+    }
+    
     static var sceneDelegate: SceneDelegate? {
         shared.connectedScenes.first?.delegate as? SceneDelegate
     }
