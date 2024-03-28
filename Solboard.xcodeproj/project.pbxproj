@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
-		7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5F2BAD198C009E40F1 /* ViewController.swift */; };
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
 		7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE722BAD198D009E40F1 /* SolboardTests.swift */; };
 		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
@@ -45,7 +44,6 @@
 		7395FE582BAD198C009E40F1 /* Solboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7395FE5F2BAD198C009E40F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7395FE642BAD198D009E40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7395FE692BAD198D009E40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +113,6 @@
 				73A644952BB2719A000E6424 /* Scenes */,
 				7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */,
 				7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */,
-				7395FE5F2BAD198C009E40F1 /* ViewController.swift */,
 				7395FE642BAD198D009E40F1 /* Assets.xcassets */,
 				7395FE692BAD198D009E40F1 /* Info.plist */,
 			);
@@ -333,7 +330,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7395FE602BAD198C009E40F1 /* ViewController.swift in Sources */,
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
