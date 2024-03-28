@@ -29,6 +29,7 @@
 		73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C22BB54076000E6424 /* PresentationManager.swift */; };
 		73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */; };
 		73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C72BB5414B000E6424 /* DataManagerMock.swift */; };
+		73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644CA2BB54F21000E6424 /* UIApplication+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		73A644C22BB54076000E6424 /* PresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManager.swift; sourceTree = "<group>"; };
 		73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManagerTests.swift; sourceTree = "<group>"; };
 		73A644C72BB5414B000E6424 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
+		73A644CA2BB54F21000E6424 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
 			isa = PBXGroup;
 			children = (
+				73A644C92BB54F12000E6424 /* Extensions */,
 				73A644AF2BB51B9A000E6424 /* Services */,
 				73A6449B2BB27401000E6424 /* Navigation */,
 				73A644952BB2719A000E6424 /* Scenes */,
@@ -262,6 +265,14 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		73A644C92BB54F12000E6424 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				73A644CA2BB54F21000E6424 /* UIApplication+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -396,6 +407,7 @@
 			files = (
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
+				73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
 				73A644B22BB51BE6000E6424 /* PersistenceProtocol.swift in Sources */,
 				73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */,

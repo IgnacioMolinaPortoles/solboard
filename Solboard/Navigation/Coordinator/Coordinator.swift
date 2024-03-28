@@ -67,13 +67,3 @@ class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
 }
-
-extension UIApplication {
-    static var appDelegate: AppDelegate? {
-        shared.delegate as? AppDelegate
-    }
-    
-    static var sceneDelegate: SceneDelegate? {
-        shared.connectedScenes.first?.delegate as? SceneDelegate
-    }
-}
