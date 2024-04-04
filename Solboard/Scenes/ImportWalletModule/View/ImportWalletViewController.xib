@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportWalletViewController" customModule="Solboard" customModuleProvider="target">
             <connections>
+                <outlet property="addressTextView" destination="LSn-it-vsu" id="CCe-ZH-Dos"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
