@@ -10,7 +10,6 @@
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
-		7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE722BAD198D009E40F1 /* SolboardTests.swift */; };
 		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
 		7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */; };
 		73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644962BB271BF000E6424 /* SplashScreenViewController.swift */; };
@@ -31,6 +30,9 @@
 		73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644C72BB5414B000E6424 /* DataManagerMock.swift */; };
 		73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644CA2BB54F21000E6424 /* UIApplication+.swift */; };
 		73A644D02BB628FF000E6424 /* ImportWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644CF2BB628FF000E6424 /* ImportWalletViewModel.swift */; };
+		73A644D82BBE3789000E6424 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644D72BBE3789000E6424 /* HTTPClient.swift */; };
+		73A644DB2BBE4121000E6424 /* GetAccountInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */; };
+		73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644E22BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +59,6 @@
 		7395FE642BAD198D009E40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7395FE692BAD198D009E40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7395FE722BAD198D009E40F1 /* SolboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardTests.swift; sourceTree = "<group>"; };
 		7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITests.swift; sourceTree = "<group>"; };
 		7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -79,6 +80,9 @@
 		73A644C72BB5414B000E6424 /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
 		73A644CA2BB54F21000E6424 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		73A644CF2BB628FF000E6424 /* ImportWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletViewModel.swift; sourceTree = "<group>"; };
+		73A644D72BBE3789000E6424 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountInfoResponse.swift; sourceTree = "<group>"; };
+		73A644E22BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
 			isa = PBXGroup;
 			children = (
+				73A644D92BBE4114000E6424 /* Domain */,
 				73A644C92BB54F12000E6424 /* Extensions */,
 				73A644AF2BB51B9A000E6424 /* Services */,
 				73A6449B2BB27401000E6424 /* Navigation */,
@@ -145,8 +150,8 @@
 		7395FE712BAD198D009E40F1 /* SolboardTests */ = {
 			isa = PBXGroup;
 			children = (
+				73A644E02BC4A917000E6424 /* Scenes */,
 				73A644C62BB54124000E6424 /* Mocks */,
-				7395FE722BAD198D009E40F1 /* SolboardTests.swift */,
 				73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */,
 			);
 			path = SolboardTests;
@@ -228,6 +233,7 @@
 		73A644AF2BB51B9A000E6424 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				73A644D62BBE376F000E6424 /* Networking */,
 				73A644B02BB51BA0000E6424 /* Persistence */,
 			);
 			path = Services;
@@ -298,6 +304,38 @@
 				73A644CF2BB628FF000E6424 /* ImportWalletViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		73A644D62BBE376F000E6424 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				73A644D72BBE3789000E6424 /* HTTPClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		73A644D92BBE4114000E6424 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		73A644E02BC4A917000E6424 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				73A644E12BC4A91E000E6424 /* ImportWalletScene */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		73A644E12BC4A91E000E6424 /* ImportWalletScene */ = {
+			isa = PBXGroup;
+			children = (
+				73A644E22BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift */,
+			);
+			path = ImportWalletScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
+				73A644DB2BBE4121000E6424 /* GetAccountInfoResponse.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
 				73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
@@ -446,6 +485,7 @@
 				73A644C02BB521B9000E6424 /* CoreDataManager.swift in Sources */,
 				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
 				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
+				73A644D82BBE3789000E6424 /* HTTPClient.swift in Sources */,
 				73A644D02BB628FF000E6424 /* ImportWalletViewModel.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
@@ -458,7 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7395FE732BAD198D009E40F1 /* SolboardTests.swift in Sources */,
+				73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */,
 				73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */,
 				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
 			);

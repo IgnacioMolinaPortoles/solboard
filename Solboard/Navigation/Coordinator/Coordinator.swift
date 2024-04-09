@@ -38,8 +38,10 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     }
     
     func importWallet() {
-        let vc = ImportWalletViewController()
-        vc.coordinator = self
+        let validatorService = ValidatorService()
+        let vm = ImportWalletViewModel(validatorService: validatorService)
+        let vc = ImportWalletViewController(viewModel: vm, coordinator: self)
+        
         navigationController.pushViewController(vc, animated: true)
     }
     

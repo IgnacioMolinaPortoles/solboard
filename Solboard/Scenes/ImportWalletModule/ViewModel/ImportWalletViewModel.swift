@@ -18,6 +18,12 @@ class ImportWalletViewModel {
         case isValidAddress(isValid: Bool)
     }
     
+    private let validatorService: ValidatorServiceProtocol
+    
+    init(validatorService: ValidatorServiceProtocol) {
+        self.validatorService = validatorService
+    }
+    
     private let output: PassthroughSubject<Output, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     
@@ -33,13 +39,9 @@ class ImportWalletViewModel {
         return output.eraseToAnyPublisher()
     }
     
-
-    func isValidAddress(address: String) -> Bool {
-        true
-    }
-    
     private func verifyAddress(_ address: String) {
-        output.send(.isValidAddress(isValid: false))
+        validatorService.isValidAddress(address) { [output] isValid in
+            output.send(.isValidAddress(isValid: isValid))
+        }
     }
-    
 }
