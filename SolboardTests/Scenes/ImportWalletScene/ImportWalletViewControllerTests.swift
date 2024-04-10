@@ -6,53 +6,76 @@
 //
 
 import XCTest
+import Combine
 @testable import Solboard
 
 final class ImportWalletViewControllerTests: XCTestCase {
 
     var sut: ImportWalletViewController!
     var coordinator: ImportWalletCoordinatorMock!
+    var alertManagerMock: AlertManagerMock!
     
     override func setUpWithError() throws {
         self.coordinator = ImportWalletCoordinatorMock()
+        self.alertManagerMock = AlertManagerMock()
         let vm = ImportWalletViewModel(validatorService: ValidatorServiceDummy())
-                                           
-        let vc = ImportWalletViewController(viewModel: vm, coordinator: self.coordinator)
-        self.sut = vc
+        
+        self.sut = ImportWalletViewController(viewModel: vm, coordinator: self.coordinator, alertManager: self.alertManagerMock)
         self.sut.loadViewIfNeeded()
     }
 
     override func tearDownWithError() throws {
         self.sut = nil
+        self.coordinator = nil
     }
 
-    func test() throws {
-        
+    func testValidAddress() throws {
+        //Arrange
         sut.addressTextView.text = "aaa"
-        sut.onContinueButtonTapDo(self)
+        self.coordinator.buildHomeExpectation = expectation(description: "Coordinator buildHome() called")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            XCTAssertTrue(self.coordinator.buildHomeCalled, "true")
-        }
+        //Act
+        sut.onContinueButtonTapDo(self)
+        waitForExpectations(timeout: 0.1)
+        //Assert
+        
+        XCTAssertTrue(self.coordinator.buildHomeCalled)
     }
+    
+    func testInvalidAddress() throws {
+        //Arrange
+        sut.addressTextView.text = "bbb"
+        
+        //Act
+        sut.onContinueButtonTapDo(self)
+        //Assert
+        
+        XCTAssertFalse(self.alertManagerMock.alertShown)
+    }
+}
 
+extension ImportWalletViewControllerTests {
     final class ImportWalletCoordinatorMock: Coordinator, HomeBuilding {
         var childCoordinators: [Solboard.Coordinator] = []
-        
         var navigationController: UINavigationController = UINavigationController()
         
-        private(set) var startCalled = false
+        var buildHomeExpectation: XCTestExpectation?
         private(set) var buildHomeCalled = false
         
-        func start() {
-            startCalled = true
-        }
-        
+        func start() {}
+
         func buildHome() {
             buildHomeCalled = true
+            buildHomeExpectation?.fulfill()
         }
+    }
+    
+    final class AlertManagerMock: AlertManager {
+        private(set) var alertShown = false
         
-        
+        override func showAlert(_ title: String, _ message: String, actions: [UIAlertAction]?, viewController: UIViewController) {
+            alertShown = true
+        }
     }
     
     final class ValidatorServiceDummy: ValidatorServiceProtocol {
@@ -64,5 +87,4 @@ final class ImportWalletViewControllerTests: XCTestCase {
             }
         }
     }
-    
 }

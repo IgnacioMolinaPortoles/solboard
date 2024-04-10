@@ -14,13 +14,17 @@ class ImportWalletViewController: UIViewController {
     
     private let coordinator: (Coordinator & HomeBuilding)
     private let viewModel: ImportWalletViewModel
+    private let alertManager: AlertManagerProtocol
     
     private let input: PassthroughSubject<ImportWalletViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     
-    init(viewModel: ImportWalletViewModel, coordinator: (Coordinator & HomeBuilding)) {
+    init(viewModel: ImportWalletViewModel,
+         coordinator: (Coordinator & HomeBuilding),
+         alertManager: AlertManagerProtocol) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.alertManager = alertManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,9 +57,7 @@ class ImportWalletViewController: UIViewController {
     }
     
     private func showInvalidAddressAlert() {
-        let alertController = UIAlertController(title: "Invalid address", message: "Please try again", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
-        present(alertController, animated: true)
+        alertManager.showAlert("Invalid address", "Please try again", actions: nil, viewController: self)
     }
 
     @IBAction func onContinueButtonTapDo(_ sender: Any) {
