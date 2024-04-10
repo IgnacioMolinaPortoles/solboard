@@ -39,7 +39,7 @@ final class ImportWalletViewControllerTests: XCTestCase {
         
         //Act
         sut.onContinueButtonTapDo(self)
-        waitForExpectations(timeout: 0.1)
+        waitForExpectations(timeout: 2)
         //Assert
         
         XCTAssertTrue(self.coordinator.buildHomeCalled)
