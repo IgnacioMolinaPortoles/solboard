@@ -14,11 +14,14 @@ final class ImportWalletViewControllerTests: XCTestCase {
     var sut: ImportWalletViewController!
     var coordinator: ImportWalletCoordinatorMock!
     var alertManagerMock: AlertManagerMock!
+    var service: ValidatorServiceDummy!
     
     override func setUpWithError() throws {
         self.coordinator = ImportWalletCoordinatorMock()
         self.alertManagerMock = AlertManagerMock()
-        let vm = ImportWalletViewModel(validatorService: ValidatorServiceDummy())
+        self.service = ValidatorServiceDummy()
+        
+        let vm = ImportWalletViewModel(validatorService: self.service)
         
         self.sut = ImportWalletViewController(viewModel: vm, coordinator: self.coordinator, alertManager: self.alertManagerMock)
         self.sut.loadViewIfNeeded()
@@ -32,7 +35,7 @@ final class ImportWalletViewControllerTests: XCTestCase {
     func testValidAddress() throws {
         //Arrange
         sut.addressTextView.text = "aaa"
-        self.coordinator.buildHomeExpectation = expectation(description: "Coordinator buildHome() called")
+        self.service.servicetExpectation = expectation(description: "service called")
         
         //Act
         sut.onContinueButtonTapDo(self)
@@ -45,12 +48,14 @@ final class ImportWalletViewControllerTests: XCTestCase {
     func testInvalidAddress() throws {
         //Arrange
         sut.addressTextView.text = "bbb"
-        
+        self.service.servicetExpectation = expectation(description: "service called")
+
         //Act
         sut.onContinueButtonTapDo(self)
+        waitForExpectations(timeout: 0.1)
+
         //Assert
-        
-        XCTAssertFalse(self.alertManagerMock.alertShown)
+        XCTAssertTrue(self.alertManagerMock.alertShown)
     }
 }
 
@@ -59,32 +64,33 @@ extension ImportWalletViewControllerTests {
         var childCoordinators: [Solboard.Coordinator] = []
         var navigationController: UINavigationController = UINavigationController()
         
-        var buildHomeExpectation: XCTestExpectation?
         private(set) var buildHomeCalled = false
         
         func start() {}
 
         func buildHome() {
             buildHomeCalled = true
-            buildHomeExpectation?.fulfill()
         }
     }
     
     final class AlertManagerMock: AlertManager {
         private(set) var alertShown = false
-        
+
         override func showAlert(_ title: String, _ message: String, actions: [UIAlertAction]?, viewController: UIViewController) {
             alertShown = true
         }
     }
     
     final class ValidatorServiceDummy: ValidatorServiceProtocol {
+        var servicetExpectation: XCTestExpectation?
+
         func isValidAddress(_ address: String, completion: @escaping (Bool) -> Void) {
             if address == "aaa" {
                 completion(true)
             } else {
                 completion(false)
             }
+            servicetExpectation?.fulfill()
         }
     }
 }

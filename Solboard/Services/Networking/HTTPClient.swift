@@ -103,7 +103,9 @@ final class ValidatorService: ValidatorServiceProtocol {
             }
             let response = try? JSONDecoder().decode(GetAccountInfoResponse.self, from: data)
             
-            completion(response?.result != nil)
+            DispatchQueue.main.async {
+                completion(response?.result != nil)
+            }
         }
     }
 }

@@ -42,7 +42,6 @@ class ImportWalletViewController: UIViewController {
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
         
         output
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
             switch output {
             case .isValidAddress(let isValid):
