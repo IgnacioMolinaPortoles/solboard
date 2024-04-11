@@ -88,7 +88,7 @@ struct BarChart: View {
                 }
                     
             }
-            .backgroundStyle(Color(hex: "1C1C1C"))
+            .backgroundStyle(Color.backgroundDarkGray)
             .background(.black)
         
     }

@@ -54,4 +54,16 @@ extension Color {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0
         )
     }
+    
+    static var backgroundDarkGray: Color {
+        Color(hex: "1C1C1C")
+    }
+    
+    static var listSeparatorDarkGray: Color {
+        Color(hex: "2B2A2C")
+    }
+    
+    static var textLightGray: Color {
+        Color(hex: "9F9EA2")
+    }
 }

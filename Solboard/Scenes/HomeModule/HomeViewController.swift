@@ -8,6 +8,8 @@
 import UIKit
 import SwiftUI
 
+
+
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var titleScreenLabel: UILabel!
@@ -26,8 +28,15 @@ class HomeViewController: UIViewController {
         balanceLabel.text = "Balance"
         transactionsLabel.text = "Transactions"
         
-        balanceView.addAssetBarChart(tokensData: tokens, onAssetDistributionTapDo: {
+        balanceView.addAssetBarChart(tokensData: tokens,
+                                     onAssetDistributionTapDo: {
             print("Si")
         })
+        
+        
+        transactionsView.addTransactionList(transaction: mockedTransactions,
+                                            onTransactionTapDo: {
+            print("No")
+        }, tableTitle: "TYPE")
     }
 }

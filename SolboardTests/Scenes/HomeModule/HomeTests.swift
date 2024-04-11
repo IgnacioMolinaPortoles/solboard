@@ -30,9 +30,9 @@ final class HomeTests: XCTestCase {
     func test_HomeVC_defaultUIValues() {
         XCTAssertEqual(sut.titleScreenLabel.text, "Dashboard")
         XCTAssertEqual(sut.balanceLabel.text, "Balance")
-        XCTAssertEqual(sut.balanceView.subviews.count, 0)
+        XCTAssertEqual(sut.balanceView.subviews.count, 1)
         XCTAssertEqual(sut.transactionsLabel.text, "Transactions")
-        XCTAssertEqual(sut.transactionsView.subviews.count, 0)
+        XCTAssertEqual(sut.transactionsView.subviews.count, 1)
     }
     
     func testHomeVC_HasCorrectFirstSubtitle() {
