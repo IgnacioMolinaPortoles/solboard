@@ -21,8 +21,8 @@ enum TokenType: String, CaseIterable {
     
     var color: Color {
         switch self {
-        case .fungible: return .cyan
-        case .nonFungible: return .orange
+        case .fungible: return Color(hex: "00EAE2")
+        case .nonFungible: return Color(hex: "FF4500")
         }
     }
 }
@@ -45,21 +45,30 @@ let tokens: [TokenViewModel] = [
 
 struct BarChart: View {
     var tokensData: [TokenViewModel] = []
+    var onAssetDistributionTapDo: () -> Void
+
+    init(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) {
+        self.tokensData = tokensData
+        self.onAssetDistributionTapDo = onAssetDistributionTapDo
+    }
     
     var body: some View {
-        
             GroupBox {
                 HStack {
                     Text("Asset Distribution")
                         .bold()
                     Spacer()
+                    Image(.chevronRight)
+                }
+                .onTapGesture {
+                    onAssetDistributionTapDo()
                 }
                 Spacer().frame(height: 15)
                 Chart(tokensData) { item in
                     BarMark(x: .value("Amount", item.amount))
                     .foregroundStyle(item.tokenType.color)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 .chartXAxis(.hidden)
                 .frame(height: 35)
                 Spacer().frame(height: 15)
@@ -79,5 +88,5 @@ struct BarChart: View {
 }
 
 #Preview {
-    BarChart(tokensData: tokens)
+    BarChart(tokensData: tokens, onAssetDistributionTapDo: {})
 }
