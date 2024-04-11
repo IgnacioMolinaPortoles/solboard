@@ -57,6 +57,7 @@ struct BarChart: View {
                 HStack {
                     Text("Asset Distribution")
                         .bold()
+                        .foregroundStyle(.white)
                     Spacer()
                     Image(.chevronRight)
                 }
@@ -68,9 +69,11 @@ struct BarChart: View {
                     BarMark(x: .value("Amount", item.amount))
                     .foregroundStyle(item.tokenType.color)
                 }
+                
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .chartXAxis(.hidden)
                 .frame(height: 35)
+                
                 Spacer().frame(height: 15)
                 HStack(spacing: 6) {
                     ForEach(TokenType.allCases, id: \.self) { type in
@@ -79,14 +82,27 @@ struct BarChart: View {
                             .frame(width: 12, height: 12)
                         Text(type.displayableName)
                             .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(.white)
                     }
                     Spacer()
                 }
-                .preferredColorScheme(.dark)
+                    
             }
+            .backgroundStyle(Color(hex: "1C1C1C"))
+            .background(.black)
+        
     }
 }
 
 #Preview {
     BarChart(tokensData: tokens, onAssetDistributionTapDo: {})
+}
+
+extension UIView {
+    func addAssetBarChart(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) {
+        let barChartView = UIHostingController(rootView: BarChart(tokensData: tokensData, onAssetDistributionTapDo: onAssetDistributionTapDo))
+        
+        self.addSubview(barChartView.view)
+        barChartView.view.attach(toView: self)
+    }
 }

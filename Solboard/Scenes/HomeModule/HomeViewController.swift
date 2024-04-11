@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewController: UIViewController {
 
@@ -15,10 +16,18 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var transactionsLabel: UILabel!
     @IBOutlet weak var transactionsView: UIView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         titleScreenLabel.text = "Dashboard"
         balanceLabel.text = "Balance"
         transactionsLabel.text = "Transactions"
+        
+        balanceView.addAssetBarChart(tokensData: tokens, onAssetDistributionTapDo: {
+            print("Si")
+        })
     }
 }

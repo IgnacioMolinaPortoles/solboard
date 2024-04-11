@@ -38,6 +38,7 @@
 		73BEE1EA2BC82976003068A1 /* BarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1E92BC82976003068A1 /* BarChart.swift */; };
 		73BEE1ED2BC83BA3003068A1 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73BEE1EC2BC83BA3003068A1 /* Icons.xcassets */; };
 		73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1EE2BC83E0A003068A1 /* Colors+.swift */; };
+		73BEE1F12BC859C3003068A1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F02BC859C3003068A1 /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		73BEE1E92BC82976003068A1 /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		73BEE1EC2BC83BA3003068A1 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		73BEE1EE2BC83E0A003068A1 /* Colors+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+.swift"; sourceTree = "<group>"; };
+		73BEE1F02BC859C3003068A1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 			children = (
 				73A644CA2BB54F21000E6424 /* UIApplication+.swift */,
 				73BEE1EE2BC83E0A003068A1 /* Colors+.swift */,
+				73BEE1F02BC859C3003068A1 /* UIView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */,
 				73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */,
 				73BEE1E42BC6EE85003068A1 /* AlertManager.swift in Sources */,
+				73BEE1F12BC859C3003068A1 /* UIView+.swift in Sources */,
 				73A644C02BB521B9000E6424 /* CoreDataManager.swift in Sources */,
 				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
 				73BEE1EA2BC82976003068A1 /* BarChart.swift in Sources */,
