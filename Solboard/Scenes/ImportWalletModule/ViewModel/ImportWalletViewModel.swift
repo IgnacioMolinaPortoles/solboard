@@ -45,26 +45,3 @@ class ImportWalletViewModel {
         }
     }
 }
-
-final class PersistenceDecoratorForValidatorService: ValidatorServiceProtocol {
-    
-    private let validatorService: ValidatorServiceProtocol
-    private let coreDataManager: any UserPersistenceProtocol
-
-    init(validatorService: ValidatorServiceProtocol, coreDataManager: any UserPersistenceProtocol) {
-        self.validatorService = validatorService
-        self.coreDataManager = coreDataManager
-    }
-    
-    func isValidAddress(_ address: String, completion: @escaping (Bool) -> Void) {
-        validatorService.isValidAddress(address) { [coreDataManager] isValid in
-            if isValid {
-                let saved = coreDataManager.create(address: address)
-                completion(saved)
-                return
-            }
-            
-            completion(isValid)
-        }
-    }
-}

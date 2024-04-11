@@ -25,13 +25,17 @@ class UserCoreDataManager: UserPersistenceProtocol {
     }
     
     func create(address: String) -> Bool {
-        
         do {
-            let newItem = UserDataModel(context: self.context)
-            newItem.id = UUID()
-            newItem.address = address
+            let users = try context.fetch(DataType.fetchRequest()) as? [UserDataModel]
             
-            try self.context.save()
+            if (users?.filter({ $0.address == address }))?.isEmpty ?? false {
+                let newItem = UserDataModel(context: self.context)
+                newItem.id = UUID()
+                newItem.address = address
+                
+                try self.context.save()
+                return true
+            }
             return true
         } catch {
             return false

@@ -34,6 +34,7 @@
 		73A644DB2BBE4121000E6424 /* GetAccountInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */; };
 		73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A644E22BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift */; };
 		73BEE1E42BC6EE85003068A1 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1E32BC6EE85003068A1 /* AlertManager.swift */; };
+		73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1E62BC71043003068A1 /* HomeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccountInfoResponse.swift; sourceTree = "<group>"; };
 		73A644E22BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletViewControllerTests.swift; sourceTree = "<group>"; };
 		73BEE1E32BC6EE85003068A1 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		73BEE1E62BC71043003068A1 /* HomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +330,7 @@
 		73A644E02BC4A917000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				73BEE1E52BC7102B003068A1 /* HomeModule */,
 				73A644E12BC4A91E000E6424 /* ImportWalletScene */,
 			);
 			path = Scenes;
@@ -347,6 +350,14 @@
 				73BEE1E32BC6EE85003068A1 /* AlertManager.swift */,
 			);
 			path = AlertManager;
+			sourceTree = "<group>";
+		};
+		73BEE1E52BC7102B003068A1 /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE1E62BC71043003068A1 /* HomeTests.swift */,
+			);
+			path = HomeModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +523,7 @@
 			files = (
 				73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */,
 				73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */,
+				73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */,
 				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
