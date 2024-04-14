@@ -24,7 +24,7 @@ class PresentationManager {
     }
     
     func getNavigation() -> UIViewController {
-        guard let user = dataManager.getUser() else {
+        guard dataManager.getUser() != nil else {
             let loginCoordinator = self.loginCoordinator
             loginCoordinator.start()
             return loginCoordinator.navigationController

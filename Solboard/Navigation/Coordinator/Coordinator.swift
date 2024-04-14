@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 protocol ImportingWallet: AnyObject {
     func importWallet()
@@ -38,8 +39,17 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     }
     
     func importWallet() {
-        let vc = ImportWalletViewController()
-        vc.coordinator = self
+        guard let context = UIApplication.appDelegate?.persistentContainer.viewContext else {
+            return
+        }
+        let validatorService = ValidatorService()
+        let coreDataManager = UserCoreDataManager(context: context)
+        let serviceDecotared = PersistenceDecoratorForValidatorService(validatorService: validatorService,
+                                                                       coreDataManager: coreDataManager)
+
+        let vm = ImportWalletViewModel(validatorService: serviceDecotared)
+        let vc = ImportWalletViewController(viewModel: vm, coordinator: self, alertManager: AlertManager())
+        
         navigationController.pushViewController(vc, animated: true)
     }
     
