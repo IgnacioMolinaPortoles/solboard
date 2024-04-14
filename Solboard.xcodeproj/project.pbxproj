@@ -40,6 +40,17 @@
 		73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1EE2BC83E0A003068A1 /* Colors+.swift */; };
 		73BEE1F12BC859C3003068A1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F02BC859C3003068A1 /* UIView+.swift */; };
 		73BEE1F32BC85A59003068A1 /* TransactionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F22BC85A59003068A1 /* TransactionsList.swift */; };
+		73BEE1F52BC8849F003068A1 /* ValidatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F42BC8849F003068A1 /* ValidatorService.swift */; };
+		73BEE1F82BC8864F003068A1 /* AssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F72BC8864F003068A1 /* AssetsService.swift */; };
+		73BEE1FA2BC8881A003068A1 /* AssetsByOwnerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1F92BC8881A003068A1 /* AssetsByOwnerResponse.swift */; };
+		73BEE1FC2BCB30A3003068A1 /* SolanaPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1FB2BCB30A3003068A1 /* SolanaPriceResponse.swift */; };
+		73BEE1FE2BCB3492003068A1 /* GetBalanceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1FD2BCB3492003068A1 /* GetBalanceResponse.swift */; };
+		73BEE2002BCB753C003068A1 /* Decimal+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE1FF2BCB753C003068A1 /* Decimal+.swift */; };
+		73BEE2042BCBC56E003068A1 /* TransactionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2032BCBC56E003068A1 /* TransactionsService.swift */; };
+		73BEE2062BCBC783003068A1 /* GetSignaturesForAddressResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2052BCBC783003068A1 /* GetSignaturesForAddressResponse.swift */; };
+		73BEE2092BCC6784003068A1 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2082BCC6784003068A1 /* TokenViewModel.swift */; };
+		73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20B2BCC6881003068A1 /* DateParser.swift */; };
+		73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +108,17 @@
 		73BEE1EE2BC83E0A003068A1 /* Colors+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+.swift"; sourceTree = "<group>"; };
 		73BEE1F02BC859C3003068A1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		73BEE1F22BC85A59003068A1 /* TransactionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsList.swift; sourceTree = "<group>"; };
+		73BEE1F42BC8849F003068A1 /* ValidatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorService.swift; sourceTree = "<group>"; };
+		73BEE1F72BC8864F003068A1 /* AssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsService.swift; sourceTree = "<group>"; };
+		73BEE1F92BC8881A003068A1 /* AssetsByOwnerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsByOwnerResponse.swift; sourceTree = "<group>"; };
+		73BEE1FB2BCB30A3003068A1 /* SolanaPriceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolanaPriceResponse.swift; sourceTree = "<group>"; };
+		73BEE1FD2BCB3492003068A1 /* GetBalanceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceResponse.swift; sourceTree = "<group>"; };
+		73BEE1FF2BCB753C003068A1 /* Decimal+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+.swift"; sourceTree = "<group>"; };
+		73BEE2032BCBC56E003068A1 /* TransactionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsService.swift; sourceTree = "<group>"; };
+		73BEE2052BCBC783003068A1 /* GetSignaturesForAddressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSignaturesForAddressResponse.swift; sourceTree = "<group>"; };
+		73BEE2082BCC6784003068A1 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
+		73BEE20B2BCC6881003068A1 /* DateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateParser.swift; sourceTree = "<group>"; };
+		73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +169,7 @@
 		7395FE5A2BAD198C009E40F1 /* Solboard */ = {
 			isa = PBXGroup;
 			children = (
+				73BEE20A2BCC6877003068A1 /* Utils */,
 				73BEE1EB2BC839A0003068A1 /* Assets */,
 				73A644D92BBE4114000E6424 /* Domain */,
 				73A644C92BB54F12000E6424 /* Extensions */,
@@ -239,6 +262,7 @@
 		73A644AA2BB30DB0000E6424 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				73BEE2072BCC677C003068A1 /* Model */,
 				73BEE1E82BC82916003068A1 /* UIViews */,
 				73A644AB2BB30DC2000E6424 /* HomeViewController.swift */,
 				73A644AC2BB30DC2000E6424 /* HomeViewController.xib */,
@@ -297,6 +321,7 @@
 				73A644CA2BB54F21000E6424 /* UIApplication+.swift */,
 				73BEE1EE2BC83E0A003068A1 /* Colors+.swift */,
 				73BEE1F02BC859C3003068A1 /* UIView+.swift */,
+				73BEE1FF2BCB753C003068A1 /* Decimal+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -328,6 +353,7 @@
 		73A644D62BBE376F000E6424 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				73BEE1F62BC88633003068A1 /* Services */,
 				73A644D72BBE3789000E6424 /* HTTPClient.swift */,
 			);
 			path = Networking;
@@ -337,6 +363,10 @@
 			isa = PBXGroup;
 			children = (
 				73A644DA2BBE4121000E6424 /* GetAccountInfoResponse.swift */,
+				73BEE1F92BC8881A003068A1 /* AssetsByOwnerResponse.swift */,
+				73BEE1FB2BCB30A3003068A1 /* SolanaPriceResponse.swift */,
+				73BEE1FD2BCB3492003068A1 /* GetBalanceResponse.swift */,
+				73BEE2052BCBC783003068A1 /* GetSignaturesForAddressResponse.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -389,6 +419,33 @@
 				73BEE1EC2BC83BA3003068A1 /* Icons.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		73BEE1F62BC88633003068A1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE1F42BC8849F003068A1 /* ValidatorService.swift */,
+				73BEE1F72BC8864F003068A1 /* AssetsService.swift */,
+				73BEE2032BCBC56E003068A1 /* TransactionsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		73BEE2072BCC677C003068A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE2082BCC6784003068A1 /* TokenViewModel.swift */,
+				73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		73BEE20A2BCC6877003068A1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE20B2BCC6881003068A1 /* DateParser.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,15 +594,26 @@
 				73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */,
 				73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */,
 				73BEE1E42BC6EE85003068A1 /* AlertManager.swift in Sources */,
+				73BEE2092BCC6784003068A1 /* TokenViewModel.swift in Sources */,
 				73BEE1F12BC859C3003068A1 /* UIView+.swift in Sources */,
 				73BEE1F32BC85A59003068A1 /* TransactionsList.swift in Sources */,
+				73BEE2042BCBC56E003068A1 /* TransactionsService.swift in Sources */,
 				73A644C02BB521B9000E6424 /* CoreDataManager.swift in Sources */,
+				73BEE1FC2BCB30A3003068A1 /* SolanaPriceResponse.swift in Sources */,
 				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
 				73BEE1EA2BC82976003068A1 /* BarChart.swift in Sources */,
+				73BEE2002BCB753C003068A1 /* Decimal+.swift in Sources */,
 				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
 				73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */,
+				73BEE1FA2BC8881A003068A1 /* AssetsByOwnerResponse.swift in Sources */,
+				73BEE1F52BC8849F003068A1 /* ValidatorService.swift in Sources */,
+				73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */,
+				73BEE2062BCBC783003068A1 /* GetSignaturesForAddressResponse.swift in Sources */,
 				73A644D82BBE3789000E6424 /* HTTPClient.swift in Sources */,
+				73BEE1FE2BCB3492003068A1 /* GetBalanceResponse.swift in Sources */,
+				73BEE1F82BC8864F003068A1 /* AssetsService.swift in Sources */,
 				73A644D02BB628FF000E6424 /* ImportWalletViewModel.swift in Sources */,
+				73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
 				73A644B52BB52034000E6424 /* UserDataModel.xcdatamodeld in Sources */,

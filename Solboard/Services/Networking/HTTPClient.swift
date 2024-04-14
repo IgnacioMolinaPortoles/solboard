@@ -31,19 +31,32 @@ extension URLSession: HTTPClient {
 enum Node {
     case solanaMain
     case helius
+    case coinGecko
     
     var url: String {
         switch self {
-        case .solanaMain: return "https://api.mainnet-beta.solana.com"
-        case .helius: return ""
+        case .solanaMain: return "https://api.mainnet-beta.solana.com?"
+        case .helius: return "https://rpc-proxy.mairo-molina5.workers.dev/?"
+        case .coinGecko: return "https://api.coingecko.com/api/v3/simple/price?"
         }
     }
 }
 
 enum RPCMethods {
     case getAccountInfo(String)
+    case getAssetsByOwner(String)
+    case getBalance(String)
+    case getSolanaPrice
+    case getSignaturesForAddress(String)
     
-    var params: [String: Any] {
+    var urlParams: String {
+        switch self {
+        case .getSolanaPrice: return "ids=solana&vs_currencies=usd"
+        default: return ""
+        }
+    }
+    
+    var bodyParams: [String: Any] {
         switch self {
         case .getAccountInfo(let address):
             let params: [String : Any] = [
@@ -59,76 +72,70 @@ enum RPCMethods {
             ]
             
             return params
+        case .getAssetsByOwner(let address):
+            let params: [String : Any] = [
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "getAssetsByOwner",
+                "params": [
+                    "ownerAddress": address,
+                    "page": 1,
+                    "limit": 1000,
+                    "displayOptions": [
+                        "showFungible": true
+                    ]
+                ]
+            ]
+            return params
+        case .getBalance(let address):
+            let params: [String : Any] = [
+                "jsonrpc": "2.0", 
+                "id": 1,
+                "method": "getBalance",
+                "params": [
+                    address
+                ]
+            ]
+            return params
+        case .getSignaturesForAddress(let address):
+            let params: [String : Any] = [
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "getSignaturesForAddress",
+                "params": [
+                    address,
+                    [
+                        "limit": 50
+                    ]
+                ]
+            ]
+            return params
+        default: return [:]
+        }
+    }
+    
+    var HTTPMethod: String {
+        switch self {
+        case .getAccountInfo(_), .getAssetsByOwner(_), .getBalance(_), .getSignaturesForAddress(_):
+            return "POST"
+        default:
+            return "GET"
         }
     }
     
     func buildRequest(node: Node) -> URLRequest? {
-        switch self {
-        case .getAccountInfo(_):
-            guard let url = URL(string: node.url),
-                  let jsonData = try? JSONSerialization.data(withJSONObject: self.params)
-            else { return nil }
-            
-            var request = URLRequest(url: url)
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = "POST"
+        guard let url = URL(string: node.url + self.urlParams),
+              let jsonData = try? JSONSerialization.data(withJSONObject: self.bodyParams)
+        else { return nil }
+        
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = self.HTTPMethod
+        
+        if !self.bodyParams.isEmpty {
             request.httpBody = jsonData
-            
-            return request
-        }
-    }
-}
-
-protocol ValidatorServiceProtocol {
-    func isValidAddress(_ address: String, completion: @escaping (Bool) -> Void)
-}
-    
-final class ValidatorService: ValidatorServiceProtocol {
-    private let client: HTTPClient
-    
-    init(client: HTTPClient = URLSession.shared) {
-        self.client = client
-    }
-    
-    func isValidAddress(_ address: String, completion: @escaping (Bool) -> Void) {
-        guard let request = RPCMethods.getAccountInfo(address).buildRequest(node: Node.solanaMain) else {
-                completion(false)
-            return
         }
         
-        client.perform(request, timeout: TimeInterval(floatLiteral: 10.0)) { data, response, error  in
-            guard let data else {
-                completion(false)
-                return
-            }
-            let response = try? JSONDecoder().decode(GetAccountInfoResponse.self, from: data)
-            
-            DispatchQueue.main.async {
-                completion(response?.result != nil)
-            }
-        }
-    }
-}
-
-final class PersistenceDecoratorForValidatorService: ValidatorServiceProtocol {
-    
-    private let validatorService: ValidatorServiceProtocol
-    private let coreDataManager: any UserPersistenceProtocol
-
-    init(validatorService: ValidatorServiceProtocol, coreDataManager: any UserPersistenceProtocol) {
-        self.validatorService = validatorService
-        self.coreDataManager = coreDataManager
-    }
-    
-    func isValidAddress(_ address: String, completion: @escaping (Bool) -> Void) {
-        validatorService.isValidAddress(address) { [coreDataManager] isValid in
-            if isValid {
-                let saved = coreDataManager.create(address: address)
-                completion(saved)
-                return
-            }
-            
-            completion(isValid)
-        }
+        return request
     }
 }

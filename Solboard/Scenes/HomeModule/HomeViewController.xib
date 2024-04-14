@@ -24,19 +24,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dashboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-Da-3fU">
-                    <rect key="frame" x="22" y="89" width="204" height="48"/>
+                    <rect key="frame" x="22" y="79" width="204" height="48"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kM3-M0-dj4">
-                    <rect key="frame" x="22" y="167" width="90" height="29"/>
+                    <rect key="frame" x="22" y="157" width="90" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NrQ-dw-KUp" userLabel="balanceView">
-                    <rect key="frame" x="22" y="216" width="348" height="130"/>
+                    <rect key="frame" x="22" y="206" width="348" height="130"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="130" id="Iuz-eU-vln"/>
@@ -65,9 +65,9 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VOy-xg-GPc" secondAttribute="trailing" constant="20" id="dgG-nP-ZGb"/>
                 <constraint firstItem="NrQ-dw-KUp" firstAttribute="top" secondItem="kM3-M0-dj4" secondAttribute="bottom" constant="20" id="hQB-Ys-SiO"/>
                 <constraint firstItem="VOy-xg-GPc" firstAttribute="top" secondItem="jsH-Wx-v30" secondAttribute="bottom" constant="20" id="oag-4h-mN0"/>
-                <constraint firstItem="jsH-Wx-v30" firstAttribute="top" secondItem="NrQ-dw-KUp" secondAttribute="bottom" constant="20" id="vej-O1-5RW"/>
+                <constraint firstItem="jsH-Wx-v30" firstAttribute="top" secondItem="NrQ-dw-KUp" secondAttribute="bottom" constant="30" id="vej-O1-5RW"/>
                 <constraint firstItem="jsH-Wx-v30" firstAttribute="leading" secondItem="NrQ-dw-KUp" secondAttribute="leading" id="wEL-xX-fDL"/>
-                <constraint firstItem="jbf-Da-3fU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="xOu-sf-zCi"/>
+                <constraint firstItem="jbf-Da-3fU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="xOu-sf-zCi"/>
                 <constraint firstItem="NrQ-dw-KUp" firstAttribute="leading" secondItem="kM3-M0-dj4" secondAttribute="leading" id="zRw-WS-f0V"/>
             </constraints>
             <point key="canvasLocation" x="124" y="20"/>

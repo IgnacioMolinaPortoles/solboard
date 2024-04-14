@@ -7,51 +7,29 @@
 
 import SwiftUI
 import Charts
+import Combine
 
-enum TokenType: String, CaseIterable {
-    case fungible
-    case nonFungible
-    
-    var displayableName: String {
-        switch self {
-        case .fungible: return "Tokens"
-        case .nonFungible: return "NFTs"
-        }
+class BarChartViewModel: ObservableObject {
+    @Published var tokens: [TokenViewModel]
+
+    init(tokens: [TokenViewModel]) {
+        self.tokens = tokens
     }
     
-    var color: Color {
-        switch self {
-        case .fungible: return Color(hex: "00EAE2")
-        case .nonFungible: return Color(hex: "FF4500")
-        }
+    func updateTokens(tokens: [TokenViewModel]) {
+        self.tokens = tokens
     }
 }
-
-struct TokenViewModel: Identifiable {
-    var id: String = UUID().uuidString
-    
-    var tokenName: String
-    var tokenType: TokenType
-    var amount: Float
-}
-
-let tokens: [TokenViewModel] = [
-    TokenViewModel(tokenName: "Solana", tokenType: .fungible, amount: 4.0),
-    TokenViewModel(tokenName: "USDC", tokenType: .fungible, amount: 22.0),
-    TokenViewModel(tokenName: "GRASS", tokenType: .fungible, amount: 6.0),
-    TokenViewModel(tokenName: "HOWLS", tokenType: .nonFungible, amount: 7.0),
-    TokenViewModel(tokenName: "CATS", tokenType: .nonFungible, amount: 14.0)
-]
 
 struct BarChart: View {
-    var tokensData: [TokenViewModel] = []
+    @ObservedObject private var viewModel: BarChartViewModel
     var onAssetDistributionTapDo: () -> Void
 
-    init(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) {
-        self.tokensData = tokensData
+    init(viewModel: BarChartViewModel, onAssetDistributionTapDo: @escaping () -> Void) {
+        self.viewModel = viewModel
         self.onAssetDistributionTapDo = onAssetDistributionTapDo
     }
-    
+
     var body: some View {
             GroupBox {
                 HStack {
@@ -65,9 +43,9 @@ struct BarChart: View {
                     onAssetDistributionTapDo()
                 }
                 Spacer().frame(height: 15)
-                Chart(tokensData) { item in
-                    BarMark(x: .value("Amount", item.amount))
-                    .foregroundStyle(item.tokenType.color)
+                Chart(viewModel.tokens) { item in
+                    BarMark(x: .value("Amount", 1))
+                        .foregroundStyle(Color(hex: item.tokenType.hexColor))
                 }
                 
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -78,7 +56,7 @@ struct BarChart: View {
                 HStack(spacing: 6) {
                     ForEach(TokenType.allCases, id: \.self) { type in
                         Circle()
-                            .fill(type.color)
+                            .fill(Color(hex: type.hexColor))
                             .frame(width: 12, height: 12)
                         Text(type.displayableName)
                             .font(.system(size: 12, weight: .bold))
@@ -94,15 +72,20 @@ struct BarChart: View {
     }
 }
 
-#Preview {
-    BarChart(tokensData: tokens, onAssetDistributionTapDo: {})
-}
+//#Preview {
+//    BarChart(tokensData: tokens, onAssetDistributionTapDo: {})
+//}
 
 extension UIView {
-    func addAssetBarChart(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) {
-        let barChartView = UIHostingController(rootView: BarChart(tokensData: tokensData, onAssetDistributionTapDo: onAssetDistributionTapDo))
+    func addAssetBarChart(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) -> BarChartViewModel {
+        let barChartViewModel = BarChartViewModel(tokens: tokensData)
+        let rootView = BarChart(viewModel: barChartViewModel, onAssetDistributionTapDo: onAssetDistributionTapDo)
+        
+        let barChartView = UIHostingController(rootView: rootView)
         
         self.addSubview(barChartView.view)
         barChartView.view.attach(toView: self)
+        
+        return barChartViewModel
     }
 }

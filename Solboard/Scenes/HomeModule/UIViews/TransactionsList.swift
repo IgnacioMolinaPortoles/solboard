@@ -7,29 +7,22 @@
 
 import SwiftUI
 
-struct TransactionViewModel: Identifiable {
-    var id: String = UUID().uuidString
-
-    var name: String
-    var date: String
-}
-
-let mockedTransactions = [
-    TransactionViewModel(name: "Mint to collection v1", date: "12/02/2023"),
-    TransactionViewModel(name: "Mint to null", date: "11/04/2022"),
-    TransactionViewModel(name: "Receive SOL", date: "22/03/2023"),
-    TransactionViewModel(name: "Mint", date: "02/02/2021"),
-    TransactionViewModel(name: "Send USDT", date: "20/01/2023"),
-    TransactionViewModel(name: "Mint", date: "02/02/2021")
-]
+//let mockedTransactions = [
+//    TransactionViewModel(name: "Mint to collection v1", date: "12/02/2023"),
+//    TransactionViewModel(name: "Mint to null", date: "11/04/2022"),
+//    TransactionViewModel(name: "Receive SOL", date: "22/03/2023"),
+//    TransactionViewModel(name: "Mint", date: "02/02/2021"),
+//    TransactionViewModel(name: "Send USDT", date: "20/01/2023"),
+//    TransactionViewModel(name: "Mint", date: "02/02/2021")
+//]
 
 struct TransactionsList: View {
     var transaction: [TransactionViewModel] = []
-    var onTransactionTapDo: () -> Void
+    var onTransactionTapDo: (String) -> Void
     var tableTitle: String
     
     init(transaction: [TransactionViewModel], 
-         onTransactionTapDo: @escaping () -> Void,
+         onTransactionTapDo: @escaping (String) -> Void,
          tableTitle: String) {
         self.transaction = transaction
         self.onTransactionTapDo = onTransactionTapDo
@@ -48,18 +41,18 @@ struct TransactionsList: View {
         List {
             ForEach(self.transaction) { transaction in
                 HStack {
-                    Text("\(transaction.name)")
+                    Text("\(transaction.shortSignature)")
                         .foregroundStyle(.white)
                     Spacer()
-                    Text("\(transaction.date)")
+                    Text("\(transaction.presentableDate)")
                         .foregroundStyle(Color.textLightGray)
                     Image(.chevronRight)
                     
                 }
+                .onTapGesture {
+                    onTransactionTapDo(transaction.signatureHash)
+                }
                 
-            }
-            .onTapGesture {
-                onTransactionTapDo()
             }
             .listRowBackground(Color.backgroundDarkGray)
         }
@@ -72,13 +65,13 @@ struct TransactionsList: View {
     }
 }
 
-#Preview {
-    TransactionsList(transaction: mockedTransactions, onTransactionTapDo: {}, tableTitle: "ASD")
-}
+//#Preview {
+//    TransactionsList(transaction: [], onTransactionTapDo: {}, tableTitle: "ASD")
+//}
 
 extension UIView {
     func addTransactionList(transaction: [TransactionViewModel],
-                            onTransactionTapDo: @escaping () -> Void,
+                            onTransactionTapDo: @escaping (String) -> Void,
                             tableTitle: String) {
         let view = TransactionsList(transaction: transaction,
                                     onTransactionTapDo: onTransactionTapDo, tableTitle: tableTitle)
