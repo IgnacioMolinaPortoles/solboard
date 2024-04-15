@@ -51,6 +51,7 @@
 		73BEE2092BCC6784003068A1 /* TokenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2082BCC6784003068A1 /* TokenViewModel.swift */; };
 		73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20B2BCC6881003068A1 /* DateParser.swift */; };
 		73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */; };
+		73BEE2112BCCCE10003068A1 /* AssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2102BCCCE10003068A1 /* AssetsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,7 @@
 		73BEE2082BCC6784003068A1 /* TokenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenViewModel.swift; sourceTree = "<group>"; };
 		73BEE20B2BCC6881003068A1 /* DateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateParser.swift; sourceTree = "<group>"; };
 		73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		73BEE2102BCCCE10003068A1 /* AssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		73A644952BB2719A000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				73BEE20F2BCCCDEF003068A1 /* AssetsModule */,
 				73A644AA2BB30DB0000E6424 /* HomeModule */,
 				73A644A12BB276A0000E6424 /* ImportWalletModule */,
 				73A6449A2BB271C4000E6424 /* SplashScreenModule */,
@@ -448,6 +451,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		73BEE20F2BCCCDEF003068A1 /* AssetsModule */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE2102BCCCE10003068A1 /* AssetsView.swift */,
+			);
+			path = AssetsModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -587,6 +598,7 @@
 			files = (
 				7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */,
 				73A644DB2BBE4121000E6424 /* GetAccountInfoResponse.swift in Sources */,
+				73BEE2112BCCCE10003068A1 /* AssetsView.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* Coordinator.swift in Sources */,
 				73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,

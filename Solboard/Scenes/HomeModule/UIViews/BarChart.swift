@@ -23,11 +23,11 @@ class BarChartViewModel: ObservableObject {
 
 struct BarChart: View {
     @ObservedObject private var viewModel: BarChartViewModel
-    var onAssetDistributionTapDo: () -> Void
+    var onAssetTapDo: (TokenType) -> Void
 
-    init(viewModel: BarChartViewModel, onAssetDistributionTapDo: @escaping () -> Void) {
+    init(viewModel: BarChartViewModel, onAssetTapDo: @escaping (TokenType) -> Void) {
         self.viewModel = viewModel
-        self.onAssetDistributionTapDo = onAssetDistributionTapDo
+        self.onAssetTapDo = onAssetTapDo
     }
 
     var body: some View {
@@ -37,17 +37,12 @@ struct BarChart: View {
                         .bold()
                         .foregroundStyle(.white)
                     Spacer()
-                    Image(.chevronRight)
-                }
-                .onTapGesture {
-                    onAssetDistributionTapDo()
                 }
                 Spacer().frame(height: 15)
                 Chart(viewModel.tokens) { item in
                     BarMark(x: .value("Amount", 1))
                         .foregroundStyle(Color(hex: item.tokenType.hexColor))
                 }
-                
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .chartXAxis(.hidden)
                 .frame(height: 35)
@@ -55,12 +50,14 @@ struct BarChart: View {
                 Spacer().frame(height: 15)
                 HStack(spacing: 6) {
                     ForEach(TokenType.allCases, id: \.self) { type in
-                        Circle()
-                            .fill(Color(hex: type.hexColor))
-                            .frame(width: 12, height: 12)
-                        Text(type.displayableName)
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(.white)
+                        HStack {
+                            Circle()
+                                .fill(Color(hex: type.hexColor))
+                                .frame(width: 12, height: 12)
+                            Text(type.displayableName)
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundStyle(.white)
+                        }
                     }
                     Spacer()
                 }
@@ -68,6 +65,9 @@ struct BarChart: View {
             }
             .backgroundStyle(Color.backgroundDarkGray)
             .background(.black)
+            .onTapGesture {
+                onAssetTapDo(.fungible)
+            }
         
     }
 }
@@ -77,9 +77,9 @@ struct BarChart: View {
 //}
 
 extension UIView {
-    func addAssetBarChart(tokensData: [TokenViewModel], onAssetDistributionTapDo: @escaping () -> Void) -> BarChartViewModel {
+    func addAssetBarChart(tokensData: [TokenViewModel], onAssetTapDo: @escaping (TokenType) -> Void) -> BarChartViewModel {
         let barChartViewModel = BarChartViewModel(tokens: tokensData)
-        let rootView = BarChart(viewModel: barChartViewModel, onAssetDistributionTapDo: onAssetDistributionTapDo)
+        let rootView = BarChart(viewModel: barChartViewModel, onAssetTapDo: onAssetTapDo)
         
         let barChartView = UIHostingController(rootView: rootView)
         

@@ -10,19 +10,30 @@ import SwiftUI
 
 final class HomeViewModel {
     private let assetService: AssetsServiceProtocol
+    private let transactionsService: TransactionsServiceProtocol
+
     
-    var onAssetsFetchedDo: (([TokenViewModel]?, Double) -> Void)?
+    var onAssetsFetchedDo: (([TokenViewModel]?) -> Void)?
+    var onBalanceFetchedDo: ((Double) -> Void)?
+    var onTransactionsFetchedDo: (([TransactionViewModel]?) -> Void)?
     
     private var response: AssetByOwnerResponse?
     private var assets: [AssetViewModel] = []
     
-    init(assetService: AssetsServiceProtocol) {
+    init(assetService: AssetsServiceProtocol,
+         transactionsService: TransactionsServiceProtocol) {
         self.assetService = assetService
+        self.transactionsService = transactionsService
+    }
+    
+    func getTransactions() {
+        transactionsService.getSignatures("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH") { [weak self] transactions in
+            self?.onTransactionsFetchedDo!(transactions)
+        }
     }
 
     func getAssets() {
         self.assets = []
-        
         let dispatchGroup = DispatchGroup()
 
         dispatchGroup.enter()
@@ -54,7 +65,8 @@ final class HomeViewModel {
             let tokenViewModel = self?.assets.toTokenViewModel()
             let totalBalance = self?.assets.reduce(0.0) { $0 + (Double(($1.balance?.doubleValue ?? 0.0)) * ($1.pricePerToken ?? 0.0)) } ?? 0.0
             
-            self?.onAssetsFetchedDo!(tokenViewModel, totalBalance)
+            self?.onBalanceFetchedDo!(totalBalance)
+            self?.onAssetsFetchedDo!(tokenViewModel)
         }
     }
 }
@@ -67,12 +79,20 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var transactionsLabel: UILabel!
     @IBOutlet weak var transactionsView: UIView!
     
-    private let viewModel = HomeViewModel(assetService: AssetsService())
+    private let viewModel: HomeViewModel
+    private let coordinator: TransactionRouting?
     
-//    init(viewModel: HomeViewModel) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(viewModel: HomeViewModel = HomeViewModel(assetService: AssetsService(), 
+                                                  transactionsService: TransactionsService()),
+         coordinator: TransactionRouting) {
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
@@ -83,29 +103,42 @@ final class HomeViewController: UIViewController {
         titleScreenLabel.text = "Dashboard"
         balanceLabel.text = "Balance"
         transactionsLabel.text = "Transactions"
-        let barchartViewModel = self.balanceView.addAssetBarChart(tokensData: [],
-                                     onAssetDistributionTapDo: {
-            
-            print("assets")
-        })
         
-        viewModel.onAssetsFetchedDo = { (assets, totalBalance) in
-            barchartViewModel.updateTokens(tokens: assets!)
-            self.balanceLabel.text = "Balance: $\(String(format: "%.2f", totalBalance))"
-        }
+        bindBalanceLabel()
+        addAndBindAssetBarChart()
+        addAndBindTransactionsList()
         
         viewModel.getAssets()
-        
-        TransactionsService(client: URLSession.shared).getSignatures() { transactions in
-            self.transactionsView.addTransactionList(transaction: transactions,
-                                                onTransactionTapDo: { txh in
-                print("No \(txh)")
-                guard let url = URL(string: "https://solscan.io/tx/"+txh) else { return }
-                UIApplication.shared.open(url)
-            }, tableTitle: "TX")
+        viewModel.getTransactions()
+    }
+    
+    private func bindBalanceLabel() {
+        viewModel.onBalanceFetchedDo = { [weak self] totalBalance in
+            self?.balanceLabel.text = "Balance: $\(String(format: "%.2f", totalBalance))"
         }
+    }
+    
+    private func addAndBindAssetBarChart() {
+        let barchartViewModel = self.balanceView.addAssetBarChart(tokensData: [],
+                                                                  onAssetTapDo: { tokenType in
+            
+            print("assets", tokenType.rawValue)
+        })
+        
+        viewModel.onAssetsFetchedDo = { (assets) in
+            barchartViewModel.updateTokens(tokens: assets ?? [])
+        }
+    }
+    
+    private func addAndBindTransactionsList() {
+        let transactionsViewModel = self.transactionsView.addTransactionList(transactions: [],
+                                            onTransactionTapDo: { [weak self] tx in
+            self?.coordinator?.routeToTransactionDetail(tx: tx)
+        }, tableTitle: "Signature")
         
         
-        
+        viewModel.onTransactionsFetchedDo = { transactions in
+            transactionsViewModel.updateTransactions(transactions: transactions ?? [])
+        }
     }
 }

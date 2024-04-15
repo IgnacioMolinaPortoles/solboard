@@ -7,16 +7,20 @@
 
 import Foundation
 
-class TransactionsService {
+protocol TransactionsServiceProtocol {
+    func getSignatures(_ address: String, completion: @escaping ([TransactionViewModel]) -> Void)
+}
+
+class TransactionsService: TransactionsServiceProtocol {
     
     private let client: HTTPClient
     
-    init(client: HTTPClient) {
+    init(client: HTTPClient = URLSession.shared) {
         self.client = client
     }
     
-    func getSignatures(completion: @escaping ([TransactionViewModel]) -> Void) {
-        let request = RPCMethods.getSignaturesForAddress("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH").buildRequest(node: .solanaMain)!
+    func getSignatures(_ address: String, completion: @escaping ([TransactionViewModel]) -> Void) {
+        let request = RPCMethods.getSignaturesForAddress(address).buildRequest(node: .solanaMain)!
         
         client.perform(request, timeout: 10.0) { jsonData, response, error in
             guard let jsonData else {

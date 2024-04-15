@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import CoreData
 
+protocol TransactionRouting: AnyObject {
+    func routeToTransactionDetail(tx: String)
+}
+
 protocol ImportingWallet: AnyObject {
     func importWallet()
 }
@@ -62,7 +66,7 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     }
 }
 
-class HomeCoordinator: Coordinator {
+class HomeCoordinator: Coordinator, TransactionRouting {
     var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
@@ -72,8 +76,13 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeViewController()
+        let vc = HomeViewController(coordinator: self)
         vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func routeToTransactionDetail(tx: String) {
+        guard let url = URL(string: "https://solscan.io/tx/"+tx) else { return }
+        UIApplication.shared.open(url)
     }
 }

@@ -6,25 +6,30 @@
 //
 
 import SwiftUI
+import Combine
 
-//let mockedTransactions = [
-//    TransactionViewModel(name: "Mint to collection v1", date: "12/02/2023"),
-//    TransactionViewModel(name: "Mint to null", date: "11/04/2022"),
-//    TransactionViewModel(name: "Receive SOL", date: "22/03/2023"),
-//    TransactionViewModel(name: "Mint", date: "02/02/2021"),
-//    TransactionViewModel(name: "Send USDT", date: "20/01/2023"),
-//    TransactionViewModel(name: "Mint", date: "02/02/2021")
-//]
+class TransactionsListViewModel: ObservableObject {
+    @Published var transactions: [TransactionViewModel]
+    
+    init(transactions: [TransactionViewModel]) {
+        self.transactions = transactions
+    }
+    
+    func updateTransactions(transactions: [TransactionViewModel]) {
+        self.transactions = transactions
+    }
+}
+
 
 struct TransactionsList: View {
-    var transaction: [TransactionViewModel] = []
+    @ObservedObject var transactionsViewModel: TransactionsListViewModel
     var onTransactionTapDo: (String) -> Void
     var tableTitle: String
     
-    init(transaction: [TransactionViewModel], 
+    init(transactionsViewModel: TransactionsListViewModel,
          onTransactionTapDo: @escaping (String) -> Void,
          tableTitle: String) {
-        self.transaction = transaction
+        self.transactionsViewModel = transactionsViewModel
         self.onTransactionTapDo = onTransactionTapDo
         self.tableTitle = tableTitle
     }
@@ -39,7 +44,7 @@ struct TransactionsList: View {
         }
         
         List {
-            ForEach(self.transaction) { transaction in
+            ForEach(self.transactionsViewModel.transactions) { transaction in
                 HStack {
                     Text("\(transaction.shortSignature)")
                         .foregroundStyle(.white)
@@ -70,10 +75,11 @@ struct TransactionsList: View {
 //}
 
 extension UIView {
-    func addTransactionList(transaction: [TransactionViewModel],
+    func addTransactionList(transactions: [TransactionViewModel],
                             onTransactionTapDo: @escaping (String) -> Void,
-                            tableTitle: String) {
-        let view = TransactionsList(transaction: transaction,
+                            tableTitle: String) -> TransactionsListViewModel {
+        let viewModel = TransactionsListViewModel(transactions: transactions)
+        let view = TransactionsList(transactionsViewModel: viewModel,
                                     onTransactionTapDo: onTransactionTapDo, tableTitle: tableTitle)
         
         let hostingController = UIHostingController(rootView: view)
@@ -84,5 +90,7 @@ extension UIView {
         hostingController.view.attach(toView: self)
         self.backgroundColor = .clear
         self.isOpaque = false
+        
+        return viewModel
     }
 }
