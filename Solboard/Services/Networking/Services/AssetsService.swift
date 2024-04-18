@@ -8,12 +8,16 @@
 import Foundation
 
 struct AssetViewModel {
+    var id = UUID().uuidString
+    
     var assetAddress: String?
     var pricePerToken: Double?
     var balance: Decimal?
     var name: String?
+    var symbol: String?
     var tokenType: TokenType
     var metadata: String?
+    var image: String?
 }
 
 extension [AssetViewModel] {
@@ -103,7 +107,14 @@ struct AssetsMapper {
         var assetsViewModel: [AssetViewModel] = []
         
         response?.result?.items?.forEach({ item in
+            guard let symbol = item.content?.metadata?.symbol else {
+                return
+            }
+            
             if let info = item.tokenInfo {
+                let name = item.content?.metadata?.name
+                let imageUrl = item.content?.files?.first?.uri
+                let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
                 let balance = Decimal(info.balance ?? 0)
                 let decimals = pow(10, info.decimals ?? 0)
                 let realBalance = balance / decimals
@@ -112,8 +123,10 @@ struct AssetsMapper {
                                            pricePerToken: info.priceInfo?.pricePerToken ?? 0.0,
                                            balance: realBalance,
                                            name: item.content?.metadata?.name,
+                                           symbol: name?.lowercased() == "wrapped sol" ? "Wrapped SOL" : symbol,
                                            tokenType: .fungible,
-                                           metadata: item.content?.jsonURI)
+                                           metadata: item.content?.jsonURI,
+                                           image: image)
                 
                 assetsViewModel.append(asset)
             } else {
@@ -121,8 +134,10 @@ struct AssetsMapper {
                                            pricePerToken: 0,
                                            balance: 1,
                                            name: item.content?.metadata?.name,
+                                           symbol: symbol,
                                            tokenType: .nonFungible,
-                                           metadata: item.content?.jsonURI)
+                                           metadata: item.content?.jsonURI,
+                                           image: item.content?.files?.first?.uri)
                 assetsViewModel.append(asset)
             }
         })

@@ -26,6 +26,10 @@ final class HomeViewModel {
         self.transactionsService = transactionsService
     }
     
+    func getFetchedAssetsViewModel() -> [AssetViewModel] {
+        self.assets
+    }
+    
     func getTransactions() {
         transactionsService.getSignatures("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH") { [weak self] transactions in
             self?.onTransactionsFetchedDo!(transactions)
@@ -53,8 +57,10 @@ final class HomeViewModel {
                                                        pricePerToken: price,
                                                        balance: Decimal(solBalance),
                                                        name: "SOL",
+                                                       symbol: "SOL",
                                                        tokenType: .fungible,
-                                                       metadata: ""))
+                                                       metadata: "",
+                                                       image: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756"))
                     dispatchGroup.leave()
                 }
             }
@@ -122,7 +128,10 @@ final class HomeViewController: UIViewController {
         let barchartViewModel = self.balanceView.addAssetBarChart(tokensData: [],
                                                                   onAssetTapDo: { tokenType in
             
-            print("assets", tokenType.rawValue)
+            let vm = AssetsViewViewModel(tokens: self.viewModel.getFetchedAssetsViewModel())
+            let vc = UIHostingController(rootView: AssetsView(viewModel: vm))
+            self.navigationController?.pushViewController(vc,
+                                                          animated: true)
         })
         
         viewModel.onAssetsFetchedDo = { (assets) in

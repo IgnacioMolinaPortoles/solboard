@@ -31,6 +31,18 @@ extension UIColor {
             alpha: CGFloat(1.0)
         )
     }
+    
+    static var backgroundDarkGray: UIColor {
+        UIColor(hex: "1C1C1C")
+    }
+    
+    static var listSeparatorDarkGray: UIColor {
+        UIColor(hex: "2B2A2C")
+    }
+    
+    static var textLightGray: UIColor {
+        UIColor(hex: "9F9EA2")
+    }
 }
 
 extension Color {
