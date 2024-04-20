@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum TokenType: String, CaseIterable {
-    case fungible
-    case nonFungible
+enum TokenType: String, CaseIterable, Codable {
+    case fungible = "Fungible"
+    case nonFungible = "NonFungible"
     
     var displayableName: String {
         switch self {

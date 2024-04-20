@@ -8,59 +8,33 @@
 import SwiftUI
 
 let assetsArray = [
-    AssetViewModel(assetAddress: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
+    AssetViewModel(address: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
                    pricePerToken: 12,
                    balance: 0,
                    name: "MYTHYS",
                    symbol:"MYTCHYS",
                    tokenType: .fungible,
-                   metadata: "",
+                   metadata: nil,
                    image: "https://bafkreie3gbnqk4odanmu76oebzmqxzd564hxu5csws6liojjjnlgybbx3y.ipfs.nftstorage.link/"),
-    AssetViewModel(assetAddress: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
+    AssetViewModel(address: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
                    pricePerToken: 0,
                    balance: 1,
                    name: "CoolXCats",
                    symbol:"CDCC",
                    tokenType: .nonFungible,
-                   metadata: "",
-                   image: "https://madlads.s3.us-west-2.amazonaws.com/images/3844.png"),
-    AssetViewModel(assetAddress: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
-                   pricePerToken: 12,
-                   balance: 0,
-                   name: "MYTDHYS",
-                   symbol:"MYTHYS",
-                   tokenType: .fungible,
-                   metadata: "",
-                   image: "https://bafkreie3gbnqk4odanmu76oebzmqxzd564hxu5csws6liojjjnlgybbx3y.ipfs.nftstorage.link/"),
-    AssetViewModel(assetAddress: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
-                   pricePerToken: 0,
-                   balance: 1,
-                   name: "CoolCats",
-                   symbol:"CC",
-                   tokenType: .nonFungible,
-                   metadata: "",
+                   metadata: nil,
                    image: "https://madlads.s3.us-west-2.amazonaws.com/images/3844.png")
 ]
 
-class AssetsViewViewModel: ObservableObject {
+class AssetsListViewModel: ObservableObject {
     @Published var tokens: [AssetViewModel]
     @Published var assetSelected = 0
     @Published var searchText = ""
-    @Published var lastAssetTapped = AssetViewModel(tokenType: .fungible)
-    @Published var isSheetPresented = false
     
     init(tokens: [AssetViewModel]) {
         self.tokens = tokens
     }
-    func selectAsset(_ asset: AssetViewModel) {
-        lastAssetTapped = asset
-        isSheetPresented = true
-    }
-    
-    func dismissSheet() {
-        isSheetPresented = false
-    }
-    
+
     func updateTokens(tokens: [AssetViewModel]) {
         self.tokens = tokens
     }
@@ -87,20 +61,13 @@ class AssetsViewViewModel: ObservableObject {
     }
 }
 
-struct AssetsView: View {
-    @ObservedObject private var viewModel: AssetsViewViewModel
-    
-    @State private var presented = false
-    
-    init(viewModel: AssetsViewViewModel) {
+struct AssetsListView: View {
+    @ObservedObject private var viewModel: AssetsListViewModel
+        
+    init(viewModel: AssetsListViewModel) {
         self.viewModel = viewModel
     }
-    
-    func itemTapped(_ asset: AssetViewModel) {
-        viewModel.selectAsset(asset)
-        presented.toggle()
-    }
-    
+
     var body: some View {
         
         NavigationView {
@@ -117,7 +84,7 @@ struct AssetsView: View {
                 List {
                     
                     
-                    ForEach(viewModel.filteredTokens, id: \.id) { asset in // Usamos filteredTokens
+                    ForEach(viewModel.filteredTokens, id: \.id) { asset in
                         let text = asset.tokenType == .fungible ? "\(asset.pricePerToken!)" : "\("NFT")"
                         HStack {
                             AsyncImage(url: URL(string: asset.image ?? ""),
@@ -134,7 +101,7 @@ struct AssetsView: View {
                             Text("\(asset.symbol ?? "")")
                                 .foregroundStyle(.white)
                                 .onTapGesture {
-                                    itemTapped(asset)
+                                    asset.onAssetDetailTap!()
                                 }
                             Spacer()
                             Text("\(text)")
@@ -158,20 +125,9 @@ struct AssetsView: View {
         .preferredColorScheme(.dark)
         .searchable(text: $viewModel.searchText)
         .navigationTitle("Assets")
-        .sheet(isPresented: $viewModel.isSheetPresented) {
-            let asset = $viewModel.lastAssetTapped
-            let address = asset.assetAddress.wrappedValue!
-            var url = asset.tokenType.wrappedValue == .fungible ?
-            "https://solscan.io/token/\(address)/"
-            :
-            "https://magiceden.io/item-details/\(address)"
-            
-            WebView(url: URL(string: url)!)
-        }
-        
     }
 }
 
 #Preview {
-    AssetsView(viewModel: AssetsViewViewModel(tokens: assetsArray))
+    AssetsListView(viewModel: AssetsListViewModel(tokens: assetsArray))
 }

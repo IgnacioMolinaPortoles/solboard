@@ -26,12 +26,12 @@ final class HomeViewModel {
         self.transactionsService = transactionsService
     }
     
-    func getFetchedAssetsViewModel() -> [AssetViewModel] {
-        self.assets
+    func getFetchedAssets() -> [AssetItem] {
+        self.response?.result?.items ?? []
     }
     
     func getTransactions() {
-        transactionsService.getSignatures("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH") { [weak self] transactions in
+        transactionsService.getSignatures("G3ZTjo4ak5cgsVdyCPNu2QqoWA7kk18aiECEqQZp1RNk") { [weak self] transactions in
             self?.onTransactionsFetchedDo!(transactions)
         }
     }
@@ -42,7 +42,7 @@ final class HomeViewModel {
 
         dispatchGroup.enter()
         DispatchQueue.global().async { [weak self] in
-            self?.assetService.getAddressAssets("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH") { response in
+            self?.assetService.getAddressAssets("G3ZTjo4ak5cgsVdyCPNu2QqoWA7kk18aiECEqQZp1RNk") { response in
                 self?.response = response
                 self?.assets.append(contentsOf: AssetsMapper.map(response: response))
                 dispatchGroup.leave()
@@ -52,14 +52,14 @@ final class HomeViewModel {
         dispatchGroup.enter()
         DispatchQueue.global().async { [weak self] in
             self?.assetService.getSolanaPrice() { price in
-                self?.assetService.getBalance("AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH") { solBalance in
-                    self?.assets.append(AssetViewModel(assetAddress: "",
+                self?.assetService.getBalance("G3ZTjo4ak5cgsVdyCPNu2QqoWA7kk18aiECEqQZp1RNk") { solBalance in
+                    self?.assets.append(AssetViewModel(address: "",
                                                        pricePerToken: price,
                                                        balance: Decimal(solBalance),
                                                        name: "SOL",
                                                        symbol: "SOL",
                                                        tokenType: .fungible,
-                                                       metadata: "",
+                                                       metadata: nil,
                                                        image: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756"))
                     dispatchGroup.leave()
                 }
@@ -128,8 +128,21 @@ final class HomeViewController: UIViewController {
         let barchartViewModel = self.balanceView.addAssetBarChart(tokensData: [],
                                                                   onAssetTapDo: { tokenType in
             
-            let vm = AssetsViewViewModel(tokens: self.viewModel.getFetchedAssetsViewModel())
-            let vc = UIHostingController(rootView: AssetsView(viewModel: vm))
+            let assetsVMArray = self.viewModel.getFetchedAssets().map { assetItem in
+                var assetVM = AssetViewModel(from: assetItem)
+                assetVM.onAssetDetailTap = selection(item: assetItem)
+                return assetVM
+            }
+                
+            func selection(item: AssetItem) -> () -> Void {
+                {
+                    let vc = UIHostingController(rootView: DetailsView(nft: NFT(from: item))) 
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+
+            let vm = AssetsListViewModel(tokens: assetsVMArray)
+            let vc = UIHostingController(rootView: AssetsListView(viewModel: vm))
             self.navigationController?.pushViewController(vc,
                                                           animated: true)
         })

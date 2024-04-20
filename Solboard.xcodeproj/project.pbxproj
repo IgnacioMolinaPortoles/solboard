@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		730FD2742BD0CE59006A0E87 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730FD2732BD0CE59006A0E87 /* WebView.swift */; };
+		73952ED12BD15F0500445430 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73952ED02BD15F0500445430 /* DetailsView.swift */; };
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		730FD2732BD0CE59006A0E87 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		73952ED02BD15F0500445430 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		7395FE582BAD198C009E40F1 /* Solboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73952ECD2BD15EDC00445430 /* DetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				73952ED02BD15F0500445430 /* DetailsView.swift */,
+			);
+			path = DetailsModule;
+			sourceTree = "<group>";
+		};
 		7395FE4F2BAD198C009E40F1 = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +221,7 @@
 		73A644952BB2719A000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				73952ECD2BD15EDC00445430 /* DetailsModule */,
 				73BEE20F2BCCCDEF003068A1 /* AssetsModule */,
 				73A644AA2BB30DB0000E6424 /* HomeModule */,
 				73A644A12BB276A0000E6424 /* ImportWalletModule */,
@@ -628,6 +639,7 @@
 				73A644D82BBE3789000E6424 /* HTTPClient.swift in Sources */,
 				73BEE1FE2BCB3492003068A1 /* GetBalanceResponse.swift in Sources */,
 				73BEE1F82BC8864F003068A1 /* AssetsService.swift in Sources */,
+				73952ED12BD15F0500445430 /* DetailsView.swift in Sources */,
 				73A644D02BB628FF000E6424 /* ImportWalletViewModel.swift in Sources */,
 				73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,

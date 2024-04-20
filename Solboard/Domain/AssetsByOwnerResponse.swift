@@ -110,7 +110,7 @@ struct AssetLinks: Codable {
 struct AssetMetadata: Codable {
     let attributes: [AssetAttribute]?
     let description, name, symbol: String?
-    let tokenStandard: String?
+    let tokenStandard: TokenType?
     
     enum CodingKeys: String, CodingKey {
         case attributes, description, name, symbol
@@ -122,18 +122,33 @@ struct AssetMetadata: Codable {
 struct AssetAttribute: Codable {
     let value: AssetValue?
     let traitType: String?
-    let traitCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case value
         case traitType = "trait_type"
-        case traitCount = "trait_count"
     }
 }
 
 enum AssetValue: Codable {
     case integer(Int)
     case string(String)
+    
+    var stringValue: String {
+        switch self {
+        case .integer(let int):
+            return "\(int)"
+        case .string(let string):
+            return string
+        }
+    }
+    
+    init(_ int: Int) {
+        self = .integer(int)
+    }
+    
+    init(_ string: String) {
+        self = .string(string)
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

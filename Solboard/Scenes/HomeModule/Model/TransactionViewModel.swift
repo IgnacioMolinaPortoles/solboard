@@ -21,3 +21,9 @@ struct TransactionViewModel: Identifiable {
         DateParser.shared.getParsedDate(TimeInterval(self.unixDate))
     }
 }
+
+extension String {
+    var shortSignature: String {
+        self.prefix(6) + "..." + self.suffix(6)
+    }
+}

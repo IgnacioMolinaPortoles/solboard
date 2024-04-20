@@ -10,14 +10,50 @@ import Foundation
 struct AssetViewModel {
     var id = UUID().uuidString
     
-    var assetAddress: String?
+    var address: String?
     var pricePerToken: Double?
     var balance: Decimal?
     var name: String?
     var symbol: String?
     var tokenType: TokenType
-    var metadata: String?
+    var metadata: AssetMetadata?
     var image: String?
+    var onAssetDetailTap: (() -> Void)?
+}
+
+extension AssetViewModel {
+    init(from item: AssetItem) {
+        let symbol = item.content?.metadata?.symbol ?? ""
+        
+        if let info = item.tokenInfo, item.content?.metadata?.tokenStandard == .fungible {
+            let name = item.content?.metadata?.name
+            let imageUrl = item.content?.files?.first?.uri
+            let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
+            let balance = Decimal(info.balance ?? 0)
+            let decimals = pow(10, info.decimals ?? 0)
+            let realBalance = balance / decimals
+            
+            self.init(address: item.id,
+                      pricePerToken: info.priceInfo?.pricePerToken ?? 0.0,
+                      balance: realBalance,
+                      name: item.content?.metadata?.name,
+                      symbol: name?.lowercased() == "wrapped sol" ? "Wrapped SOL" : symbol,
+                      tokenType: .fungible,
+                      metadata: item.content?.metadata,
+                      image: image,
+                      onAssetDetailTap: nil)
+        } else {
+            self.init(address: item.id,
+                      pricePerToken: 0,
+                      balance: Decimal(item.tokenInfo?.balance ?? 1),
+                      name: item.content?.metadata?.name,
+                      symbol: symbol,
+                      tokenType: .nonFungible,
+                      metadata: item.content?.metadata,
+                      image: item.content?.files?.first?.uri,
+                      onAssetDetailTap: nil)
+        }
+    }
 }
 
 extension [AssetViewModel] {
@@ -104,42 +140,18 @@ final class AssetsService: AssetsServiceProtocol {
 
 struct AssetsMapper {
     static func map(response: AssetByOwnerResponse?) -> [AssetViewModel] {
+        return map(response?.result?.items ?? [], onAssetDetailTap: nil)
+    }
+    
+    static func map(_ items: [AssetItem], onAssetDetailTap: (() -> Void)?) -> [AssetViewModel] {
         var assetsViewModel: [AssetViewModel] = []
         
-        response?.result?.items?.forEach({ item in
+        items.forEach({ item in
             guard let symbol = item.content?.metadata?.symbol else {
                 return
             }
             
-            if let info = item.tokenInfo {
-                let name = item.content?.metadata?.name
-                let imageUrl = item.content?.files?.first?.uri
-                let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
-                let balance = Decimal(info.balance ?? 0)
-                let decimals = pow(10, info.decimals ?? 0)
-                let realBalance = balance / decimals
-                
-                let asset = AssetViewModel(assetAddress: item.id,
-                                           pricePerToken: info.priceInfo?.pricePerToken ?? 0.0,
-                                           balance: realBalance,
-                                           name: item.content?.metadata?.name,
-                                           symbol: name?.lowercased() == "wrapped sol" ? "Wrapped SOL" : symbol,
-                                           tokenType: .fungible,
-                                           metadata: item.content?.jsonURI,
-                                           image: image)
-                
-                assetsViewModel.append(asset)
-            } else {
-                let asset = AssetViewModel(assetAddress: item.id,
-                                           pricePerToken: 0,
-                                           balance: 1,
-                                           name: item.content?.metadata?.name,
-                                           symbol: symbol,
-                                           tokenType: .nonFungible,
-                                           metadata: item.content?.jsonURI,
-                                           image: item.content?.files?.first?.uri)
-                assetsViewModel.append(asset)
-            }
+            assetsViewModel.append(AssetViewModel(from: item))
         })
         
         return assetsViewModel
