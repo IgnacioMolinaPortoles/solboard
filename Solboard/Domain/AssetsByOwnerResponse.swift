@@ -10,14 +10,14 @@ import Foundation
 // MARK: - AssetResponse
 struct AssetByOwnerResponse: Codable {
     let jsonrpc: String?
-    let result: AssetResult?
+    var result: AssetResult?
     let id: Int?
 }
 
 // MARK: - AssetResult
 struct AssetResult: Codable {
     let total, limit, page: Int?
-    let items: [AssetItem]?
+    var items: [AssetItem]?
 }
 
 // MARK: - AssetItem
@@ -35,6 +35,47 @@ struct AssetItem: Codable {
     let mutable, burnt: Bool?
     let tokenInfo: AssetTokenInfo?
     let mintExtensions: AssetMintExtensions?
+    
+    init(pricePerToken: Double,
+         balance: Decimal,
+         name: String,
+         symbol: String,
+         tokenType: TokenType,
+         image: String) {
+        // Inicializar el interface e id como valores predeterminados nulos
+        self.interface = nil
+        self.id = nil
+        
+        // Inicializar AssetContent con image, name y symbol
+        let assetMetadata = AssetMetadata(attributes: nil, description: nil, name: name, symbol: symbol, tokenStandard: tokenType.rawValue)
+        self.content = AssetContent(schema: nil, jsonURI: nil, files: [AssetFile(uri: image, cdnURI: nil, mime: nil)], metadata: assetMetadata, links: nil)
+        
+        // Inicializar AssetTokenInfo con pricePerToken, balance y symbol
+        let assetPriceInfo = AssetPriceInfo(pricePerToken: pricePerToken, totalPrice: nil, currency: nil)
+        self.tokenInfo = AssetTokenInfo(
+            balance: Double(NSDecimalNumber(decimal: balance).doubleValue),
+            supply: nil,
+            decimals: nil,
+            tokenProgram: nil,
+            associatedTokenAddress: nil,
+            mintAuthority: nil,
+            freezeAuthority: nil,
+            symbol: symbol,
+            priceInfo: assetPriceInfo
+        )
+        
+        // Inicializar todas las otras propiedades opcionales como nulas
+        self.authorities = nil
+        self.compression = nil
+        self.grouping = nil
+        self.royalty = nil
+        self.creators = nil
+        self.ownership = nil
+        self.supply = nil
+        self.mutable = nil
+        self.burnt = nil
+        self.mintExtensions = nil
+    }
     
     enum CodingKeys: String, CodingKey {
         case interface, id, content, authorities, compression, grouping, royalty, creators, ownership, supply, mutable, burnt
@@ -110,7 +151,7 @@ struct AssetLinks: Codable {
 struct AssetMetadata: Codable {
     let attributes: [AssetAttribute]?
     let description, name, symbol: String?
-    let tokenStandard: TokenType?
+    let tokenStandard: String?
     
     enum CodingKeys: String, CodingKey {
         case attributes, description, name, symbol
@@ -277,7 +318,7 @@ struct AssetSupply: Codable {
 
 // MARK: - AssetTokenInfo
 struct AssetTokenInfo: Codable {
-    let balance: Int?
+    let balance: Double?
     let supply: Double?
     let decimals: Int?
     let tokenProgram: String?

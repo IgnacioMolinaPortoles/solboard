@@ -184,7 +184,7 @@ struct NFTDetailView: View {
 
                             HStack {
                                 VStack {
-                                    Text("\(attribute.traitType?.capitalized ?? ""):")
+                                    Text("\(attribute.traitType?.capitalized ?? "")")
                                         .fontWeight(.semibold)
                                     Spacer()
                                 }
@@ -221,7 +221,7 @@ struct NFTDetailView: View {
                 }
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text("Address:")
+                        Text("Address")
                             .fontWeight(.semibold)
                         Spacer()
                         Text(nft.address.shortSignature)
@@ -231,7 +231,7 @@ struct NFTDetailView: View {
                     Divider()
                         .background(Color.listSeparatorDarkGray)
                     HStack {
-                        Text("Creator Royalty Fee:")
+                        Text("Creator Royalty Fee")
                             .fontWeight(.semibold)
                         Spacer()
                         Text("\(nft.royaltyFee * 100, specifier: "%.2f")%")
@@ -246,8 +246,14 @@ struct NFTDetailView: View {
                         Spacer()
                     }
                     .onTapGesture {
-                        if let url = URL(string: "https://magiceden.io/item-details/\(nft.address)"), UIApplication.shared.canOpenURL(url) {
-                            UIApplication.shared.open(url)
+                        if true {
+                            if let url = URL(string: "https://solscan.io/token/\(nft.address)"), UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.open(url)
+                            }
+                        } else {
+                            if let url = URL(string: "https://magiceden.io/item-details/\(nft.address)"), UIApplication.shared.canOpenURL(url) {
+                                UIApplication.shared.open(url)
+                            }
                         }
                     }
                 }
@@ -259,6 +265,7 @@ struct NFTDetailView: View {
                 
             }
         }
+        .scrollIndicators(.hidden)
         .foregroundStyle(.white)
         .background(.black)
         .navigationBarTitle(nft.name, displayMode: .inline)

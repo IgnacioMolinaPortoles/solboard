@@ -10,18 +10,19 @@ import Foundation
 enum TokenType: String, CaseIterable, Codable {
     case fungible = "Fungible"
     case nonFungible = "NonFungible"
+    case programableNonFungible = "ProgrammableNonFungible"
     
     var displayableName: String {
         switch self {
         case .fungible: return "Tokens"
-        case .nonFungible: return "NFTs"
+        case .nonFungible, .programableNonFungible: return "NFTs"
         }
     }
     
     var hexColor: String {
         switch self {
         case .fungible: return "00EAE2"
-        case .nonFungible: return "FF4500"
+        case .nonFungible, .programableNonFungible: return "FF4500"
         }
     }
     
@@ -29,7 +30,7 @@ enum TokenType: String, CaseIterable, Codable {
         switch self {
         case .fungible:
             return 0
-        case .nonFungible:
+        case .nonFungible, .programableNonFungible:
             return 1
         }
     }

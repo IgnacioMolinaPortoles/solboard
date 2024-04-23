@@ -23,9 +23,9 @@ class BarChartViewModel: ObservableObject {
 
 struct BarChart: View {
     @ObservedObject private var viewModel: BarChartViewModel
-    var onAssetTapDo: (TokenType) -> Void
+    var onAssetTapDo: () -> Void
 
-    init(viewModel: BarChartViewModel, onAssetTapDo: @escaping (TokenType) -> Void) {
+    init(viewModel: BarChartViewModel, onAssetTapDo: @escaping () -> Void) {
         self.viewModel = viewModel
         self.onAssetTapDo = onAssetTapDo
     }
@@ -49,7 +49,7 @@ struct BarChart: View {
                 
                 Spacer().frame(height: 15)
                 HStack(spacing: 6) {
-                    ForEach(TokenType.allCases, id: \.self) { type in
+                    ForEach([TokenType.fungible, TokenType.nonFungible], id: \.self) { type in
                         HStack {
                             Circle()
                                 .fill(Color(hex: type.hexColor))
@@ -66,7 +66,7 @@ struct BarChart: View {
             .backgroundStyle(Color.backgroundDarkGray)
             .background(.black)
             .onTapGesture {
-                onAssetTapDo(.fungible)
+                onAssetTapDo()
             }
         
     }
@@ -77,7 +77,7 @@ struct BarChart: View {
 //}
 
 extension UIView {
-    func addAssetBarChart(tokensData: [TokenViewModel], onAssetTapDo: @escaping (TokenType) -> Void) -> BarChartViewModel {
+    func addAssetBarChart(tokensData: [TokenViewModel], onAssetTapDo: @escaping () -> Void) -> BarChartViewModel {
         let barChartViewModel = BarChartViewModel(tokens: tokensData)
         let rootView = BarChart(viewModel: barChartViewModel, onAssetTapDo: onAssetTapDo)
         

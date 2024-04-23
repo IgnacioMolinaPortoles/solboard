@@ -10,7 +10,7 @@ import SwiftUI
 let assetsArray = [
     AssetViewModel(address: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
                    pricePerToken: 12,
-                   balance: 0,
+                   balance: 0.0000023210,
                    name: "MYTHYS",
                    symbol:"MYTCHYS",
                    tokenType: .fungible,
@@ -34,7 +34,7 @@ class AssetsListViewModel: ObservableObject {
     init(tokens: [AssetViewModel]) {
         self.tokens = tokens
     }
-
+    
     func updateTokens(tokens: [AssetViewModel]) {
         self.tokens = tokens
     }
@@ -63,11 +63,11 @@ class AssetsListViewModel: ObservableObject {
 
 struct AssetsListView: View {
     @ObservedObject private var viewModel: AssetsListViewModel
-        
+    
     init(viewModel: AssetsListViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         
         NavigationView {
@@ -85,7 +85,6 @@ struct AssetsListView: View {
                     
                     
                     ForEach(viewModel.filteredTokens, id: \.id) { asset in
-                        let text = asset.tokenType == .fungible ? "\(asset.pricePerToken!)" : "\("NFT")"
                         HStack {
                             AsyncImage(url: URL(string: asset.image ?? ""),
                                        content: { image in
@@ -98,15 +97,23 @@ struct AssetsListView: View {
                             })
                             .frame(width: 25, height: 25)
                             
-                            Text("\(asset.symbol ?? "")")
-                                .foregroundStyle(.white)
-                                .onTapGesture {
-                                    asset.onAssetDetailTap!()
-                                }
+                            if asset.tokenType == .fungible {
+                                Text("\(asset.symbol ?? "")")
+                            } else {
+                                Text("\(asset.name ?? "")")
+                            }
                             Spacer()
-                            Text("\(text)")
-                                .foregroundStyle(Color.textLightGray)
+                            
+                            if asset.tokenType == .fungible {
+                                let totalPrice = (asset.pricePerToken ?? 0) * (asset.balance?.doubleValue ?? 0)
+                                
+                                Text("$\(totalPrice, specifier: "%.3f")")
+                                    .foregroundStyle(Color.textLightGray)
+                            }
                             Image(systemName: "chevron.right")
+                        }
+                        .onTapGesture {
+                            asset.onAssetDetailTap!()
                         }
                     }
                     .listRowBackground(Color.backgroundDarkGray)

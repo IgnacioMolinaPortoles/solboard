@@ -25,7 +25,7 @@ extension AssetViewModel {
     init(from item: AssetItem) {
         let symbol = item.content?.metadata?.symbol ?? ""
         
-        if let info = item.tokenInfo, item.content?.metadata?.tokenStandard == .fungible {
+        if let info = item.tokenInfo, item.content?.metadata?.tokenStandard?.lowercased() == TokenType.fungible.rawValue.lowercased() {
             let name = item.content?.metadata?.name
             let imageUrl = item.content?.files?.first?.uri
             let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
@@ -97,7 +97,7 @@ final class AssetsService: AssetsServiceProtocol {
             let response = try? JSONDecoder().decode(GetBalanceResponse.self, from: jsonData)
             
             if let solBalance = response?.result?.value {
-                completion(Double(solBalance / 1000000000))
+                completion(Double(Double(solBalance) / 1000000000.0))
             } else {
                 completion(0.0)
             }
@@ -132,8 +132,12 @@ final class AssetsService: AssetsServiceProtocol {
                 completion(nil)
                 return
             }
-            let assetWelcome = try? JSONDecoder().decode(AssetByOwnerResponse.self, from: jsonData)
-            completion(assetWelcome)
+            do {
+                let assetWelcome = try JSONDecoder().decode(AssetByOwnerResponse.self, from: jsonData)
+                completion(assetWelcome)
+            } catch(let error) {
+                completion(nil)
+            }
         }
     }
 }
