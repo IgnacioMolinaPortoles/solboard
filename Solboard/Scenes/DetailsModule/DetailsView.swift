@@ -92,7 +92,7 @@ let json = """
 """
 
 
-struct NFT: Identifiable {
+struct NFTViewModel: Identifiable {
     var id: String
     var name: String
     var description: String
@@ -130,7 +130,7 @@ struct NFT: Identifiable {
 }
 
 struct NFTDetailView: View {
-    var nft: NFT
+    var nft: NFTViewModel
     
     var body: some View {
         ScrollView {
@@ -274,7 +274,7 @@ struct NFTDetailView: View {
 }
 
 struct DetailsView: View {
-    let nft: NFT
+    let nft: NFTViewModel
 
     var body: some View {
         NFTDetailView(nft: nft)
@@ -295,11 +295,11 @@ struct DetailsView: View {
         }
     }
     
-    func createDummyNFT(json: String) -> NFT? {
+    func createDummyNFT(json: String) -> NFTViewModel? {
         // Convertir JSON a AssetItem
         if let assetItem = convertJsonToAssetItem(json: json) {
             // Crear una instancia de NFT a partir de AssetItem
-            let nft = NFT(from: assetItem)
+            let nft = NFTViewModel(from: assetItem)
             return nft
         } else {
             print("Error al convertir JSON a AssetItem.")

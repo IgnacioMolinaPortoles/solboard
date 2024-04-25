@@ -11,19 +11,19 @@ import SwiftUI
 let address = "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
 
 final class HomeViewModel {
-    private let assetService: AssetsServiceProtocol
+    private let assetServiceManager: AssetsServiceManager
     private let transactionsService: TransactionsServiceProtocol
 
     
-    var onAssetsFetchedDo: (([TokenViewModel]?) -> Void)?
+    var onTokensViewModelFetchedDo: (([TokenViewModel]?) -> Void)?
     var onBalanceFetchedDo: ((Double) -> Void)?
     var onTransactionsFetchedDo: (([TransactionViewModel]?) -> Void)?
     
     private var assetsItems: [AssetItem] = []
     
-    init(assetService: AssetsServiceProtocol,
+    init(assetServiceManager: AssetsServiceManager,
          transactionsService: TransactionsServiceProtocol) {
-        self.assetService = assetService
+        self.assetServiceManager = assetServiceManager
         self.transactionsService = transactionsService
     }
     
@@ -38,42 +38,14 @@ final class HomeViewModel {
     }
 
     func getAssets() {
-        let dispatchGroup = DispatchGroup()
-
-        dispatchGroup.enter()
-        DispatchQueue.global().async { [weak self] in
-            self?.assetService.getAddressAssets(address) { response in
-                self?.assetsItems.append(contentsOf: response?.result?.items ?? [])
-                dispatchGroup.leave()
-            }
-        }
-        
-        dispatchGroup.enter()
-        DispatchQueue.global().async { [weak self] in
-            self?.assetService.getSolanaPrice() { price in
-                self?.assetService.getBalance(address) { solBalance in
-                    self?.assetsItems.append(AssetItem(pricePerToken: price,
-                                                                    balance: Decimal(solBalance),
-                                                                    name: "SOL",
-                                                                    symbol: "SOL",
-                                                                    tokenType: .fungible,
-                                                                    image: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756"))
-                    dispatchGroup.leave()
-                }
-            }
-        }
-        
-        
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            let assets = self?.assetsItems ?? []
-            let assetsVM = assets.map { assetItem in
-                return AssetViewModel(from: assetItem)
-            }
+        assetServiceManager.getAssets { [weak self] assets in
+            self?.assetsItems = assets
             
-            let totalBalance = assetsVM.reduce(0.0) { $0 + (Double(($1.balance?.doubleValue ?? 0.0)) * ($1.pricePerToken ?? 0.0)) } 
+            let assetsVMArray = assets.map({ AssetItemViewModel(from: $0) })
+            let totalBalance = assetsVMArray.reduce(0.0) { $0 + (Double(($1.balance?.doubleValue ?? 0.0)) * ($1.pricePerToken ?? 0.0)) }
             
-            self?.onBalanceFetchedDo!(totalBalance)
-            self?.onAssetsFetchedDo!(assetsVM.toTokenViewModel())
+            self?.onBalanceFetchedDo?(totalBalance)
+            self?.onTokensViewModelFetchedDo?(assetsVMArray.toTokenViewModel())
         }
     }
 }
@@ -87,11 +59,11 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var transactionsView: UIView!
     
     private let viewModel: HomeViewModel
-    private let coordinator: TransactionRouting?
+    private let coordinator: (TransactionRouting & AssetRouting)
     
-    init(viewModel: HomeViewModel = HomeViewModel(assetService: AssetsService(), 
+    init(viewModel: HomeViewModel = HomeViewModel(assetServiceManager: AssetsServiceManager(assetsService: AssetsService()),
                                                   transactionsService: TransactionsService()),
-         coordinator: TransactionRouting) {
+         coordinator: (TransactionRouting & AssetRouting)) {
         self.coordinator = coordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -128,35 +100,18 @@ final class HomeViewController: UIViewController {
     private func addAndBindAssetBarChart() {
         let barchartViewModel = self.balanceView.addAssetBarChart(tokensData: [],
                                                                   onAssetTapDo: {
-            
-            let assetsVMArray = self.viewModel.getFetchedAssets().map { assetItem in
-                var assetVM = AssetViewModel(from: assetItem)
-                assetVM.onAssetDetailTap = selection(item: assetItem)
-                return assetVM
-            }
-                            
-            func selection(item: AssetItem) -> () -> Void {
-                {
-                    let vc = UIHostingController(rootView: DetailsView(nft: NFT(from: item))) 
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
-
-            let vm = AssetsListViewModel(tokens: assetsVMArray)
-            let vc = UIHostingController(rootView: AssetsListView(viewModel: vm))
-            self.navigationController?.pushViewController(vc,
-                                                          animated: true)
+            self.coordinator.routeToAssetView(assets: self.viewModel.getFetchedAssets())
         })
         
-        viewModel.onAssetsFetchedDo = { (assets) in
-            barchartViewModel.updateTokens(tokens: assets ?? [])
+        viewModel.onTokensViewModelFetchedDo = { (tokensVM) in
+            barchartViewModel.updateTokens(tokens: tokensVM ?? [])
         }
     }
     
     private func addAndBindTransactionsList() {
         let transactionsViewModel = self.transactionsView.addTransactionList(transactions: [],
                                             onTransactionTapDo: { [weak self] tx in
-            self?.coordinator?.routeToTransactionDetail(tx: tx)
+            self?.coordinator.routeToTransactionDetail(tx: tx)
         }, tableTitle: "Signature")
         
         

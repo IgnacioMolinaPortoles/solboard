@@ -1,17 +1,12 @@
 //
-//  Coordinator.swift
+//  LoginCoordinator.swift
 //  Solboard
 //
-//  Created by Ignacio Molina Portoles on 26/03/2024.
+//  Created by Ignacio Molina Portoles on 23/04/2024.
 //
 
 import Foundation
 import UIKit
-import CoreData
-
-protocol TransactionRouting: AnyObject {
-    func routeToTransactionDetail(tx: String)
-}
 
 protocol ImportingWallet: AnyObject {
     func importWallet()
@@ -19,13 +14,6 @@ protocol ImportingWallet: AnyObject {
 
 protocol HomeBuilding: AnyObject {
     func buildHome()
-}
-
-protocol Coordinator {
-    var childCoordinators: [Coordinator] { get set }
-    var navigationController: UINavigationController { get set }
-
-    func start()
 }
 
 class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
@@ -63,26 +51,5 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
         let vc = TabbarController(tabs: [HomeCoordinator(navigationController: UINavigationController())])
         guard let sceneDelegate = UIApplication.sceneDelegate else { return }
         sceneDelegate.setRootViewController(vc)
-    }
-}
-
-class HomeCoordinator: Coordinator, TransactionRouting {
-    var childCoordinators = [Coordinator]()
-    
-    var navigationController: UINavigationController
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-    
-    func start() {
-        let vc = HomeViewController(coordinator: self)
-        vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
-        navigationController.pushViewController(vc, animated: false)
-    }
-    
-    func routeToTransactionDetail(tx: String) {
-        guard let url = URL(string: "https://solscan.io/tx/"+tx) else { return }
-        UIApplication.shared.open(url)
     }
 }

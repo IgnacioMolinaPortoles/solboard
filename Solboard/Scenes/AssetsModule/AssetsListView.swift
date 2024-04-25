@@ -8,7 +8,7 @@
 import SwiftUI
 
 let assetsArray = [
-    AssetViewModel(address: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
+    AssetItemViewModel(address: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
                    pricePerToken: 12,
                    balance: 0.0000023210,
                    name: "MYTHYS",
@@ -16,7 +16,7 @@ let assetsArray = [
                    tokenType: .fungible,
                    metadata: nil,
                    image: "https://bafkreie3gbnqk4odanmu76oebzmqxzd564hxu5csws6liojjjnlgybbx3y.ipfs.nftstorage.link/"),
-    AssetViewModel(address: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
+    AssetItemViewModel(address: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
                    pricePerToken: 0,
                    balance: 1,
                    name: "CoolXCats",
@@ -27,19 +27,19 @@ let assetsArray = [
 ]
 
 class AssetsListViewModel: ObservableObject {
-    @Published var tokens: [AssetViewModel]
+    @Published var tokens: [AssetItemViewModel]
     @Published var assetSelected = 0
     @Published var searchText = ""
     
-    init(tokens: [AssetViewModel]) {
+    init(tokens: [AssetItemViewModel]) {
         self.tokens = tokens
     }
     
-    func updateTokens(tokens: [AssetViewModel]) {
+    func updateTokens(tokens: [AssetItemViewModel]) {
         self.tokens = tokens
     }
     
-    var filteredTokens: [AssetViewModel] {
+    var filteredTokens: [AssetItemViewModel] {
         if searchText.isEmpty {
             return filteredBySegment()
         } else {
@@ -49,7 +49,7 @@ class AssetsListViewModel: ObservableObject {
         }
     }
     
-    private func filteredBySegment() -> [AssetViewModel] {
+    private func filteredBySegment() -> [AssetItemViewModel] {
         switch assetSelected {
         case 0: // Tokens
             return tokens.filter { $0.tokenType == .fungible }
