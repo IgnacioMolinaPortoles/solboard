@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AssetItemViewModel {
+struct AssetItemViewModel: Equatable {
     var id = UUID().uuidString
     
     var address: String?
@@ -19,6 +19,10 @@ struct AssetItemViewModel {
     var metadata: AssetMetadata?
     var image: String?
     var onAssetDetailTap: (() -> Void)?
+    
+    static func == (lhs: AssetItemViewModel, rhs: AssetItemViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 extension [AssetItemViewModel] {

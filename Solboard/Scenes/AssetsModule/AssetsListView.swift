@@ -38,18 +38,24 @@ class AssetsListViewModel: ObservableObject {
     func updateTokens(tokens: [AssetItemViewModel]) {
         self.tokens = tokens
     }
-    
+
+    // Método para manejar la selección de un asset
+    func selectAsset(_ asset: AssetItemViewModel) {
+        asset.onAssetDetailTap?()
+    }
+
+    // Filtra los tokens según la búsqueda y segmentación
     var filteredTokens: [AssetItemViewModel] {
+        let filteredBySegment = filterTokensBySegment()
         if searchText.isEmpty {
-            return filteredBySegment()
+            return filteredBySegment
         } else {
-            return filteredBySegment().filter { asset in
-                asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false || asset.name?.localizedCaseInsensitiveContains(searchText) ?? false
-            }
+            return filterTokensBySearch(filteredBySegment)
         }
     }
-    
-    private func filteredBySegment() -> [AssetItemViewModel] {
+
+    // Filtra los tokens según la segmentación
+    private func filterTokensBySegment() -> [AssetItemViewModel] {
         switch assetSelected {
         case 0: // Tokens
             return tokens.filter { $0.tokenType == .fungible }
@@ -59,7 +65,15 @@ class AssetsListViewModel: ObservableObject {
             return tokens
         }
     }
+
+    // Filtra los tokens según el texto de búsqueda
+    private func filterTokensBySearch(_ tokens: [AssetItemViewModel]) -> [AssetItemViewModel] {
+        return tokens.filter { asset in
+            asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false || asset.name?.localizedCaseInsensitiveContains(searchText) ?? false
+        }
+    }
 }
+
 
 struct AssetsListView: View {
     @ObservedObject private var viewModel: AssetsListViewModel
@@ -69,7 +83,6 @@ struct AssetsListView: View {
     }
     
     var body: some View {
-        
         NavigationView {
             VStack {
                 Picker("", selection: $viewModel.assetSelected) {
@@ -82,8 +95,6 @@ struct AssetsListView: View {
                 .padding(.bottom, 4)
                 
                 List {
-                    
-                    
                     ForEach(viewModel.filteredTokens, id: \.id) { asset in
                         HStack {
                             AsyncImage(url: URL(string: asset.image ?? ""),
@@ -97,23 +108,18 @@ struct AssetsListView: View {
                             })
                             .frame(width: 25, height: 25)
                             
-                            if asset.tokenType == .fungible {
-                                Text("\(asset.symbol ?? "")")
-                            } else {
-                                Text("\(asset.name ?? "")")
-                            }
+                            Text(asset.tokenType == .fungible ? "\(asset.symbol ?? "")" : "\(asset.name ?? "")")
                             Spacer()
                             
                             if asset.tokenType == .fungible {
-                                let totalPrice =  (asset.balance ?? 0)
-                                
+                                let totalPrice = asset.balance ?? 0
                                 Text("\(totalPrice, specifier: "%.2f")")
                                     .foregroundStyle(Color.textLightGray)
                             }
                             Image(systemName: "chevron.right")
                         }
                         .onTapGesture {
-                            asset.onAssetDetailTap!()
+                            viewModel.selectAsset(asset)
                         }
                     }
                     .listRowBackground(Color.backgroundDarkGray)
