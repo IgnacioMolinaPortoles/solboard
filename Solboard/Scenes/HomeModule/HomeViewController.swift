@@ -11,7 +11,7 @@ import SwiftUI
 let address = "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
 
 final class HomeViewModel {
-    private let assetServiceManager: AssetsServiceManager
+    private let assetServiceManager: AssetsServiceManagerProtocol
     private let transactionsService: TransactionsServiceProtocol
 
     
@@ -21,7 +21,7 @@ final class HomeViewModel {
     
     private var assetsItems: [AssetItem] = []
     
-    init(assetServiceManager: AssetsServiceManager,
+    init(assetServiceManager: AssetsServiceManagerProtocol,
          transactionsService: TransactionsServiceProtocol) {
         self.assetServiceManager = assetServiceManager
         self.transactionsService = transactionsService
@@ -42,7 +42,7 @@ final class HomeViewModel {
             self?.assetsItems = assets
             
             let assetsVMArray = assets.map({ AssetItemViewModel(from: $0) })
-            let totalBalance = assetsVMArray.reduce(0.0) { $0 + (Double(($1.balance?.doubleValue ?? 0.0)) * ($1.pricePerToken ?? 0.0)) }
+            let totalBalance = assetsVMArray.reduce(0.0) { $0 + (Double(($1.balance ?? 0.0)) * ($1.pricePerToken ?? 0.0)) }
             
             self?.onBalanceFetchedDo?(totalBalance)
             self?.onTokensViewModelFetchedDo?(assetsVMArray.toTokenViewModel())

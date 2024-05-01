@@ -38,16 +38,22 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     }
     
     func routeToAssetView(assets: [AssetItem]) {
-        let assetsVMArray = assets.map { assetItem in
-            var assetVM = AssetItemViewModel(from: assetItem)
-            assetVM.onAssetDetailTap = {
-                selection(item: assetItem)
+        let assetsVMArray = assets.compactMap { assetItem in
+            let metadataSymbol = assetItem.content?.metadata?.symbol ?? ""
+            let tokenInfoSymbol = assetItem.tokenInfo?.symbol ?? ""
+            
+            if !metadataSymbol.isEmpty || !tokenInfoSymbol.isEmpty {
+                var assetVM = AssetItemViewModel(from: assetItem)
+                assetVM.onAssetDetailTap = {
+                    onAssetDetailTap(item: assetItem)
+                }
+                return assetVM
             }
-            return assetVM
+            return nil
         }
         
-        func selection(item: AssetItem) {
-            let vc = UIHostingController(rootView: DetailsView(nft: NFTViewModel(from: item)))
+        func onAssetDetailTap(item: AssetItem) {
+            let vc = UIHostingController(rootView: DetailsView(nft: DetailItemViewModel(from: item)))
             self.navigationController.pushViewController(vc, animated: true)
         }
         

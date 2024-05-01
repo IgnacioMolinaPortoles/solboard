@@ -7,8 +7,85 @@
 
 import SwiftUI
 
-// El JSON proporcionado como una cadena
-let json = """
+let tokenJson = """
+{
+        "interface": "FungibleToken",
+        "id": "AB1e1rTGF8xSoYzXEwNWohuMHLCMrBoaSxT6AARmQksd",
+        "content": {
+          "$schema": "https://schema.metaplex.com/nft1.0.json",
+          "json_uri": "https://gateway.irys.xyz/OcGcH3rSV1UqNiJsyx-RvmqDdLRnRut-N7Jz2Vim4gU",
+          "files": [
+            {
+              "uri": "https://i.imgur.com/jmoirLq.jpeg",
+              "cdn_uri": "https://cdn.helius-rpc.com/cdn-cgi/image//https://i.imgur.com/jmoirLq.jpeg",
+              "mime": "image/jpeg"
+            }
+          ],
+          "metadata": {
+            "description": "Just Two Cats Talking About Life",
+            "name": "TwoTalkingCats",
+            "symbol": "TWOCAT",
+            "token_standard": "Fungible"
+          },
+          "links": {
+            "image": "https://i.imgur.com/jmoirLq.jpeg"
+          }
+        },
+        "authorities": [
+          {
+            "address": "DkMe3tyhndt8d8FjYseszkGiyPaqTgLPvuwSzo5DQbY3",
+            "scopes": [
+              "full"
+            ]
+          }
+        ],
+        "compression": {
+          "eligible": false,
+          "compressed": false,
+          "data_hash": "",
+          "creator_hash": "",
+          "asset_hash": "",
+          "tree": "",
+          "seq": 0,
+          "leaf_id": 0
+        },
+        "grouping": [],
+        "royalty": {
+          "royalty_model": "creators",
+          "target": null,
+          "percent": 0,
+          "basis_points": 0,
+          "primary_sale_happened": false,
+          "locked": false
+        },
+        "creators": [],
+        "ownership": {
+          "frozen": false,
+          "delegated": false,
+          "delegate": null,
+          "ownership_model": "token",
+          "owner": "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
+        },
+        "supply": null,
+        "mutable": true,
+        "burnt": false,
+        "token_info": {
+          "symbol": "TWOCAT",
+          "balance": 1666666600,
+          "supply": 999982329407904,
+          "decimals": 6,
+          "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "associated_token_address": "8Y5di26DbFH3afDYqYYC7Lvp5ZrP4ihZ7ciXSoPs6KCZ",
+          "price_info": {
+            "price_per_token": 0.00337451,
+            "total_price": 5.624183073431719,
+            "currency": "USDC"
+          }
+        }
+      }
+"""
+
+let nftJson = """
 {
     "interface":"V1_NFT",
     "id":"HihgSW5JwQ8HkmorGpVbLZtHiiAu7p9L2GNFFawVZhpz",
@@ -92,7 +169,7 @@ let json = """
 """
 
 
-struct NFTViewModel: Identifiable {
+struct DetailItemViewModel: Identifiable {
     var id: String
     var name: String
     var description: String
@@ -100,47 +177,68 @@ struct NFTViewModel: Identifiable {
     var address: String
     var royaltyFee: Double
     var attributes: [AssetAttribute]
+    var pricePerToken: Double
+    var balance: Double
     
     init(from assetItem: AssetItem) {
         self.id = assetItem.id ?? ""
         
-        
         self.name = assetItem.content?.metadata?.name ?? ""
         self.description = assetItem.content?.metadata?.description ?? ""
         
-        // Inicializar la URL de la imagen del NFT
         if let imageUrlString = assetItem.content?.links?.image, let url = URL(string: imageUrlString) {
             self.imageUrl = url
         } else {
             self.imageUrl = URL(string: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756")!
         }
-
+        
         self.address = assetItem.id ?? ""
         
-        
-        // Inicializar la tarifa de regalías del creador
         if let royalty = assetItem.royalty {
             self.royaltyFee = royalty.percent ?? 0.0
         } else {
             self.royaltyFee = 0.0
         }
         
-        self.attributes = assetItem.content?.metadata?.attributes ?? []
+        self.attributes = []
+        
+        if let symbol = assetItem.content?.metadata?.symbol {
+            self.attributes.append(AssetAttribute(value: AssetValue(symbol), traitType: "Symbol"))
+        }
+        
+        if let attributes = assetItem.content?.metadata?.attributes {
+            self.attributes.append(contentsOf: attributes)
+        }
+        
+        self.pricePerToken = 0.0
+        
+        if let price = assetItem.tokenInfo?.priceInfo?.pricePerToken {
+            self.pricePerToken = price
+        }
+        
+        self.balance = 0.0
+        
+        if let balance = assetItem.tokenInfo?.balance, let decimals = assetItem.tokenInfo?.decimals {
+            let decimalBalance = balance
+            let decimals = pow(10, decimals).doubleValue
+            let realBalance = decimalBalance / decimals
+            
+            self.balance = realBalance
+        }
     }
 }
 
-struct NFTDetailView: View {
-    var nft: NFTViewModel
+struct DetailView: View {
+    var detailItem: DetailItemViewModel
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 VStack {
-                    AsyncImage(url: nft.imageUrl) { image in
+                    AsyncImage(url: detailItem.imageUrl) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 350, height: 350)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding()
                     } placeholder: {
@@ -154,64 +252,116 @@ struct NFTDetailView: View {
                 .frame(maxWidth: .infinity)
                 
                 HStack {
-                    Text("Description")
+                    Text("Price info")
                         .padding(.leading, 20)
                         .foregroundStyle(Color.textLightGray)
                     Spacer()
                 }
-                HStack {
-                    Text(nft.description)
-                        .font(.body)
-                        .padding()
-                    Spacer()
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    HStack {
+                        Text("Balance")
+                            .fontWeight(.semibold)
+                        Spacer()
+                        Text("\(detailItem.balance, specifier: "%.2f")")
+                    }
+                    
+                    if detailItem.pricePerToken > 0 {
+                        Divider()
+                            .background(Color.listSeparatorDarkGray)
+                        
+                        
+                        HStack {
+                            Text("Price per token")
+                                .fontWeight(.semibold)
+                            Spacer()
+                            
+                            Text(String(format: "%.2f", detailItem.pricePerToken) == "0.00" ? "$\(detailItem.pricePerToken)" :
+                                    "$\(detailItem.pricePerToken, specifier: "%.2f")")
+                            
+                        }
+                        Divider()
+                            .background(Color.listSeparatorDarkGray)
+                        
+                        
+                        HStack {
+                            Text("Total value")
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text("$\(detailItem.balance * detailItem.pricePerToken, specifier: "%.2f")")
+                        }
+                    }
                 }
+                .padding()
                 .background(Color.backgroundDarkGray)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal)
                 .padding(.bottom, 20)
                 
-                VStack(alignment: .leading, spacing: 10) {
+                if !detailItem.description.isEmpty {
                     HStack {
-                        Text("Attributes")
-                            .padding(.leading, 2)
+                        Text("Description")
+                            .padding(.leading, 20)
                             .foregroundStyle(Color.textLightGray)
                         Spacer()
                     }
-                    VStack {
-                        ForEach(0..<nft.attributes.count, id: \.self) { index in
-                            let attribute = nft.attributes[index]
-                            let isLast = index == nft.attributes.count - 1
-
-                            HStack {
-                                VStack {
-                                    Text("\(attribute.traitType?.capitalized ?? "")")
-                                        .fontWeight(.semibold)
-                                    Spacer()
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("\(attribute.value?.stringValue ?? "")")
-                                    Spacer()
-                                }
-                            }
-                            
-                            if !isLast {
-                                Divider()
-                                    .background(Color.listSeparatorDarkGray)
-                                    .padding(.vertical, 5)
-                            } else {
-                                Spacer()
-                            }
-                        }
-                        .padding(.horizontal)
+                    HStack {
+                        Text(detailItem.description)
+                            .font(.body)
+                            .padding()
+                        Spacer()
                     }
-                    .padding(.top, 15)
                     .background(Color.backgroundDarkGray)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
                 }
-                .padding(.bottom, 20)
-                .padding(.horizontal)
+                
+                if detailItem.attributes.count > 0 {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            Text("Attributes")
+                                .padding(.leading, 2)
+                                .foregroundStyle(Color.textLightGray)
+                            Spacer()
+                        }
+                        VStack {
+                            ForEach(0..<detailItem.attributes.count, id: \.self) { index in
+                                let attribute = detailItem.attributes[index]
+                                let isLast = index == detailItem.attributes.count - 1
+                                
+                                HStack {
+                                    VStack {
+                                        Text("\(attribute.traitType?.capitalized ?? "")")
+                                            .fontWeight(.semibold)
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                    VStack {
+                                        Text("\(attribute.value?.stringValue ?? "")")
+                                        Spacer()
+                                    }
+                                }
+                                
+                                if !isLast {
+                                    Divider()
+                                        .background(Color.listSeparatorDarkGray)
+                                        .padding(.vertical, 5)
+                                } else {
+                                    Spacer()
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                        .padding(.top, 15)
+                        .background(Color.backgroundDarkGray)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        
+                    }
+                    .padding(.bottom, 20)
+                    .padding(.horizontal)
+                }
                 
                 HStack {
                     Text("Details")
@@ -219,26 +369,32 @@ struct NFTDetailView: View {
                         .foregroundStyle(Color.textLightGray)
                     Spacer()
                 }
+                
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text("Address")
                             .fontWeight(.semibold)
                         Spacer()
-                        Text(nft.address.shortSignature)
+                        Text(detailItem.address.shortSignature)
                         
                     }
                     
-                    Divider()
-                        .background(Color.listSeparatorDarkGray)
-                    HStack {
-                        Text("Creator Royalty Fee")
-                            .fontWeight(.semibold)
-                        Spacer()
-                        Text("\(nft.royaltyFee * 100, specifier: "%.2f")%")
+                    
+                    if detailItem.royaltyFee * 100 > 0.0 {
+                        Divider()
+                            .background(Color.listSeparatorDarkGray)
+                        HStack {
+                            Text("Creator Royalty Fee")
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text("\(detailItem.royaltyFee * 100, specifier: "%.2f")%")
+                        }
+                        .padding(.bottom, 5)
+                        
+                        Divider()
+                            .background(Color.listSeparatorDarkGray)
                     }
-                    .padding(.bottom, 5)
-                    Divider()
-                        .background(Color.listSeparatorDarkGray)
+                    
                     HStack {
                         Text("View on Magic Eden")
                             .fontWeight(.semibold)
@@ -247,11 +403,11 @@ struct NFTDetailView: View {
                     }
                     .onTapGesture {
                         if true {
-                            if let url = URL(string: "https://solscan.io/token/\(nft.address)"), UIApplication.shared.canOpenURL(url) {
+                            if let url = URL(string: "https://solscan.io/token/\(detailItem.address)"), UIApplication.shared.canOpenURL(url) {
                                 UIApplication.shared.open(url)
                             }
                         } else {
-                            if let url = URL(string: "https://magiceden.io/item-details/\(nft.address)"), UIApplication.shared.canOpenURL(url) {
+                            if let url = URL(string: "https://magiceden.io/item-details/\(detailItem.address)"), UIApplication.shared.canOpenURL(url) {
                                 UIApplication.shared.open(url)
                             }
                         }
@@ -262,22 +418,21 @@ struct NFTDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal)
                 
-                
             }
         }
         .scrollIndicators(.hidden)
         .foregroundStyle(.white)
         .background(.black)
-        .navigationBarTitle(nft.name, displayMode: .inline)
+        .navigationBarTitle(detailItem.name, displayMode: .inline)
         
     }
 }
 
 struct DetailsView: View {
-    let nft: NFTViewModel
-
+    let nft: DetailItemViewModel
+    
     var body: some View {
-        NFTDetailView(nft: nft)
+        DetailView(detailItem: nft)
     }
 }
 
@@ -295,11 +450,11 @@ struct DetailsView: View {
         }
     }
     
-    func createDummyNFT(json: String) -> NFTViewModel? {
+    func createDummyNFT(json: String) -> DetailItemViewModel? {
         // Convertir JSON a AssetItem
         if let assetItem = convertJsonToAssetItem(json: json) {
             // Crear una instancia de NFT a partir de AssetItem
-            let nft = NFTViewModel(from: assetItem)
+            let nft = DetailItemViewModel(from: assetItem)
             return nft
         } else {
             print("Error al convertir JSON a AssetItem.")
@@ -307,7 +462,7 @@ struct DetailsView: View {
         }
     }
     
-    return DetailsView(nft: createDummyNFT(json: json)!)
+    return DetailsView(nft: createDummyNFT(json: tokenJson)!)
 }
 
 

@@ -37,7 +37,7 @@ struct AssetItem: Codable {
     let mintExtensions: AssetMintExtensions?
     
     init(pricePerToken: Double,
-         balance: Decimal,
+         balance: Double,
          name: String,
          symbol: String,
          tokenType: TokenType,
@@ -53,9 +53,9 @@ struct AssetItem: Codable {
         // Inicializar AssetTokenInfo con pricePerToken, balance y symbol
         let assetPriceInfo = AssetPriceInfo(pricePerToken: pricePerToken, totalPrice: nil, currency: nil)
         self.tokenInfo = AssetTokenInfo(
-            balance: Double(NSDecimalNumber(decimal: balance).doubleValue),
+            balance: balance,
             supply: nil,
-            decimals: nil,
+            decimals: 10,
             tokenProgram: nil,
             associatedTokenAddress: nil,
             mintAuthority: nil,

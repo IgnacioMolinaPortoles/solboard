@@ -36,8 +36,8 @@ final class AssetsServiceManager: AssetsServiceManagerProtocol {
             self?.assetsService.getSolanaPrice() { price in
                 self?.assetsService.getBalance(address) { solBalance in
                     assetsItems.append(AssetItem(pricePerToken: price,
-                                                                    balance: Decimal(solBalance),
-                                                                    name: "SOL",
+                                                                    balance: solBalance * 10000000000,
+                                                                    name: "Solana",
                                                                     symbol: "SOL",
                                                                     tokenType: .fungible,
                                                                     image: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756"))

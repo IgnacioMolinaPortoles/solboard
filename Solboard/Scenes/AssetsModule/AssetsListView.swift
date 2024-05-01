@@ -44,7 +44,7 @@ class AssetsListViewModel: ObservableObject {
             return filteredBySegment()
         } else {
             return filteredBySegment().filter { asset in
-                asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false
+                asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false || asset.name?.localizedCaseInsensitiveContains(searchText) ?? false
             }
         }
     }
@@ -105,9 +105,9 @@ struct AssetsListView: View {
                             Spacer()
                             
                             if asset.tokenType == .fungible {
-                                let totalPrice = (asset.pricePerToken ?? 0) * (asset.balance?.doubleValue ?? 0)
+                                let totalPrice =  (asset.balance ?? 0)
                                 
-                                Text("$\(totalPrice, specifier: "%.3f")")
+                                Text("\(totalPrice, specifier: "%.2f")")
                                     .foregroundStyle(Color.textLightGray)
                             }
                             Image(systemName: "chevron.right")

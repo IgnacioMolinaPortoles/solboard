@@ -12,7 +12,7 @@ struct AssetItemViewModel {
     
     var address: String?
     var pricePerToken: Double?
-    var balance: Decimal?
+    var balance: Double?
     var name: String?
     var symbol: String?
     var tokenType: TokenType
@@ -23,9 +23,12 @@ struct AssetItemViewModel {
 
 extension [AssetItemViewModel] {
     func toTokenViewModel() -> [TokenViewModel] {
-        var viewModel = self.map { asset in
-            TokenViewModel(tokenName: asset.name ?? "",
-                           tokenType: asset.tokenType)
+        var viewModel = self.compactMap { asset in
+            if let name = asset.name ?? asset.symbol, !name.isEmpty {
+                return TokenViewModel(tokenName: name,
+                               tokenType: asset.tokenType)
+            }
+            return nil
         }
 
         viewModel.sort { $0.tokenType.sortOrder < $1.tokenType.sortOrder }
@@ -36,14 +39,19 @@ extension [AssetItemViewModel] {
 
 extension AssetItemViewModel {
     init(from item: AssetItem) {
-        let symbol = item.content?.metadata?.symbol ?? ""
+        let metadataSymbol = item.content?.metadata?.symbol
+        let tokenInfoSymbol = item.tokenInfo?.symbol
         
-        if let info = item.tokenInfo, item.content?.metadata?.tokenStandard?.lowercased() == TokenType.fungible.rawValue.lowercased() {
+        let symbol = metadataSymbol ?? tokenInfoSymbol ?? ""
+        let tokenStandard = item.content?.metadata?.tokenStandard?.lowercased()
+        let interface = item.interface ?? ""
+        
+        if let info = item.tokenInfo, (tokenStandard == TokenType.fungible.rawValue.lowercased() || interface == "FungibleToken") {
             let name = item.content?.metadata?.name
             let imageUrl = item.content?.files?.first?.uri
             let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
-            let balance = Decimal(info.balance ?? 0)
-            let decimals = pow(10, info.decimals ?? 0)
+            let balance = info.balance ?? 0
+            let decimals = pow(10, info.decimals ?? 0).doubleValue
             let realBalance = balance / decimals
             
             self.init(address: item.id,
@@ -58,7 +66,7 @@ extension AssetItemViewModel {
         } else {
             self.init(address: item.id,
                       pricePerToken: 0,
-                      balance: Decimal(item.tokenInfo?.balance ?? 1),
+                      balance: item.tokenInfo?.balance ?? 1,
                       name: item.content?.metadata?.name,
                       symbol: symbol,
                       tokenType: .nonFungible,
