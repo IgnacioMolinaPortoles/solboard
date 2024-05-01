@@ -59,6 +59,7 @@
 		73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20B2BCC6881003068A1 /* DateParser.swift */; };
 		73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */; };
 		73BEE2112BCCCE10003068A1 /* AssetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2102BCCCE10003068A1 /* AssetsListView.swift */; };
+		73E28F132BE205150062945B /* TransactionsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F122BE205150062945B /* TransactionsListTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		73BEE20B2BCC6881003068A1 /* DateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateParser.swift; sourceTree = "<group>"; };
 		73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 		73BEE2102BCCCE10003068A1 /* AssetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListView.swift; sourceTree = "<group>"; };
+		73E28F122BE205150062945B /* TransactionsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,6 +447,7 @@
 		73BEE1E52BC7102B003068A1 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				73E28F112BE205040062945B /* UIViews */,
 				73BEE1E62BC71043003068A1 /* HomeTests.swift */,
 			);
 			path = HomeModule;
@@ -502,6 +505,14 @@
 				739E64BB2BD81C180056B02E /* AssetItemViewModel.swift */,
 			);
 			path = AssetsModule;
+			sourceTree = "<group>";
+		};
+		73E28F112BE205040062945B /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				73E28F122BE205150062945B /* TransactionsListTests.swift */,
+			);
+			path = UIViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -689,6 +700,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73E28F132BE205150062945B /* TransactionsListTests.swift in Sources */,
 				73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */,
 				73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */,
 				73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */,

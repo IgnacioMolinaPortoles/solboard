@@ -8,7 +8,13 @@
 import SwiftUI
 import Combine
 
-class TransactionsListViewModel: ObservableObject {
+class TransactionsListViewModel: ObservableObject, Equatable {
+    private var id: UUID = UUID()
+    
+    static func == (lhs: TransactionsListViewModel, rhs: TransactionsListViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     @Published var transactions: [TransactionViewModel]
     
     init(transactions: [TransactionViewModel]) {
