@@ -9,20 +9,38 @@ import SwiftUI
 import Charts
 import Combine
 
+
 class BarChartViewModel: ObservableObject {
     @Published var tokens: [TokenViewModel]
-
+    
     init(tokens: [TokenViewModel]) {
         self.tokens = tokens
     }
     
+    // Actualiza la lista de tokens
     func updateTokens(tokens: [TokenViewModel]) {
         self.tokens = tokens
+    }
+    
+    // Genera datos visuales para el gráfico de barras
+    var chartData: [(TokenViewModel, Color)] {
+        return tokens.map { token in
+            let color = Color(hex: token.tokenType.hexColor)
+            return (token, color)
+        }
+    }
+    
+    // Calcula los colores de los tipos de tokens
+    var tokenTypeColors: [(TokenType, Color)] {
+        return [TokenType.fungible, TokenType.nonFungible].map { type in
+            let color = Color(hex: type.hexColor)
+            return (type, color)
+        }
     }
 }
 
 struct BarChart: View {
-    @ObservedObject private var viewModel: BarChartViewModel
+    @ObservedObject var viewModel: BarChartViewModel
     var onAssetTapDo: () -> Void
 
     init(viewModel: BarChartViewModel, onAssetTapDo: @escaping () -> Void) {
@@ -31,44 +49,46 @@ struct BarChart: View {
     }
 
     var body: some View {
-            GroupBox {
-                HStack {
-                    Text("Asset Distribution")
-                        .bold()
-                        .foregroundStyle(.white)
-                    Spacer()
-                }
-                Spacer().frame(height: 15)
-                Chart(viewModel.tokens) { item in
-                    BarMark(x: .value("Amount", 1))
-                        .foregroundStyle(Color(hex: item.tokenType.hexColor))
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .chartXAxis(.hidden)
-                .frame(height: 35)
-                
-                Spacer().frame(height: 15)
-                HStack(spacing: 6) {
-                    ForEach([TokenType.fungible, TokenType.nonFungible], id: \.self) { type in
-                        HStack {
-                            Circle()
-                                .fill(Color(hex: type.hexColor))
-                                .frame(width: 12, height: 12)
-                            Text(type.displayableName)
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundStyle(.white)
-                        }
+        GroupBox {
+            HStack {
+                Text("Asset Distribution")
+                    .bold()
+                    .foregroundStyle(.white)
+                Spacer()
+            }
+            Spacer().frame(height: 15)
+
+            // Utiliza chartData del ViewModel para mostrar los tokens en el gráfico de barras
+            Chart(viewModel.chartData, id: \.0.id) { item, color in
+                BarMark(x: .value("Amount", 1))
+                    .foregroundStyle(color)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .chartXAxis(.hidden)
+            .frame(height: 35)
+
+            Spacer().frame(height: 15)
+
+            // Utiliza tokenTypeColors del ViewModel para mostrar los colores de los tipos de tokens
+            HStack(spacing: 6) {
+                ForEach(viewModel.tokenTypeColors, id: \.0) { type, color in
+                    HStack {
+                        Circle()
+                            .fill(color)
+                            .frame(width: 12, height: 12)
+                        Text(type.displayableName)
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(.white)
                     }
-                    Spacer()
                 }
-                    
+                Spacer()
             }
-            .backgroundStyle(Color.backgroundDarkGray)
-            .background(.black)
-            .onTapGesture {
-                onAssetTapDo()
-            }
-        
+        }
+        .backgroundStyle(Color.backgroundDarkGray)
+        .background(.black)
+        .onTapGesture {
+            onAssetTapDo()
+        }
     }
 }
 

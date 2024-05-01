@@ -60,6 +60,7 @@
 		73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */; };
 		73BEE2112BCCCE10003068A1 /* AssetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2102BCCCE10003068A1 /* AssetsListView.swift */; };
 		73E28F132BE205150062945B /* TransactionsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F122BE205150062945B /* TransactionsListTests.swift */; };
+		73E28F162BE206330062945B /* BarChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F152BE206330062945B /* BarChartTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		73BEE20D2BCC68AF003068A1 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 		73BEE2102BCCCE10003068A1 /* AssetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListView.swift; sourceTree = "<group>"; };
 		73E28F122BE205150062945B /* TransactionsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListTests.swift; sourceTree = "<group>"; };
+		73E28F152BE206330062945B /* BarChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -511,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				73E28F122BE205150062945B /* TransactionsListTests.swift */,
+				73E28F152BE206330062945B /* BarChartTests.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */,
 				73A644C52BB5410B000E6424 /* PresentationManagerTests.swift in Sources */,
 				73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */,
+				73E28F162BE206330062945B /* BarChartTests.swift in Sources */,
 				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
