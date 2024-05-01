@@ -26,7 +26,6 @@ class HomeViewControllerTests: XCTestCase {
         // Arrange
         let mockAssetServiceManager = MockAssetsServiceManager()
         let sut = makeSUT(assetServiceManager: mockAssetServiceManager)
-        let expectation = XCTestExpectation(description: "La etiqueta de balance debería actualizarse")
         
         // Act
         sut.loadViewIfNeeded()

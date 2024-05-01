@@ -226,6 +226,37 @@ struct DetailItemViewModel: Identifiable {
             self.balance = realBalance
         }
     }
+    
+    var formattedBalance: String {
+        String(format: "%.2f", balance)
+    }
+    
+    func formatPricePerToken() -> String {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.minimumFractionDigits = 2
+            formatter.maximumFractionDigits = 16
+        return formatter.string(from: NSNumber(value: pricePerToken)) ?? "0.00"
+    }
+    
+    var formattedPricePerToken: String {
+        String(format: "%.2f", pricePerToken) == "0.00" ?
+        "$\(formatPricePerToken())" :
+        String(format: "$%.2f", pricePerToken)
+    }
+    
+    var formattedTotalValue: String {
+        let totalValue = balance * pricePerToken
+        return String(format: "$%.2f", totalValue)
+    }
+    
+    var formattedRoyaltyFee: String {
+        String(format: "%.2f%%", royaltyFee * 100)
+    }
+    
+    var formattedAddress: String {
+        address.shortSignature
+    }
 }
 
 struct DetailView: View {
@@ -264,32 +295,28 @@ struct DetailView: View {
                         Text("Balance")
                             .fontWeight(.semibold)
                         Spacer()
-                        Text("\(detailItem.balance, specifier: "%.2f")")
+                        Text(detailItem.formattedBalance)
                     }
                     
                     if detailItem.pricePerToken > 0 {
                         Divider()
                             .background(Color.listSeparatorDarkGray)
                         
-                        
                         HStack {
                             Text("Price per token")
                                 .fontWeight(.semibold)
                             Spacer()
-                            
-                            Text(String(format: "%.2f", detailItem.pricePerToken) == "0.00" ? "$\(detailItem.pricePerToken)" :
-                                    "$\(detailItem.pricePerToken, specifier: "%.2f")")
-                            
+                            Text(detailItem.formattedPricePerToken)
                         }
+                        
                         Divider()
                             .background(Color.listSeparatorDarkGray)
-                        
                         
                         HStack {
                             Text("Total value")
                                 .fontWeight(.semibold)
                             Spacer()
-                            Text("$\(detailItem.balance * detailItem.pricePerToken, specifier: "%.2f")")
+                            Text(detailItem.formattedTotalValue)
                         }
                     }
                 }
@@ -375,10 +402,8 @@ struct DetailView: View {
                         Text("Address")
                             .fontWeight(.semibold)
                         Spacer()
-                        Text(detailItem.address.shortSignature)
-                        
+                        Text(detailItem.formattedAddress)
                     }
-                    
                     
                     if detailItem.royaltyFee * 100 > 0.0 {
                         Divider()
@@ -387,7 +412,7 @@ struct DetailView: View {
                             Text("Creator Royalty Fee")
                                 .fontWeight(.semibold)
                             Spacer()
-                            Text("\(detailItem.royaltyFee * 100, specifier: "%.2f")%")
+                            Text(detailItem.formattedRoyaltyFee)
                         }
                         .padding(.bottom, 5)
                         
@@ -424,7 +449,6 @@ struct DetailView: View {
         .foregroundStyle(.white)
         .background(.black)
         .navigationBarTitle(detailItem.name, displayMode: .inline)
-        
     }
 }
 
