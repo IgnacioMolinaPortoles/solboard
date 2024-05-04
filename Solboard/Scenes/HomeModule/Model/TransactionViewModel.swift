@@ -24,6 +24,8 @@ struct TransactionViewModel: Identifiable {
 
 extension String {
     var shortSignature: String {
-        self.prefix(6) + "..." + self.suffix(6)
+        self.count > 0 ?
+        self.prefix(6) + "..." + self.suffix(6) :
+        ""
     }
 }

@@ -227,7 +227,7 @@ struct DetailItemViewModel: Identifiable {
             
             self.balance = realBalance
         }
-    
+        
         self.goToWebString = assetItem.getInterface() == .fungible ? "View on Solscan" : "View on Magic Eden"
         
         self.goToWeb = goToWeb
@@ -237,23 +237,26 @@ struct DetailItemViewModel: Identifiable {
         String(format: "%.2f", balance)
     }
     
-    func formatPricePerToken() -> String {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.minimumFractionDigits = 2
-            formatter.maximumFractionDigits = 16
-        return formatter.string(from: NSNumber(value: pricePerToken)) ?? "0.00"
+    func formatNumber(_ number: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 16
+        return formatter.string(from: NSNumber(value: number)) ?? "0.00"
     }
     
     var formattedPricePerToken: String {
         String(format: "%.2f", pricePerToken) == "0.00" ?
-        "$\(formatPricePerToken())" :
+        "$\(formatNumber(pricePerToken))" :
         String(format: "$%.2f", pricePerToken)
     }
     
     var formattedTotalValue: String {
         let totalValue = balance * pricePerToken
-        return String(format: "$%.2f", totalValue)
+        
+        return String(format: "%.2f", totalValue) == "0.00" ?
+        "$\(formatNumber(totalValue))" :
+        String(format: "$%.2f", totalValue)
     }
     
     var formattedRoyaltyFee: String {
@@ -404,16 +407,24 @@ struct DetailView: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("Address")
-                            .fontWeight(.semibold)
-                        Spacer()
-                        Text(detailItem.formattedAddress)
+                    if !detailItem.formattedAddress.isEmpty {
+                        HStack {
+                            Text("Address")
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text(detailItem.formattedAddress)
+                                .fontWeight(.semibold)
+                                .underline()
+                                .onTapGesture(perform: {
+                                    print("COPIAR AL PORTAPAPELES")
+                                })
+                        }
+                        
+                        Divider()
+                            .background(Color.listSeparatorDarkGray)
                     }
                     
                     if detailItem.royaltyFee * 100 > 0.0 {
-                        Divider()
-                            .background(Color.listSeparatorDarkGray)
                         HStack {
                             Text("Creator Royalty Fee")
                                 .fontWeight(.semibold)
@@ -426,14 +437,17 @@ struct DetailView: View {
                             .background(Color.listSeparatorDarkGray)
                     }
                     
-                    HStack {
-                        Text(detailItem.goToWebString)
-                            .fontWeight(.semibold)
-                            .underline()
-                        Spacer()
-                    }
-                    .onTapGesture {
-                        detailItem.goToWeb()
+                    if !detailItem.formattedAddress.isEmpty {
+                        
+                        HStack {
+                            Text(detailItem.goToWebString)
+                                .fontWeight(.semibold)
+                                .underline()
+                            Spacer()
+                        }
+                        .onTapGesture {
+                            detailItem.goToWeb()
+                        }
                     }
                 }
                 .padding()

@@ -8,10 +8,21 @@
 import Foundation
 
 struct SolanaPriceResponse: Codable {
-    let solana: SolanaPriceResponseSolana?
+    let data: GetSignaturesData?
+    let timeTaken: Double?
 }
 
-// MARK: - SolanaPriceResponseEthereum
-struct SolanaPriceResponseSolana: Codable {
-    let usd: Double?
+// MARK: - GetSignaturesData
+struct GetSignaturesData: Codable {
+    let sol: GetSignaturesSol?
+
+    enum CodingKeys: String, CodingKey {
+        case sol = "SOL"
+    }
+}
+
+// MARK: - GetSignaturesSol
+struct GetSignaturesSol: Codable {
+    let id, mintSymbol, vsToken, vsTokenSymbol: String?
+    let price: Double?
 }

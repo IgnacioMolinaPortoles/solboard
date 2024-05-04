@@ -31,13 +31,13 @@ extension URLSession: HTTPClient {
 enum Node {
     case solanaMain
     case helius
-    case coinGecko
+    case jupiterStation
     
     var url: String {
         switch self {
         case .solanaMain: return "https://api.mainnet-beta.solana.com?"
         case .helius: return "https://rpc-proxy.mairo-molina5.workers.dev/?"
-        case .coinGecko: return "https://api.coingecko.com/api/v3/simple/price?"
+        case .jupiterStation: return "https://price.jup.ag/v4/price?"
         }
     }
 }
@@ -51,7 +51,7 @@ enum RPCMethods {
     
     var urlParams: String {
         switch self {
-        case .getSolanaPrice: return "ids=solana&vs_currencies=usd"
+        case .getSolanaPrice: return "ids=SOL"
         default: return ""
         }
     }

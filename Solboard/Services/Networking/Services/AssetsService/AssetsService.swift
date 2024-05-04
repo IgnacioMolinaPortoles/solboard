@@ -43,7 +43,7 @@ final class AssetsService: AssetsServiceProtocol {
     }
     
     func getSolanaPrice(completion: @escaping (Double) -> Void) {
-        guard let request = RPCMethods.getSolanaPrice.buildRequest(node: .coinGecko) else {
+        guard let request = RPCMethods.getSolanaPrice.buildRequest(node: .jupiterStation) else {
             completion(0.0)
             return
         }
@@ -55,7 +55,7 @@ final class AssetsService: AssetsServiceProtocol {
             }
             
             let response = try? JSONDecoder().decode(SolanaPriceResponse.self, from: jsonData)
-            completion(response?.solana?.usd ?? 0.0)
+            completion(response?.data?.sol?.price ?? 0.0)
         }
     }
     
