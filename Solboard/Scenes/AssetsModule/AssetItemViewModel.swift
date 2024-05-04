@@ -43,14 +43,7 @@ extension [AssetItemViewModel] {
 
 extension AssetItemViewModel {
     init(from item: AssetItem) {
-        let metadataSymbol = item.content?.metadata?.symbol
-        let tokenInfoSymbol = item.tokenInfo?.symbol
-        
-        let symbol = metadataSymbol ?? tokenInfoSymbol ?? ""
-        let tokenStandard = item.content?.metadata?.tokenStandard?.lowercased()
-        let interface = item.interface ?? ""
-        
-        if let info = item.tokenInfo, (tokenStandard == TokenType.fungible.rawValue.lowercased() || interface == "FungibleToken") {
+        if let info = item.tokenInfo, item.getInterface() == .fungible {
             let name = item.content?.metadata?.name
             let imageUrl = item.content?.files?.first?.uri
             let image = name?.lowercased() == "wrapped sol" ? "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756" : imageUrl
@@ -62,7 +55,7 @@ extension AssetItemViewModel {
                       pricePerToken: info.priceInfo?.pricePerToken ?? 0.0,
                       balance: realBalance,
                       name: item.content?.metadata?.name,
-                      symbol: name?.lowercased() == "wrapped sol" ? "Wrapped SOL" : symbol,
+                      symbol: name?.lowercased() == "wrapped sol" ? "Wrapped SOL" : item.getSymbol(),
                       tokenType: .fungible,
                       metadata: item.content?.metadata,
                       image: image,
@@ -72,7 +65,7 @@ extension AssetItemViewModel {
                       pricePerToken: 0,
                       balance: item.tokenInfo?.balance ?? 1,
                       name: item.content?.metadata?.name,
-                      symbol: symbol,
+                      symbol: item.getSymbol(),
                       tokenType: .nonFungible,
                       metadata: item.content?.metadata,
                       image: item.content?.files?.first?.uri,

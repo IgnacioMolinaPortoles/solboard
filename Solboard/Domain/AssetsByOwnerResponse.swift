@@ -36,7 +36,9 @@ struct AssetItem: Codable {
     let tokenInfo: AssetTokenInfo?
     let mintExtensions: AssetMintExtensions?
     
-    init(pricePerToken: Double,
+    init(
+        id: String,
+        pricePerToken: Double,
          balance: Double,
          name: String,
          symbol: String,
@@ -44,7 +46,7 @@ struct AssetItem: Codable {
          image: String) {
         // Inicializar el interface e id como valores predeterminados nulos
         self.interface = nil
-        self.id = nil
+        self.id = id
         
         // Inicializar AssetContent con image, name y symbol
         let assetMetadata = AssetMetadata(attributes: nil, description: nil, name: name, symbol: symbol, tokenStandard: tokenType.rawValue)
@@ -64,7 +66,6 @@ struct AssetItem: Codable {
             priceInfo: assetPriceInfo
         )
         
-        // Inicializar todas las otras propiedades opcionales como nulas
         self.authorities = nil
         self.compression = nil
         self.grouping = nil

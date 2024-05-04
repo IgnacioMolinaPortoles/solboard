@@ -39,12 +39,10 @@ class AssetsListViewModel: ObservableObject {
         self.tokens = tokens
     }
 
-    // Método para manejar la selección de un asset
     func selectAsset(_ asset: AssetItemViewModel) {
         asset.onAssetDetailTap?()
     }
 
-    // Filtra los tokens según la búsqueda y segmentación
     var filteredTokens: [AssetItemViewModel] {
         let filteredBySegment = filterTokensBySegment()
         if searchText.isEmpty {
@@ -54,7 +52,6 @@ class AssetsListViewModel: ObservableObject {
         }
     }
 
-    // Filtra los tokens según la segmentación
     private func filterTokensBySegment() -> [AssetItemViewModel] {
         switch assetSelected {
         case 0: // Tokens
@@ -66,17 +63,18 @@ class AssetsListViewModel: ObservableObject {
         }
     }
 
-    // Filtra los tokens según el texto de búsqueda
     private func filterTokensBySearch(_ tokens: [AssetItemViewModel]) -> [AssetItemViewModel] {
         return tokens.filter { asset in
-            asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false || asset.name?.localizedCaseInsensitiveContains(searchText) ?? false
+            asset.symbol?.localizedCaseInsensitiveContains(searchText) ?? false 
+            ||
+            asset.name?.localizedCaseInsensitiveContains(searchText) ?? false
         }
     }
 }
 
 
 struct AssetsListView: View {
-    @ObservedObject private var viewModel: AssetsListViewModel
+    @ObservedObject var viewModel: AssetsListViewModel
     
     init(viewModel: AssetsListViewModel) {
         self.viewModel = viewModel

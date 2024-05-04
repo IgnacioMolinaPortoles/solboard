@@ -21,9 +21,12 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
+    var uiApplication: UIApplicationURLRouterProtocol
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController,
+         uiApplication: UIApplicationURLRouterProtocol = UIApplication.shared) {
         self.navigationController = navigationController
+        self.uiApplication = uiApplication
     }
     
     func start() {
@@ -34,7 +37,7 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     
     func routeToTransactionDetail(tx: String) {
         guard let url = URL(string: "https://solscan.io/tx/"+tx) else { return }
-        UIApplication.shared.open(url)
+        self.goTo(url: url)
     }
     
     func routeToAssetView(assets: [AssetItem]) {
@@ -44,22 +47,46 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
             
             if !metadataSymbol.isEmpty || !tokenInfoSymbol.isEmpty {
                 var assetVM = AssetItemViewModel(from: assetItem)
-                assetVM.onAssetDetailTap = {
-                    onAssetDetailTap(item: assetItem)
+                assetVM.onAssetDetailTap = { [weak self] in
+                    guard let self else { return }
+                    self.onAssetDetailTap(item: assetItem)
                 }
                 return assetVM
             }
             return nil
         }
         
-        func onAssetDetailTap(item: AssetItem) {
-            let vc = UIHostingController(rootView: DetailsView(nft: DetailItemViewModel(from: item)))
-            self.navigationController.pushViewController(vc, animated: true)
-        }
-        
         let vm = AssetsListViewModel(tokens: assetsVMArray)
         let vc = UIHostingController(rootView: AssetsListView(viewModel: vm))
         navigationController.pushViewController(vc,
                                                 animated: true)
+    }
+    
+    func onAssetDetailTap(item: AssetItem) {
+        let vc = UIHostingController(rootView: DetailsView(nft: DetailItemViewModel(from: item, goToWeb: { [weak self] in
+            guard let self else { return }
+            self.routeToWeb(item: item)
+        })))
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func routeToWeb(item: AssetItem) {
+        guard let id = item.id,
+              let url: URL = item.isFungible() ?
+                URL(string: "https://solscan.io/token/\(id)") :
+                URL(string: "https://magiceden.io/item-details/\(id)")
+        else {
+            return
+        }
+        
+        self.goTo(url: url)
+    }
+}
+
+extension HomeCoordinator {
+    func goTo(url: URL) {
+        if self.uiApplication._canOpenURL(url) {
+            self.uiApplication._open(url, options: [:], completionHandler: nil)
+        }
     }
 }

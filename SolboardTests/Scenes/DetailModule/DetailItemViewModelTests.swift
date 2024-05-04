@@ -32,7 +32,7 @@ class DetailItemViewModelTests: XCTestCase {
             XCTFail("El JSON no se decodificó correctamente a AssetItem")
             return
         }
-        let sut = DetailItemViewModel(from: assetItem)
+        let sut = DetailItemViewModel(from: assetItem, goToWeb: {})
         
         // Assert
         XCTAssertEqual(sut.formattedBalance, "1666.67", "El balance formateado debería ser '1.67'")

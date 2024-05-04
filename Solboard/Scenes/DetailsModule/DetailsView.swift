@@ -179,8 +179,10 @@ struct DetailItemViewModel: Identifiable {
     var attributes: [AssetAttribute]
     var pricePerToken: Double
     var balance: Double
+    var goToWebString: String
+    var goToWeb: () -> Void
     
-    init(from assetItem: AssetItem) {
+    init(from assetItem: AssetItem, goToWeb: @escaping () -> Void) {
         self.id = assetItem.id ?? ""
         
         self.name = assetItem.content?.metadata?.name ?? ""
@@ -225,6 +227,10 @@ struct DetailItemViewModel: Identifiable {
             
             self.balance = realBalance
         }
+    
+        self.goToWebString = assetItem.getInterface() == .fungible ? "View on Solscan" : "View on Magic Eden"
+        
+        self.goToWeb = goToWeb
     }
     
     var formattedBalance: String {
@@ -421,21 +427,13 @@ struct DetailView: View {
                     }
                     
                     HStack {
-                        Text("View on Magic Eden")
+                        Text(detailItem.goToWebString)
                             .fontWeight(.semibold)
                             .underline()
                         Spacer()
                     }
                     .onTapGesture {
-                        if true {
-                            if let url = URL(string: "https://solscan.io/token/\(detailItem.address)"), UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url)
-                            }
-                        } else {
-                            if let url = URL(string: "https://magiceden.io/item-details/\(detailItem.address)"), UIApplication.shared.canOpenURL(url) {
-                                UIApplication.shared.open(url)
-                            }
-                        }
+                        detailItem.goToWeb()
                     }
                 }
                 .padding()
@@ -478,7 +476,17 @@ struct DetailsView: View {
         // Convertir JSON a AssetItem
         if let assetItem = convertJsonToAssetItem(json: json) {
             // Crear una instancia de NFT a partir de AssetItem
-            let nft = DetailItemViewModel(from: assetItem)
+            let nft = DetailItemViewModel(from: assetItem, goToWeb: {
+                if true {
+                    if let url = URL(string: "https://solscan.io/token/\(assetItem.id ?? "")"), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                } else {
+                    if let url = URL(string: "https://magiceden.io/item-details/\(assetItem.id ?? "")"), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            })
             return nft
         } else {
             print("Error al convertir JSON a AssetItem.")
