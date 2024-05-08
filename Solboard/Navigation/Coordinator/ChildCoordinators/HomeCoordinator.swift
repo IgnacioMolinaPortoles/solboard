@@ -11,6 +11,7 @@ import Foundation
 
 protocol TransactionRouting: AnyObject {
     func routeToTransactionDetail(tx: String)
+    func routeToAllTransactions(txs: [TransactionViewModel])
 }
 
 protocol AssetRouting {
@@ -40,21 +41,21 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
         self.goTo(url: url)
     }
     
-    func routeToAssetView(assets: [AssetItem]) {
-        let assetsVMArray = assets.compactMap { assetItem in
-            let metadataSymbol = assetItem.content?.metadata?.symbol ?? ""
-            let tokenInfoSymbol = assetItem.tokenInfo?.symbol ?? ""
+    func routeToAllTransactions(txs: [TransactionViewModel]) {
+        let vm = TransactionsListViewModel(transactions: txs)
+        let transactionsView = TransactionsList(transactionsViewModel: vm, onTransactionDetailTapDo: { tx in
             
-            if !metadataSymbol.isEmpty || !tokenInfoSymbol.isEmpty {
-                var assetVM = AssetItemViewModel(from: assetItem)
-                assetVM.onAssetDetailTap = { [weak self] in
-                    guard let self else { return }
-                    self.onAssetDetailTap(item: assetItem)
-                }
-                return assetVM
-            }
-            return nil
-        }
+            print(tx)
+        }, tableTitle: "Transactions")
+        let vc = UIHostingController(rootView: transactionsView)
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func routeToAssetView(assets: [AssetItem]) {
+        let assetsVMArray = assets.toAssetViewModel(onTap: { [weak self] assetItem in
+            guard let self else { return }
+            self.onAssetDetailTap(item: assetItem)
+        })
         
         let vm = AssetsListViewModel(tokens: assetsVMArray)
         let vc = UIHostingController(rootView: AssetsListView(viewModel: vm))

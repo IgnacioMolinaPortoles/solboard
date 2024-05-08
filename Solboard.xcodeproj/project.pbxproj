@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		730FD2742BD0CE59006A0E87 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730FD2732BD0CE59006A0E87 /* WebView.swift */; };
+		7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */; };
+		7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */; };
+		7351F36D2BE86F3800B57D74 /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */; };
+		7351F36F2BE86F5A00B57D74 /* DetailItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36E2BE86F5A00B57D74 /* DetailItemViewModel.swift */; };
+		7351F3712BE8823F00B57D74 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F3702BE8823F00B57D74 /* Int+.swift */; };
 		73952ED12BD15F0500445430 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73952ED02BD15F0500445430 /* DetailsView.swift */; };
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
@@ -87,6 +92,11 @@
 
 /* Begin PBXFileReference section */
 		730FD2732BD0CE59006A0E87 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTransactionResponse.swift; sourceTree = "<group>"; };
+		7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
+		7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
+		7351F36E2BE86F5A00B57D74 /* DetailItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemViewModel.swift; sourceTree = "<group>"; };
+		7351F3702BE8823F00B57D74 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		73952ED02BD15F0500445430 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		7395FE582BAD198C009E40F1 /* Solboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,12 +186,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73952ECD2BD15EDC00445430 /* DetailsModule */ = {
+		7351F3692BE8353000B57D74 /* TransactionDetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */,
+				7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */,
+			);
+			path = TransactionDetailModule;
+			sourceTree = "<group>";
+		};
+		7351F3722BE8884000B57D74 /* ValidatorService */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE1F42BC8849F003068A1 /* ValidatorService.swift */,
+			);
+			path = ValidatorService;
+			sourceTree = "<group>";
+		};
+		7351F3732BE8884A00B57D74 /* TransactionsService */ = {
+			isa = PBXGroup;
+			children = (
+				73BEE2032BCBC56E003068A1 /* TransactionsService.swift */,
+			);
+			path = TransactionsService;
+			sourceTree = "<group>";
+		};
+		73952ECD2BD15EDC00445430 /* AssetDetailModule */ = {
 			isa = PBXGroup;
 			children = (
 				73952ED02BD15F0500445430 /* DetailsView.swift */,
+				7351F36E2BE86F5A00B57D74 /* DetailItemViewModel.swift */,
 			);
-			path = DetailsModule;
+			path = AssetDetailModule;
 			sourceTree = "<group>";
 		};
 		7395FE4F2BAD198C009E40F1 = {
@@ -266,7 +302,8 @@
 		73A644952BB2719A000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				73952ECD2BD15EDC00445430 /* DetailsModule */,
+				7351F3692BE8353000B57D74 /* TransactionDetailModule */,
+				73952ECD2BD15EDC00445430 /* AssetDetailModule */,
 				73BEE20F2BCCCDEF003068A1 /* AssetsModule */,
 				73A644AA2BB30DB0000E6424 /* HomeModule */,
 				73A644A12BB276A0000E6424 /* ImportWalletModule */,
@@ -385,6 +422,7 @@
 				73BEE1F02BC859C3003068A1 /* UIView+.swift */,
 				73BEE1FF2BCB753C003068A1 /* Decimal+.swift */,
 				73C1F3862BE6007C00C64F07 /* AssetItem+.swift */,
+				7351F3702BE8823F00B57D74 /* Int+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +468,7 @@
 				73BEE1FB2BCB30A3003068A1 /* SolanaPriceResponse.swift */,
 				73BEE1FD2BCB3492003068A1 /* GetBalanceResponse.swift */,
 				73BEE2052BCBC783003068A1 /* GetSignaturesForAddressResponse.swift */,
+				7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -490,9 +529,9 @@
 		73BEE1F62BC88633003068A1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7351F3732BE8884A00B57D74 /* TransactionsService */,
+				7351F3722BE8884000B57D74 /* ValidatorService */,
 				739E64BD2BD81D210056B02E /* AssetsService */,
-				73BEE1F42BC8849F003068A1 /* ValidatorService.swift */,
-				73BEE2032BCBC56E003068A1 /* TransactionsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -714,6 +753,7 @@
 				73A644BD2BB520F7000E6424 /* UserDataModel+CoreDataClass.swift in Sources */,
 				73A644982BB271BF000E6424 /* SplashScreenViewController.swift in Sources */,
 				73BEE1E42BC6EE85003068A1 /* AlertManager.swift in Sources */,
+				7351F36F2BE86F5A00B57D74 /* DetailItemViewModel.swift in Sources */,
 				73BEE2092BCC6784003068A1 /* TokenViewModel.swift in Sources */,
 				73BEE1F12BC859C3003068A1 /* UIView+.swift in Sources */,
 				73BEE1F32BC85A59003068A1 /* TransactionsList.swift in Sources */,
@@ -723,8 +763,10 @@
 				73A644A42BB276B8000E6424 /* ImportWalletViewController.swift in Sources */,
 				739E64C62BD822F00056B02E /* LoginCoordinator.swift in Sources */,
 				73BEE1EA2BC82976003068A1 /* BarChart.swift in Sources */,
+				7351F36D2BE86F3800B57D74 /* TransactionDetailView.swift in Sources */,
 				73BEE2002BCB753C003068A1 /* Decimal+.swift in Sources */,
 				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
+				7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */,
 				73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */,
 				73BEE1FA2BC8881A003068A1 /* AssetsByOwnerResponse.swift in Sources */,
 				73BEE1F52BC8849F003068A1 /* ValidatorService.swift in Sources */,
@@ -738,9 +780,11 @@
 				73A644D02BB628FF000E6424 /* ImportWalletViewModel.swift in Sources */,
 				739E64C12BD81DAB0056B02E /* AssetsServiceManager.swift in Sources */,
 				73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */,
+				7351F3712BE8823F00B57D74 /* Int+.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
 				739E64BC2BD81C180056B02E /* AssetItemViewModel.swift in Sources */,
+				7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */,
 				739E64C42BD822E80056B02E /* HomeCoordinator.swift in Sources */,
 				73A644B52BB52034000E6424 /* UserDataModel.xcdatamodeld in Sources */,
 				73A644A92BB30D0E000E6424 /* TabbarController.swift in Sources */,

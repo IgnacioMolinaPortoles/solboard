@@ -7,6 +7,17 @@
 
 import Foundation
 
+extension Int {
+    var presentableDate: String {
+        DateParser.shared.getParsedDate(TimeInterval(self))
+    }
+    
+    var dayMonthYearDate: String {
+        DateParser.shared.unixTimestampToDate(unixTimestamp: TimeInterval(self))
+    }
+}
+
+
 final class DateParser {
     static let shared = DateParser()
     
@@ -20,7 +31,7 @@ final class DateParser {
         }
     }
     
-    private func unixTimestampToDate(unixTimestamp: TimeInterval) -> String {
+    func unixTimestampToDate(unixTimestamp: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: unixTimestamp)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"

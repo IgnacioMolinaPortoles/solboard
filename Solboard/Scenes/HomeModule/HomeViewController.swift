@@ -20,6 +20,7 @@ final class HomeViewModel {
     var onTransactionsFetchedDo: (([TransactionViewModel]?) -> Void)?
     
     private var assetsItems: [AssetItem] = []
+    private var transactions: [TransactionViewModel] = []
     
     init(assetServiceManager: AssetsServiceManagerProtocol,
          transactionsService: TransactionsServiceProtocol) {
@@ -31,8 +32,13 @@ final class HomeViewModel {
         assetsItems
     }
     
+    func getFetchedTransactions() -> [TransactionViewModel] {
+        transactions
+    }
+    
     func getTransactions() {
         transactionsService.getSignatures(address) { [weak self] transactions in
+            self?.transactions = transactions
             self?.onTransactionsFetchedDo!(transactions)
         }
     }
@@ -110,13 +116,16 @@ final class HomeViewController: UIViewController {
     
     private func addAndBindTransactionsList() {
         let transactionsViewModel = self.transactionsView.addTransactionList(transactions: [],
-                                            onTransactionTapDo: { [weak self] tx in
+                                                                             onTransactionDetailTapDo: { [weak self] tx in
             self?.coordinator.routeToTransactionDetail(tx: tx)
-        }, tableTitle: "Signature")
+        }, onShowAllDataTapDo: { [weak self] in
+            self?.coordinator.routeToAllTransactions(txs: self?.viewModel.getFetchedTransactions() ?? [])
+        },
+                                                                             tableTitle: "Signature")
         
         
         viewModel.onTransactionsFetchedDo = { transactions in
-            transactionsViewModel.updateTransactions(transactions: transactions ?? [])
+            transactionsViewModel.updateTransactions(transactions: Array((transactions ?? []).prefix(5)))
         }
     }
 }

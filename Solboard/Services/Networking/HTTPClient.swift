@@ -48,6 +48,7 @@ enum RPCMethods {
     case getBalance(String)
     case getSolanaPrice
     case getSignaturesForAddress(String)
+    case getTransactionDetail(String)
     
     var urlParams: String {
         switch self {
@@ -110,13 +111,24 @@ enum RPCMethods {
                 ]
             ]
             return params
+        case .getTransactionDetail(let address):
+            let params: [String : Any] = [
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "getTransaction",
+                "params": [
+                    address,
+                  ["maxSupportedTransactionVersion": 0]
+                ]
+              ]
+            return params
         default: return [:]
         }
     }
     
     var HTTPMethod: String {
         switch self {
-        case .getAccountInfo(_), .getAssetsByOwner(_), .getBalance(_), .getSignaturesForAddress(_):
+        case .getAccountInfo(_), .getAssetsByOwner(_), .getBalance(_), .getSignaturesForAddress(_), .getTransactionDetail(_):
             return "POST"
         default:
             return "GET"

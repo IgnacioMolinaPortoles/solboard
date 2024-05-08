@@ -16,10 +16,6 @@ struct TransactionViewModel: Identifiable {
     var shortSignature: String {
         signatureHash.prefix(13) + "..."
     }
-    
-    var presentableDate: String {
-        DateParser.shared.getParsedDate(TimeInterval(self.unixDate))
-    }
 }
 
 extension String {

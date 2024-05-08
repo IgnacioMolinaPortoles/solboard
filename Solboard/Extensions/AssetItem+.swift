@@ -29,3 +29,21 @@ extension AssetItem {
         return metadataSymbol ?? tokenInfoSymbol
     }
 }
+
+extension [AssetItem] {
+    func toAssetViewModel(onTap: @escaping (AssetItem) -> Void) -> [AssetItemViewModel] {
+        return self.compactMap { assetItem in
+            let metadataSymbol = assetItem.content?.metadata?.symbol ?? ""
+            let tokenInfoSymbol = assetItem.tokenInfo?.symbol ?? ""
+            
+            if !metadataSymbol.isEmpty || !tokenInfoSymbol.isEmpty {
+                var assetVM = AssetItemViewModel(from: assetItem)
+                assetVM.onAssetDetailTap = {
+                    onTap(assetItem)
+                }
+                return assetVM
+            }
+            return nil
+        }
+    }
+}

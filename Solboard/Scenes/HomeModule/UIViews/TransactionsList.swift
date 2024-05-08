@@ -29,24 +29,19 @@ class TransactionsListViewModel: ObservableObject, Equatable {
 
 struct TransactionsList: View {
     @ObservedObject var transactionsViewModel: TransactionsListViewModel
-    var onTransactionTapDo: (String) -> Void
-    var tableTitle: String
-    
-    init(transactionsViewModel: TransactionsListViewModel,
-         onTransactionTapDo: @escaping (String) -> Void,
-         tableTitle: String) {
-        self.transactionsViewModel = transactionsViewModel
-        self.onTransactionTapDo = onTransactionTapDo
-        self.tableTitle = tableTitle
-    }
+    var onTransactionDetailTapDo: (String) -> Void
+    var onShowAllDataTapDo: (() -> Void)?
+    var tableTitle: String?
     
     var body: some View {
         
-        HStack {
-            Text(tableTitle)
-                .padding(.leading, 20)
-                .foregroundStyle(Color.textLightGray)
-            Spacer()
+        if let title = tableTitle {
+            HStack {
+                Text(title)
+                    .padding(.leading, 20)
+                    .foregroundStyle(Color.textLightGray)
+                Spacer()
+            }
         }
         
         List {
@@ -55,38 +50,67 @@ struct TransactionsList: View {
                     Text("\(transaction.shortSignature)")
                         .foregroundStyle(.white)
                     Spacer()
-                    Text("\(transaction.presentableDate)")
+                    Text("\(transaction.unixDate.presentableDate)")
                         .foregroundStyle(Color.textLightGray)
                     Image(.chevronRight)
                     
                 }
                 .onTapGesture {
-                    onTransactionTapDo(transaction.signatureHash)
+                    onTransactionDetailTapDo(transaction.signatureHash)
                 }
-                
             }
             .listRowBackground(Color.backgroundDarkGray)
+            .listRowSeparatorTint(Color.listSeparatorDarkGray)
+            
+            if let onTapDo = onShowAllDataTapDo {
+                Section() {
+                    HStack {
+                        Text("Show All Data")
+                            .foregroundStyle(.white)
+                        Spacer()
+                        Image(.chevronRight)
+                    }
+                    .onTapGesture {
+                        onTapDo()
+                    }
+                }
+                .listRowBackground(Color.backgroundDarkGray)
+            }
         }
-        .listStyle(.plain)
+//        .padding(-20)
+        .padding(.top, -35)
         .scrollDisabled(true)
-        .background(Color.backgroundDarkGray)
+        .listSectionSpacing(12)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        
-        
     }
 }
 
-//#Preview {
-//    TransactionsList(transaction: [], onTransactionTapDo: {}, tableTitle: "ASD")
-//}
+#Preview {
+    let dummy = TransactionViewModel(signatureHash: "ASD SD",
+                                     unixDate: Int(Date().timeIntervalSince1970))
+    
+    let vm =  TransactionsListViewModel(transactions: [dummy,
+                                                       dummy,
+                                                       dummy] )
+    
+    return TransactionsList(transactionsViewModel: vm,
+                            onTransactionDetailTapDo: {_ in },
+                            onShowAllDataTapDo: {
+        print("si")
+    },
+                            tableTitle: "Signatures")
+}
 
 extension UIView {
     func addTransactionList(transactions: [TransactionViewModel],
-                            onTransactionTapDo: @escaping (String) -> Void,
-                            tableTitle: String) -> TransactionsListViewModel {
+                            onTransactionDetailTapDo: @escaping (String) -> Void,
+                            onShowAllDataTapDo: (() -> Void)?,
+                            tableTitle: String?) -> TransactionsListViewModel {
         let viewModel = TransactionsListViewModel(transactions: transactions)
         let view = TransactionsList(transactionsViewModel: viewModel,
-                                    onTransactionTapDo: onTransactionTapDo, tableTitle: tableTitle)
+                                    onTransactionDetailTapDo: onTransactionDetailTapDo,
+                                    onShowAllDataTapDo: onShowAllDataTapDo,
+                                    tableTitle: tableTitle)
         
         let hostingController = UIHostingController(rootView: view)
         hostingController.view.isOpaque = false

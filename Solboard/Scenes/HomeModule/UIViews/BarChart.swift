@@ -55,10 +55,10 @@ struct BarChart: View {
                     .bold()
                     .foregroundStyle(.white)
                 Spacer()
+                Image(.chevronRight)
             }
             Spacer().frame(height: 15)
 
-            // Utiliza chartData del ViewModel para mostrar los tokens en el gráfico de barras
             Chart(viewModel.chartData, id: \.0.id) { item, color in
                 BarMark(x: .value("Amount", 1))
                     .foregroundStyle(color)
@@ -69,7 +69,6 @@ struct BarChart: View {
 
             Spacer().frame(height: 15)
 
-            // Utiliza tokenTypeColors del ViewModel para mostrar los colores de los tipos de tokens
             HStack(spacing: 6) {
                 ForEach(viewModel.tokenTypeColors, id: \.0) { type, color in
                     HStack {
@@ -92,9 +91,11 @@ struct BarChart: View {
     }
 }
 
-//#Preview {
-//    BarChart(tokensData: tokens, onAssetDistributionTapDo: {})
-//}
+#Preview {
+    let dummy = TokenViewModel(tokenName: "Si", tokenType: .fungible)
+    let vm = BarChartViewModel(tokens: [dummy, dummy])
+    return BarChart(viewModel: vm, onAssetTapDo: {})
+}
 
 extension UIView {
     func addAssetBarChart(tokensData: [TokenViewModel], onAssetTapDo: @escaping () -> Void) -> BarChartViewModel {

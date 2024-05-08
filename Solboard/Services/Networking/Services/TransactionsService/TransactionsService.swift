@@ -35,6 +35,22 @@ class TransactionsService: TransactionsServiceProtocol {
             }
         }
     }
+    
+    func getTransaction(_ address: String, completion: @escaping (TransactionResponse?) -> Void) {
+        let request = RPCMethods.getSignaturesForAddress(address).buildRequest(node: .solanaMain)!
+        
+        client.perform(request, timeout: 10.0) { jsonData, response, error in
+            guard let jsonData else {
+                completion(nil)
+                return
+            }
+            
+            let response = try? JSONDecoder().decode(TransactionResponse.self, from: jsonData)
+            DispatchQueue.main.async {
+                completion(response)
+            }
+        }
+    }
 }
 
 struct TransactionMapper {
