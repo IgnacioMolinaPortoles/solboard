@@ -63,7 +63,8 @@ class HomeViewControllerTests: XCTestCase {
 
         private(set) var routeToTransactionDetailCalled: Bool = false
         private(set) var routeToAssetViewCalled: Bool = false
-
+        private(set) var routeToAllTransactionsCalled: Bool = false
+        
         func routeToTransactionDetail(tx: String) {
             routeToTransactionDetailCalled = true
             txsRouted.append(tx)
@@ -72,6 +73,10 @@ class HomeViewControllerTests: XCTestCase {
         func routeToAssetView(assets: [AssetItem]) {
             routeToAssetViewCalled = true
             self.assetsToBuildAssetsView = assets
+        }
+        
+        func routeToAllTransactions(txs: [TransactionViewModel]) {
+            routeToAllTransactionsCalled = true
         }
     }
     
@@ -86,10 +91,16 @@ class HomeViewControllerTests: XCTestCase {
     
     final class MockTransactionsServiceProtocol: TransactionsServiceProtocol {
         var didFetchTransactions = false
+        var didGetTransaction = false
         
         func getSignatures(_ address: String, completion: @escaping ([TransactionViewModel]) -> Void) {
             didFetchTransactions = true
             completion([TransactionViewModel]())
+        }
+        
+        func getTransaction(_ tx: String, completion: @escaping (Solboard.GetSignatureResponse?) -> Void) {
+            didGetTransaction = true
+            completion(nil)
         }
     }
 }

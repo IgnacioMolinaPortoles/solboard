@@ -9,6 +9,7 @@ import Foundation
 
 protocol TransactionsServiceProtocol {
     func getSignatures(_ address: String, completion: @escaping ([TransactionViewModel]) -> Void)
+    func getTransaction(_ tx: String, completion: @escaping (GetSignatureResponse?) -> Void)
 }
 
 class TransactionsService: TransactionsServiceProtocol {
@@ -36,7 +37,7 @@ class TransactionsService: TransactionsServiceProtocol {
         }
     }
     
-    func getTransaction(_ address: String, completion: @escaping (TransactionResponse?) -> Void) {
+    func getTransaction(_ tx: String, completion: @escaping (GetSignatureResponse?) -> Void) {
         let request = RPCMethods.getSignaturesForAddress(address).buildRequest(node: .solanaMain)!
         
         client.perform(request, timeout: 10.0) { jsonData, response, error in
@@ -45,7 +46,7 @@ class TransactionsService: TransactionsServiceProtocol {
                 return
             }
             
-            let response = try? JSONDecoder().decode(TransactionResponse.self, from: jsonData)
+            let response = try? JSONDecoder().decode(GetSignatureResponse.self, from: jsonData)
             DispatchQueue.main.async {
                 completion(response)
             }

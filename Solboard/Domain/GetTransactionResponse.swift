@@ -7,118 +7,164 @@
 
 import Foundation
 
-struct TransactionResponse: Decodable {
-    let jsonrpc: String
-    let id: Int
-    let result: TransactionResult
+// MARK: - GetSignatureResponse
+struct GetSignatureResponse: Codable {
+    let jsonrpc: String?
+    let result: GetSignatureResult?
+    let id: Int?
 }
 
-struct TransactionResult: Decodable {
+// MARK: - GetSignatureResult
+struct GetSignatureResult: Codable {
     let blockTime: Int?
-    let meta: TransactionMeta?
-    let slot: Int
-    let transaction: TransactionDetails
-    let version: Int?
+    let meta: GetSignatureMeta?
+    let slot: Int?
+    let transaction: GetSignatureTransaction?
 }
 
-struct TransactionMeta: Decodable {
-    let err: TransactionError?
+// MARK: - GetSignatureMeta
+struct GetSignatureMeta: Codable {
+    let computeUnitsConsumed: Int?
+    let err: GetSignatureErr?
     let fee: Int?
-    let innerInstructions: [InnerInstruction]
-    let postBalances: [UInt64]
-    let postTokenBalances: [TokenBalance]
-    let preBalances: [UInt64]
-    let preTokenBalances: [TokenBalance]
-    let rewards: [Reward]
-    let status: TransactionStatus
+    let innerInstructions: [GetSignatureInnerInstruction]?
+    let loadedAddresses: GetSignatureLoadedAddresses?
+    let logMessages: [String]?
+    let postBalances: [Int]?
+    let postTokenBalances: [GetSignatureTokenBalance]?
+    let preBalances: [Int]?
+    let preTokenBalances: [GetSignatureTokenBalance]?
+//    let rewards: [JSONAny]?
 }
 
-struct TransactionError: Decodable {
-    let instructionError: InstructionErrorType?
+// MARK: - GetSignatureErr
+struct GetSignatureErr: Codable {
+    let instructionError: [GetSignatureInstructionErrorElement]?
+
+    enum CodingKeys: String, CodingKey {
+        case instructionError = "InstructionError"
+    }
 }
 
-
-struct TransactionStatus: Decodable {
-    let Ok: Bool?
-    let Err: TransactionErrorDetail?
-}
-
-struct TransactionErrorDetail: Decodable {
-    let InstructionError: [InstructionErrorType]?
-}
-
-enum InstructionErrorType: Decodable {
-    case simple(Int)
-    case detailed(Int, CustomError)
+enum GetSignatureInstructionErrorElement: Codable {
+    case getSignatureInstructionErrorClass(GetSignatureInstructionErrorClass?)
+    case integer(Int?)
     
+    func getStringValue() -> String {
+        switch self {
+        case .getSignatureInstructionErrorClass(let err):
+            return "\(String(describing: err?.custom ?? 0))"
+        case .integer(let int):
+            return "\(String(describing: int ?? 0))"
+        }
+    }
+
     init(from decoder: Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        let code = try container.decode(Int.self)
-        if container.isAtEnd {
-            self = .simple(code)
-        } else {
-            let customError = try container.decode(CustomError.self)
-            self = .detailed(code, customError)
+        let container = try decoder.singleValueContainer()
+        
+        if let x = try? container.decode(Int.self) {
+            self = .integer(x)
+            return
+        }
+        
+        if let x = try? container.decode(GetSignatureInstructionErrorClass.self) {
+            self = .getSignatureInstructionErrorClass(x)
+            return
+        }
+        
+        self = .integer(nil)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .getSignatureInstructionErrorClass(let x):
+            try container.encode(x)
+        case .integer(let x):
+            try container.encode(x)
         }
     }
 }
 
-struct CustomError: Decodable {
-    let custom: Int
-    
+// MARK: - GetSignatureInstructionErrorClass
+struct GetSignatureInstructionErrorClass: Codable {
+    let custom: Int?
+
     enum CodingKeys: String, CodingKey {
         case custom = "Custom"
     }
 }
 
-struct InnerInstruction: Decodable {
-    let index: Int
-    let instructions: [Instruction]
+// MARK: - GetSignatureInnerInstruction
+struct GetSignatureInnerInstruction: Codable {
+    let index: Int?
+    let instructions: [GetSignatureInstruction]?
 }
 
-struct Instruction: Decodable {
-    let accounts: [Int]
-    let data: String
-    let programIdIndex: Int
+// MARK: - GetSignatureInstruction
+struct GetSignatureInstruction: Codable {
+    let accounts: [Int]?
+    let data: String?
+    let programIDIndex: Int?
     let stackHeight: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case accounts, data
+        case programIDIndex = "programIdIndex"
+        case stackHeight
+    }
 }
 
-struct TokenBalance: Decodable {
-    let accountIndex: Int
-    let mint: String
-    let owner: String
-    let programId: String
-    let uiTokenAmount: UiTokenAmount
+// MARK: - GetSignatureLoadedAddresses
+struct GetSignatureLoadedAddresses: Codable {
+    let readonly, writable: [String]?
 }
 
-struct UiTokenAmount: Decodable {
-    let amount: String
-    let decimals: Int
-    let uiAmount: Double
-    let uiAmountString: String
+// MARK: - GetSignatureTokenBalance
+struct GetSignatureTokenBalance: Codable {
+    let accountIndex: Int?
+    let mint: String?
+    let owner: String?
+    let programID: String?
+    let uiTokenAmount: GetSignatureUITokenAmount?
+
+    enum CodingKeys: String, CodingKey {
+        case accountIndex, mint, owner
+        case programID = "programId"
+        case uiTokenAmount
+    }
 }
 
-struct Reward: Decodable {
-    let pubkey: String
-    let lamports: Int
-    let postBalance: Int
-    let rewardType: String
+// MARK: - GetSignatureUITokenAmount
+struct GetSignatureUITokenAmount: Codable {
+    let amount: String?
+    let decimals: Int?
+    let uiAmount: Double?
+    let uiAmountString: String?
 }
 
-struct TransactionDetails: Decodable {
-    let message: TransactionMessage
-    let signatures: [String]
+// MARK: - GetSignatureTransaction
+struct GetSignatureTransaction: Codable {
+    let message: GetSignatureMessage?
+    let signatures: [String]?
 }
 
-struct TransactionMessage: Decodable {
-    let accountKeys: [String]
-    let header: TransactionHeader
-    let instructions: [Instruction]
-    let recentBlockhash: String
+// MARK: - GetSignatureMessage
+struct GetSignatureMessage: Codable {
+    let accountKeys: [String]?
+    let header: GetSignatureHeader?
+    let instructions: [GetSignatureInstruction]?
+    let recentBlockhash: String?
+    let addressTableLookups: [GetSignatureAddressTableLookup]?
 }
 
-struct TransactionHeader: Decodable {
-    let numReadonlySignedAccounts: Int
-    let numReadonlyUnsignedAccounts: Int
-    let numRequiredSignatures: Int
+// MARK: - GetSignatureAddressTableLookup
+struct GetSignatureAddressTableLookup: Codable {
+    let accountKey: String?
+    let readonlyIndexes, writableIndexes: [Int]?
+}
+
+// MARK: - GetSignatureHeader
+struct GetSignatureHeader: Codable {
+    let numReadonlySignedAccounts, numReadonlyUnsignedAccounts, numRequiredSignatures: Int?
 }

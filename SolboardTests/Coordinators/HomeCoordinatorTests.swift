@@ -56,7 +56,7 @@ class HomeCoordinatorTests: XCTestCase {
         let mockUIApplication = MockUIApplication()
         let mockNavigationController = MockNavigationController()
         let coordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: mockUIApplication)
-        var assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
+        let assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
         
         // Act
         coordinator.routeToAssetView(assets: [assetItem])
@@ -76,7 +76,7 @@ class HomeCoordinatorTests: XCTestCase {
         let mockUIApplication = MockUIApplication()
         let mockNavigationController = MockNavigationController()
         let coordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: mockUIApplication)
-        var assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
+        let assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
         
         // Act
         coordinator.routeToWeb(item: assetItem)

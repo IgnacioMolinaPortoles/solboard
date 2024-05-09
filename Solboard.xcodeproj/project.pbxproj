@@ -19,6 +19,9 @@
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
 		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
 		7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */; };
+		739ACDAE2BEC243D0078FB92 /* TransactionOverviewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */; };
+		739ACDB12BEC31590078FB92 /* TransactionDetailModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */; };
+		739ACDB32BEC31720078FB92 /* TransactionDummyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */; };
 		739E64BC2BD81C180056B02E /* AssetItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64BB2BD81C180056B02E /* AssetItemViewModel.swift */; };
 		739E64BF2BD81D320056B02E /* AssetsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64BE2BD81D320056B02E /* AssetsMapper.swift */; };
 		739E64C12BD81DAB0056B02E /* AssetsServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64C02BD81DAB0056B02E /* AssetsServiceManager.swift */; };
@@ -107,6 +110,9 @@
 		7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITests.swift; sourceTree = "<group>"; };
 		7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOverviewItemView.swift; sourceTree = "<group>"; };
+		739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailModuleTests.swift; sourceTree = "<group>"; };
+		739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDummyFactory.swift; sourceTree = "<group>"; };
 		739E64BB2BD81C180056B02E /* AssetItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetItemViewModel.swift; sourceTree = "<group>"; };
 		739E64BE2BD81D320056B02E /* AssetsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsMapper.swift; sourceTree = "<group>"; };
 		739E64C02BD81DAB0056B02E /* AssetsServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsServiceManager.swift; sourceTree = "<group>"; };
@@ -189,6 +195,7 @@
 		7351F3692BE8353000B57D74 /* TransactionDetailModule */ = {
 			isa = PBXGroup;
 			children = (
+				739ACDAC2BEC242D0078FB92 /* SubViews */,
 				7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */,
 				7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */,
 			);
@@ -278,6 +285,31 @@
 				7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */,
 			);
 			path = SolboardUITests;
+			sourceTree = "<group>";
+		};
+		739ACDAC2BEC242D0078FB92 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		739ACDAF2BEC31420078FB92 /* TransactionDetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				739ACDB42BEC324D0078FB92 /* Mocks */,
+				739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */,
+			);
+			path = TransactionDetailModule;
+			sourceTree = "<group>";
+		};
+		739ACDB42BEC324D0078FB92 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		739E64BD2BD81D210056B02E /* AssetsService */ = {
@@ -476,7 +508,8 @@
 		73A644E02BC4A917000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				73E28F1A2BE20C450062945B /* DetailModule */,
+				739ACDAF2BEC31420078FB92 /* TransactionDetailModule */,
+				73E28F1A2BE20C450062945B /* AssetDetailModule */,
 				73E28F172BE209AB0062945B /* AssetsModule */,
 				73BEE1E52BC7102B003068A1 /* HomeModule */,
 				73A644E12BC4A91E000E6424 /* ImportWalletScene */,
@@ -588,12 +621,12 @@
 			path = AssetsModule;
 			sourceTree = "<group>";
 		};
-		73E28F1A2BE20C450062945B /* DetailModule */ = {
+		73E28F1A2BE20C450062945B /* AssetDetailModule */ = {
 			isa = PBXGroup;
 			children = (
 				73E28F1B2BE20C530062945B /* DetailItemViewModelTests.swift */,
 			);
-			path = DetailModule;
+			path = AssetDetailModule;
 			sourceTree = "<group>";
 		};
 		73E28F1D2BE211620062945B /* Services */ = {
@@ -782,6 +815,7 @@
 				73BEE20E2BCC68AF003068A1 /* TransactionViewModel.swift in Sources */,
 				7351F3712BE8823F00B57D74 /* Int+.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
+				739ACDAE2BEC243D0078FB92 /* TransactionOverviewItemView.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
 				739E64BC2BD81C180056B02E /* AssetItemViewModel.swift in Sources */,
 				7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */,
@@ -797,6 +831,7 @@
 			files = (
 				73E28F132BE205150062945B /* TransactionsListTests.swift in Sources */,
 				73C1F38A2BE6076C00C64F07 /* HomeCoordinatorTests.swift in Sources */,
+				739ACDB32BEC31720078FB92 /* TransactionDummyFactory.swift in Sources */,
 				73A644E32BC4C2C9000E6424 /* ImportWalletViewControllerTests.swift in Sources */,
 				73E28F1F2BE211700062945B /* AssetsServiceManagerTests.swift in Sources */,
 				73E28F1C2BE20C530062945B /* DetailItemViewModelTests.swift in Sources */,
@@ -804,6 +839,7 @@
 				73E28F192BE209C50062945B /* AssetsListViewTests.swift in Sources */,
 				73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */,
 				73E28F162BE206330062945B /* BarChartTests.swift in Sources */,
+				739ACDB12BEC31590078FB92 /* TransactionDetailModuleTests.swift in Sources */,
 				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

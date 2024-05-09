@@ -7,12 +7,23 @@
 
 import Foundation
 
+struct Constants {
+    static let lamports: Double = 1000000000.0
+}
+
+extension Int {
+    func parseFee() -> String {
+        let solValue = Double(self) / Constants.lamports
+        return "\(solValue.allDecimals()) SOL"
+    }
+}
+
 extension Double {
-    func allDecimals() -> String {
+    func allDecimals(maximumFractionDigits: Int = 16) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 16
+        formatter.maximumFractionDigits = maximumFractionDigits
         return formatter.string(from: NSNumber(value: self)) ?? "0.00"
     }
 }

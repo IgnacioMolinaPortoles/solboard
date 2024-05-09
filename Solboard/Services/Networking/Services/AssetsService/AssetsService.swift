@@ -35,7 +35,7 @@ final class AssetsService: AssetsServiceProtocol {
             let response = try? JSONDecoder().decode(GetBalanceResponse.self, from: jsonData)
             
             if let solBalance = response?.result?.value {
-                completion(Double(Double(solBalance) / 1000000000.0))
+                completion(Double(Double(solBalance) / Constants.lamports))
             } else {
                 completion(0.0)
             }

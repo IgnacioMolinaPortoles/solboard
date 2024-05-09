@@ -37,7 +37,7 @@ final class AssetsServiceManager: AssetsServiceManagerProtocol {
                 self?.assetsService.getBalance(address) { solBalance in
                     assetsItems.append(AssetItem(id: "So11111111111111111111111111111111111111112",
                                                  pricePerToken: price,
-                                                 balance: solBalance * 10000000000,
+                                                 balance: solBalance * Constants.lamports,
                                                  name: "Solana",
                                                  symbol: "SOL",
                                                  tokenType: .fungible,

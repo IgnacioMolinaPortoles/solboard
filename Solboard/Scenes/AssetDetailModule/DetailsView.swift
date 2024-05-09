@@ -391,15 +391,10 @@ struct DetailsView: View {
         if let assetItem = convertJsonToAssetItem(json: json) {
             // Crear una instancia de NFT a partir de AssetItem
             let nft = DetailItemViewModel(from: assetItem, goToWeb: {
-                if true {
-                    if let url = URL(string: "https://solscan.io/token/\(assetItem.id ?? "")"), UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
-                } else {
-                    if let url = URL(string: "https://magiceden.io/item-details/\(assetItem.id ?? "")"), UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
+                if let url = URL(string: "https://magiceden.io/item-details/\(assetItem.id ?? "")"), UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
                 }
+                
             })
             return nft
         } else {

@@ -26,7 +26,7 @@ class TransactionViewModelTests: XCTestCase {
         XCTAssertEqual(sut.shortSignature, "signatureHashExample".prefix(13) + "...", "shortSignature no es correcto")
         
         let expectedDate = DateParser.shared.getParsedDate(TimeInterval(unixDate))
-        XCTAssertEqual(sut.presentableDate, expectedDate, "presentableDate no es correcto")
+        XCTAssertEqual(sut.unixDate.dayMonthYearDate, expectedDate, "presentableDate no es correcto")
     }
 }
 
@@ -42,7 +42,7 @@ class TransactionsListTests: XCTestCase {
         
         // Act
         let sut = TransactionsList(transactionsViewModel: transactionsViewModel,
-                                   onTransactionTapDo: { _ in
+                                   onTransactionDetailTapDo: { _ in
                                        didTapTransaction = true
                                    },
                                    tableTitle: expectedTableTitle)
@@ -64,7 +64,7 @@ class TransactionsListTests: XCTestCase {
         
         // Act
         let sut = TransactionsList(transactionsViewModel: transactionsViewModel,
-                                   onTransactionTapDo: { signature in
+                                   onTransactionDetailTapDo: { signature in
                                        XCTAssertEqual(signature, "signature1", "Debería haber llamado al callback con la firma correcta")
                                        didTapTransaction = true
                                    },
@@ -72,7 +72,7 @@ class TransactionsListTests: XCTestCase {
         
         // Simula un tap en la transacción
         let tapTransaction = sut.transactionsViewModel.transactions.first!
-        sut.onTransactionTapDo(tapTransaction.signatureHash)
+        sut.onTransactionDetailTapDo(tapTransaction.signatureHash)
         
         // Assert
         XCTAssertTrue(didTapTransaction, "Debería haber llamado al callback `onTransactionTapDo` cuando se tocó la transacción")
