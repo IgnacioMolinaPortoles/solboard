@@ -12,16 +12,4 @@ struct TransactionViewModel: Identifiable {
     
     var signatureHash: String
     var unixDate: Int
-    
-    var shortSignature: String {
-        signatureHash.prefix(13) + "..."
-    }
-}
-
-extension String {
-    var shortSignature: String {
-        self.count > 0 ?
-        self.prefix(6) + "..." + self.suffix(6) :
-        ""
-    }
 }

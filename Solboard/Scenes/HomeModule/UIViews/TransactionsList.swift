@@ -47,7 +47,7 @@ struct TransactionsList: View {
         List {
             ForEach(self.transactionsViewModel.transactions) { transaction in
                 HStack {
-                    Text("\(transaction.shortSignature)")
+                    Text("\(transaction.signatureHash.shortSignature)")
                         .foregroundStyle(.white)
                     Spacer()
                     Text("\(transaction.unixDate.presentableDate)")

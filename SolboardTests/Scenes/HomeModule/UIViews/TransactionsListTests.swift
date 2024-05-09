@@ -23,7 +23,7 @@ class TransactionViewModelTests: XCTestCase {
         let sut = TransactionViewModel(signatureHash: signatureHash, unixDate: unixDate)
         
         // Assert
-        XCTAssertEqual(sut.shortSignature, "signatureHashExample".prefix(13) + "...", "shortSignature no es correcto")
+        XCTAssertEqual(sut.signatureHash.shortSignature, "signatureHashExample".shortSignature, "shortSignature no es correcto")
         
         let expectedDate = DateParser.shared.getParsedDate(TimeInterval(unixDate))
         XCTAssertEqual(sut.unixDate.dayMonthYearDate, expectedDate, "presentableDate no es correcto")

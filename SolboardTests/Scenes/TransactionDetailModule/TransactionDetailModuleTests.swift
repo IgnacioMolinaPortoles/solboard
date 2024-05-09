@@ -16,6 +16,7 @@ class TransactionDetailViewModel: ObservableObject {
     @Published var signer: String? = nil
     @Published var fee: String? = nil
     @Published var balanceChanges: [BalanceChange] = []
+    @Published var tokenChanges: [TokenChange] = []
     
     var transactionService: TransactionsServiceProtocol
     
@@ -61,6 +62,33 @@ class TransactionDetailViewModel: ObservableObject {
                                                       change: change)
                     
                     self.balanceChanges.append(balanceChange)
+                }
+            }
+            
+            self.tokenChanges = []
+            
+            if let amountOfTokenChanges = txResponse?.result?.meta?.preTokenBalances?.count, amountOfTokenChanges > 0 {
+                for index in 0..<amountOfTokenChanges {
+                    let addresses = txResponse?.result?.transaction?.message?.accountKeys ?? []
+                    let preTokenBalance = txResponse?.result?.meta?.preTokenBalances ?? []
+                    let postTokenBalance = txResponse?.result?.meta?.postTokenBalances ?? []
+                    
+                    let postBalanceInfo = postTokenBalance[index]
+                    let address = addresses[postBalanceInfo.accountIndex ?? 0]
+                    
+                    let balanceBefore = preTokenBalance[index].uiTokenAmount?.uiAmount ?? 0.0
+                    let balanceAfter = postBalanceInfo.uiTokenAmount?.uiAmount ?? 0.0
+                    let change = "\((balanceAfter - balanceBefore).allDecimals(maximumFractionDigits: 6))"
+                        .replacingOccurrences(of: "-", with: "- ").includeAddSymbol
+                    
+                    let tokenChange = TokenChange(address: address,
+                                                  owner: postBalanceInfo.owner ?? "",
+                                                  balanceBefore: balanceBefore,
+                                                  balanceAfter: balanceAfter,
+                                                  change: change,
+                                                  token: postBalanceInfo.mint ?? "")
+                    
+                    self.tokenChanges.append(tokenChange)
                 }
             }
         }
@@ -133,7 +161,7 @@ final class TransactionDetailModuleTests: XCTestCase {
         
         sut.fetch()
         
-        guard let balanceChange = sut.balanceChanges.first else {
+        guard sut.balanceChanges.first != nil else {
             XCTFail("Should have at least 1 balance change")
             return
         }
@@ -152,6 +180,35 @@ final class TransactionDetailModuleTests: XCTestCase {
         XCTAssertEqual(sut.balanceChanges.first!.balanceBefore, expected.balanceBefore, "Wrong balance change")
         XCTAssertEqual(sut.balanceChanges.first!.balanceAfter, expected.balanceAfter, "Wrong balance change")
         XCTAssertEqual(sut.balanceChanges.first!.change, expected.change, "Wrong balance change")
+    }
+    
+    func testViewModel_HasTokenChanges() throws {
+        let sut = makeSUT(txResponse: txResponse)
+        
+        sut.fetch()
+        
+        guard sut.tokenChanges.first != nil else {
+            XCTFail("Should have at least 1 token change")
+            return
+        }
+    }
+    
+    func testViewModel_HasCorrectTokenChange() throws {
+        let sut = makeSUT(txResponse: txResponse)
+        
+        sut.fetch()
+        let expected = TokenChange(address: "71rfmyvgBXNcY7CsMkbJdV14afUEW4y1giGPsZ4maWMZ",
+                                   owner: "phxBcughCYKiYJxx9kYEkyqoAUL2RD3vyxSaL1gZRNG",
+                                   balanceBefore: 10212.578525,
+                                   balanceAfter: 10216.302525,
+                                   change: "+ 3,724",
+                                   token: "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm")
+        
+        XCTAssertEqual(sut.tokenChanges.first!.address, expected.address, "Wrong balance change")
+        XCTAssertEqual(sut.tokenChanges.first!.owner, expected.owner, "Wrong balance change")
+        XCTAssertEqual(sut.tokenChanges.first!.balanceBefore, expected.balanceBefore, "Wrong balance change")
+        XCTAssertEqual(sut.tokenChanges.first!.balanceAfter, expected.balanceAfter, "Wrong balance change")
+        XCTAssertEqual(sut.tokenChanges.first!.change, expected.change, "Wrong balance change")
     }
     
     func testViewModel_HasErrorStatus() throws {

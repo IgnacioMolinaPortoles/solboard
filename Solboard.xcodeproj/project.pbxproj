@@ -22,6 +22,7 @@
 		739ACDAE2BEC243D0078FB92 /* TransactionOverviewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */; };
 		739ACDB12BEC31590078FB92 /* TransactionDetailModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */; };
 		739ACDB32BEC31720078FB92 /* TransactionDummyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */; };
+		739ACDB62BEC6C5A0078FB92 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB52BEC6C5A0078FB92 /* String+.swift */; };
 		739E64BC2BD81C180056B02E /* AssetItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64BB2BD81C180056B02E /* AssetItemViewModel.swift */; };
 		739E64BF2BD81D320056B02E /* AssetsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64BE2BD81D320056B02E /* AssetsMapper.swift */; };
 		739E64C12BD81DAB0056B02E /* AssetsServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E64C02BD81DAB0056B02E /* AssetsServiceManager.swift */; };
@@ -113,6 +114,7 @@
 		739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOverviewItemView.swift; sourceTree = "<group>"; };
 		739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailModuleTests.swift; sourceTree = "<group>"; };
 		739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDummyFactory.swift; sourceTree = "<group>"; };
+		739ACDB52BEC6C5A0078FB92 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		739E64BB2BD81C180056B02E /* AssetItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetItemViewModel.swift; sourceTree = "<group>"; };
 		739E64BE2BD81D320056B02E /* AssetsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsMapper.swift; sourceTree = "<group>"; };
 		739E64C02BD81DAB0056B02E /* AssetsServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsServiceManager.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				73BEE1FF2BCB753C003068A1 /* Decimal+.swift */,
 				73C1F3862BE6007C00C64F07 /* AssetItem+.swift */,
 				7351F3702BE8823F00B57D74 /* Int+.swift */,
+				739ACDB52BEC6C5A0078FB92 /* String+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -779,6 +782,7 @@
 				730FD2742BD0CE59006A0E87 /* WebView.swift in Sources */,
 				73A644DB2BBE4121000E6424 /* GetAccountInfoResponse.swift in Sources */,
 				73BEE2112BCCCE10003068A1 /* AssetsListView.swift in Sources */,
+				739ACDB62BEC6C5A0078FB92 /* String+.swift in Sources */,
 				73A6449D2BB2740E000E6424 /* CoordinatorProtocol.swift in Sources */,
 				73A644CB2BB54F21000E6424 /* UIApplication+.swift in Sources */,
 				73A644AD2BB30DC2000E6424 /* HomeViewController.swift in Sources */,
