@@ -37,14 +37,17 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     }
     
     func routeToTransactionDetail(tx: String) {
-        guard let url = URL(string: "https://solscan.io/tx/"+tx) else { return }
-        self.goTo(url: url)
+        let vm = TransactionDetailViewModel(transactionService: TransactionsService(),
+                                            signature: tx)
+        let vc = UIHostingController(rootView: TransactionDetailView(vm: vm))
+        self.navigationController.pushViewController(vc,
+                                                animated: true)
     }
     
     func routeToAllTransactions(txs: [TransactionViewModel]) {
         let vm = TransactionsListViewModel(transactions: txs)
-        let transactionsView = TransactionsList(transactionsViewModel: vm, onTransactionDetailTapDo: { tx in
-            
+        let transactionsView = TransactionsList(transactionsViewModel: vm, onTransactionDetailTapDo: { [weak self] tx in
+            self?.routeToTransactionDetail(tx: tx)
             print(tx)
         }, tableTitle: "Transactions")
         let vc = UIHostingController(rootView: transactionsView)

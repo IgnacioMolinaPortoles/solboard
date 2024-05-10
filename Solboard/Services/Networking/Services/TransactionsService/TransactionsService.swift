@@ -38,7 +38,7 @@ class TransactionsService: TransactionsServiceProtocol {
     }
     
     func getTransaction(_ tx: String, completion: @escaping (GetSignatureResponse?) -> Void) {
-        let request = RPCMethods.getSignaturesForAddress(address).buildRequest(node: .solanaMain)!
+        let request = RPCMethods.getTransactionDetail(tx).buildRequest(node: .solanaMain)!
         
         client.perform(request, timeout: 10.0) { jsonData, response, error in
             guard let jsonData else {

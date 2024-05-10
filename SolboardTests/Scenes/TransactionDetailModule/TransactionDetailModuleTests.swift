@@ -8,104 +8,16 @@
 import XCTest
 @testable import Solboard
 
-class TransactionDetailViewModel: ObservableObject {
-    @Published var signature: String
-    @Published var block: String? = nil
-    @Published var date: String? = nil
-    @Published var status: TransactionStatus? = nil
-    @Published var signer: String? = nil
-    @Published var fee: String? = nil
-    @Published var balanceChanges: [BalanceChange] = []
-    @Published var tokenChanges: [TokenChange] = []
-    
-    var transactionService: TransactionsServiceProtocol
-    
-    init(transactionService: TransactionsServiceProtocol, signature: String) {
-        self.transactionService = transactionService
-        self.signature = signature
-    }
-    
-    func fetch() {
-        self.transactionService.getTransaction(self.signature) { txResponse in
-            
-            if let block = txResponse?.result?.slot {
-                self.block = "#\(block)"
-            } else {
-                self.block = nil
-            }
-            
-            self.date = txResponse?.result?.blockTime?.dayMonthYearDate
-            
-            if let err = txResponse?.result?.meta?.err?.instructionError?.last?.getStringValue() {
-                self.status = .failed(err)
-            } else {
-                self.status = .success
-            }
-            
-            self.signer = txResponse?.result?.transaction?.message?.accountKeys?.first
-            self.fee = txResponse?.result?.meta?.fee?.parseFee()
-            self.balanceChanges = []
-            
-            if let amountOfAddress = txResponse?.result?.transaction?.message?.accountKeys?.count, amountOfAddress > 0 {
-                for index in 0..<amountOfAddress {
-                    let addresses = txResponse?.result?.transaction?.message?.accountKeys ?? []
-                    let preBalances = txResponse?.result?.meta?.preBalances ?? []
-                    let postBalances = txResponse?.result?.meta?.postBalances ?? []
-                    
-                    let preBalance = Double(preBalances[index]) / Constants.lamports
-                    let postBalance = Double(postBalances[index]) / Constants.lamports
-                    let change = "\((postBalance - preBalance).allDecimals(maximumFractionDigits: 6))".replacingOccurrences(of: "-", with: "- ")
-                    
-                    let balanceChange = BalanceChange(address: addresses[index],
-                                                      balanceBefore: preBalance,
-                                                      balanceAfter: postBalance,
-                                                      change: change)
-                    
-                    self.balanceChanges.append(balanceChange)
-                }
-            }
-            
-            self.tokenChanges = []
-            
-            if let amountOfTokenChanges = txResponse?.result?.meta?.preTokenBalances?.count, amountOfTokenChanges > 0 {
-                for index in 0..<amountOfTokenChanges {
-                    let addresses = txResponse?.result?.transaction?.message?.accountKeys ?? []
-                    let preTokenBalance = txResponse?.result?.meta?.preTokenBalances ?? []
-                    let postTokenBalance = txResponse?.result?.meta?.postTokenBalances ?? []
-                    
-                    let postBalanceInfo = postTokenBalance[index]
-                    let address = addresses[postBalanceInfo.accountIndex ?? 0]
-                    
-                    let balanceBefore = preTokenBalance[index].uiTokenAmount?.uiAmount ?? 0.0
-                    let balanceAfter = postBalanceInfo.uiTokenAmount?.uiAmount ?? 0.0
-                    let change = "\((balanceAfter - balanceBefore).allDecimals(maximumFractionDigits: 6))"
-                        .replacingOccurrences(of: "-", with: "- ").includeAddSymbol
-                    
-                    let tokenChange = TokenChange(address: address,
-                                                  owner: postBalanceInfo.owner ?? "",
-                                                  balanceBefore: balanceBefore,
-                                                  balanceAfter: balanceAfter,
-                                                  change: change,
-                                                  token: postBalanceInfo.mint ?? "")
-                    
-                    self.tokenChanges.append(tokenChange)
-                }
-            }
-        }
-    }
-}
-
-
 final class TransactionDetailModuleTests: XCTestCase {
 
     var txResponse: GetSignatureResponse!
     
     override func setUpWithError() throws {
-        self.txResponse = TransactionDummyFactory.getResponse()
+        self.txResponse = TransactionDummyFactory.getTokenResponse()
     }
     
     func testModelDecoding() throws {
-        let txResponseSuccess = TransactionDummyFactory.getResponse()
+        let txResponseSuccess = TransactionDummyFactory.getTokenResponse()
         XCTAssertNotNil(txResponseSuccess)
     }
     
@@ -212,11 +124,12 @@ final class TransactionDetailModuleTests: XCTestCase {
     }
     
     func testViewModel_HasErrorStatus() throws {
-        let txResponse = TransactionDummyFactory.getFailResponse()!
-        let sut = makeSUT(txResponse: txResponse)
+        let txFailResponse = TransactionDummyFactory.getFailResponse()!
+        XCTAssertNotNil(txFailResponse)
+        let sut = makeSUT(txResponse: txFailResponse)
         
         sut.fetch()
-        let err = txResponse.result?.meta?.err
+        let err = txFailResponse.result?.meta?.err
         
         XCTAssertNotNil(err)
         XCTAssertEqual(sut.status, .failed("6001"))

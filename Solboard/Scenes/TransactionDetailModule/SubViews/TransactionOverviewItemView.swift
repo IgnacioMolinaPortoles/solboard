@@ -7,9 +7,19 @@
 
 import SwiftUI
 
-struct TransactionOverviewItem: View {
+struct TransactionOverviewItem: View, Identifiable {
+    var id: UUID
+    
     let title: String
     let value: String
+    let onTapDo: (() -> Void)?
+    
+    init(title: String, value: String, onTapDo: (() -> Void)? = nil) {
+        self.id = UUID()
+        self.title = title
+        self.value = value
+        self.onTapDo = onTapDo
+    }
     
     var body: some View {
         HStack {
@@ -17,5 +27,12 @@ struct TransactionOverviewItem: View {
             Spacer()
             Text(value)
         }
+        .onTapGesture(perform: {
+            guard let onTapDo else {
+                return
+            }
+            
+            onTapDo()
+        })
     }
 }

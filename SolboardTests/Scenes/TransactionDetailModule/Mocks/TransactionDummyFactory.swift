@@ -9,8 +9,19 @@ import Foundation
 @testable import Solboard
 
 struct TransactionDummyFactory {
-    static func getResponse() -> GetSignatureResponse? {
+    static func getTokenResponse() -> GetSignatureResponse? {
         let json = transactionTokenSuccessJson.data(using: .utf8)!
+        
+        do {
+            return try JSONDecoder().decode(GetSignatureResponse.self, from: json)
+        } catch let error {
+            print("Error", error)
+            return nil
+        }
+    }
+    
+    static func getResponse() -> GetSignatureResponse? {
+        let json = transactionSuccessJson.data(using: .utf8)!
         
         do {
             return try JSONDecoder().decode(GetSignatureResponse.self, from: json)
@@ -146,39 +157,6 @@ let transactionTokenSuccessJson = """
                     "uiAmount": 10216.302525,
                     "uiAmountString": "10216.302525"
                 }
-            }, {
-                "accountIndex": 3,
-                "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-                "owner": "9WAfKnMYebxsaURpim6YpU1FFzG5R57FzSaUbGt6Eejy",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "302814574000",
-                    "decimals": 6,
-                    "uiAmount": 302814.574,
-                    "uiAmountString": "302814.574"
-                }
-            }, {
-                "accountIndex": 5,
-                "mint": "So11111111111111111111111111111111111111112",
-                "owner": "phxBcughCYKiYJxx9kYEkyqoAUL2RD3vyxSaL1gZRNG",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "330735652667",
-                    "decimals": 9,
-                    "uiAmount": 330.735652667,
-                    "uiAmountString": "330.735652667"
-                }
-            }, {
-                "accountIndex": 6,
-                "mint": "So11111111111111111111111111111111111111112",
-                "owner": "GhoCmSmpyM9gedtWmgT3vMknE5av9iiehLt6rrTog4qK",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "7595940803399",
-                    "decimals": 9,
-                    "uiAmount": 7595.940803399,
-                    "uiAmountString": "7595.940803399"
-                }
             }],
             "preBalances": [5241175652, 1224960, 2039280, 3339399, 3370961611, 330267488093, 7596439066533, 0, 1781760, 1, 1141440, 1141440, 934087680],
             "preTokenBalances": [{
@@ -191,39 +169,6 @@ let transactionTokenSuccessJson = """
                     "decimals": 6,
                     "uiAmount": 10212.578525,
                     "uiAmountString": "10212.578525"
-                }
-            }, {
-                "accountIndex": 3,
-                "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
-                "owner": "9WAfKnMYebxsaURpim6YpU1FFzG5R57FzSaUbGt6Eejy",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "302818298000",
-                    "decimals": 6,
-                    "uiAmount": 302818.298,
-                    "uiAmountString": "302818.298"
-                }
-            }, {
-                "accountIndex": 5,
-                "mint": "So11111111111111111111111111111111111111112",
-                "owner": "phxBcughCYKiYJxx9kYEkyqoAUL2RD3vyxSaL1gZRNG",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "330265448813",
-                    "decimals": 9,
-                    "uiAmount": 330.265448813,
-                    "uiAmountString": "330.265448813"
-                }
-            }, {
-                "accountIndex": 6,
-                "mint": "So11111111111111111111111111111111111111112",
-                "owner": "GhoCmSmpyM9gedtWmgT3vMknE5av9iiehLt6rrTog4qK",
-                "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-                "uiTokenAmount": {
-                    "amount": "7596411007253",
-                    "decimals": 9,
-                    "uiAmount": 7596.411007253,
-                    "uiAmountString": "7596.411007253"
                 }
             }],
             "rewards": [],
@@ -274,8 +219,7 @@ let transactionTokenSuccessJson = """
                 "recentBlockhash": "B7J7CLN4hoojtwXQEqm1HdaiaMK2jv5pv9SUyjMuAya1"
             },
             "signatures": ["35Fi7aFkxwXPDxMLiyPaneTyHfsGmHNZnrJAPBVJwJCgftMkpMKtJWkJqHLaRdK4DbohRmJeiHGcJbi261tZbKNA"]
-        },
-        "version": "legacy"
+        }
     },
     "id": 1
 }
