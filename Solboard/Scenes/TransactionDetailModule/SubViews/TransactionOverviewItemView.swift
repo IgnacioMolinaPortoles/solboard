@@ -12,13 +12,15 @@ struct TransactionOverviewItem: View, Identifiable {
     
     let title: String
     let value: String
+    let valueColor: Color
     let onTapDo: (() -> Void)?
     
-    init(title: String, value: String, onTapDo: (() -> Void)? = nil) {
+    init(title: String, value: String, valueColor: Color = .white, onTapDo: (() -> Void)? = nil) {
         self.id = UUID()
         self.title = title
         self.value = value
         self.onTapDo = onTapDo
+        self.valueColor = valueColor
     }
     
     var body: some View {
@@ -26,6 +28,7 @@ struct TransactionOverviewItem: View, Identifiable {
             Text(title)
             Spacer()
             Text(value)
+                .foregroundStyle(self.valueColor)
         }
         .onTapGesture(perform: {
             guard let onTapDo else {

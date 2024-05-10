@@ -40,7 +40,7 @@ struct TransactionDetailView: View {
                                             value: vm.signature.shortSignature)
                     if let block = vm.block {
                         TransactionOverviewItem(title: "Block",
-                                                value: "#\(block)")
+                                                value: block)
                     }
                     
                     if let date = vm.date {
@@ -49,7 +49,8 @@ struct TransactionDetailView: View {
                     }
                     
                     TransactionOverviewItem(title: "Result",
-                                            value: vm.status == .success ? "Success" : "Failure")
+                                            value: vm.status == .success ? "Success" : "Failure",
+                                            valueColor: vm.status == .success ? ._green : ._red)
                     
                     if let signer = vm.signer {
                         TransactionOverviewItem(title: "Signer",
@@ -66,6 +67,7 @@ struct TransactionDetailView: View {
                     ForEach(vm.balanceChanges) { balanceChange in
                         TransactionOverviewItem(title: balanceChange.address.shortSignature,
                                                 value: balanceChange.change,
+                                                valueColor: balanceChange.change.contains("- ") ? ._red : ._green,
                         onTapDo: {
                             self.presentingModal = true
                         })
@@ -88,8 +90,7 @@ struct TransactionDetailView: View {
                                                                 value: balanceChange.balanceAfter.allDecimals())
                                         
                                         TransactionOverviewItem(title: "Change",
-                                                                value: balanceChange.change)
-                                        .foregroundStyle(balanceChange.change.contains("- ") ? .red : .green)
+                                                                value: balanceChange.change, valueColor: balanceChange.change.contains("- ") ? ._red : ._green)
                                         
                                     })
                                 }

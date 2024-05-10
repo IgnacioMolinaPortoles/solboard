@@ -49,8 +49,9 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
         let transactionsView = TransactionsList(transactionsViewModel: vm, onTransactionDetailTapDo: { [weak self] tx in
             self?.routeToTransactionDetail(tx: tx)
             print(tx)
-        }, tableTitle: "Transactions")
+        })
         let vc = UIHostingController(rootView: transactionsView)
+        vc.navigationItem.title = "Transaction list"
         navigationController.pushViewController(vc, animated: false)
     }
     

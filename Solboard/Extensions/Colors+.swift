@@ -78,4 +78,12 @@ extension Color {
     static var textLightGray: Color {
         Color(hex: "9F9EA2")
     }
+    
+    static var _green: Color {
+        Color(hex: "#35c658")
+    }
+    
+    static var _red: Color {
+        Color(hex: "#ff3d2e")
+    }
 }

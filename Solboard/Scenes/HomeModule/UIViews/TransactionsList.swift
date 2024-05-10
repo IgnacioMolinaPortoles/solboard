@@ -77,9 +77,8 @@ struct TransactionsList: View {
                 .listRowBackground(Color.backgroundDarkGray)
             }
         }
-//        .padding(-20)
         .padding(.top, -35)
-        .scrollDisabled(true)
+        .scrollDisabled(false)
         .listSectionSpacing(12)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
