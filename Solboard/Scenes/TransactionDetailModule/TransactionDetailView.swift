@@ -42,155 +42,158 @@ struct TransactionDetailView: View {
     
     var body: some View {
         VStack {
-            List {
-                
-                TransactionDetailSection("Overview", content: {
-                    TransactionOverviewItem(title: "Signature",
-                                            value: vm.signature.shortSignature,
-                                            valueUnderlined: true,
-                                            onTapDo: {
-                        vm.onTransactionTapDo?()
-                    })
-                    
-                    if let block = vm.block {
-                        TransactionOverviewItem(title: "Block",
-                                                value: block)
-                    }
-                    
-                    if let date = vm.date {
-                        TransactionOverviewItem(title: "Timestamp",
-                                                value: date)
-                    }
-                    
-                    TransactionOverviewItem(title: "Result",
-                                            value: vm.status == .success ? "Success" : "Failure",
-                                            valueColor: vm.status == .success ? ._green : ._red)
-                    
-                    if let signer = vm.signer {
-                        TransactionOverviewItem(title: "Signer",
-                                                value: signer.shortSignature)
-                    }
-                    
-                    if let fee = vm.fee {
-                        TransactionOverviewItem(title: "Fee",
-                                                value: fee)
-                    }
-                })
-                
-                if vm.balanceChanges.count > 0 {
-                    TransactionDetailSection("SOL Balance changes", content: {
-                        ForEach(vm.balanceChanges) { balanceChange in
-                            TransactionOverviewItem(title: balanceChange.address.shortSignature,
-                                                    value: balanceChange.change,
-                                                    valueColor: balanceChange.change == "0" ? .white : balanceChange.change.contains("- ") ? ._red : ._green,
-                                                    onTapDo: {
-                                self.selectedBalanceChange = balanceChange
-                                self.presentingModal = true
-                            })
-                            .sheet(isPresented: $presentingModal) {
-                                VStack {
-                                    Text("SOL Balance Change")
-                                        .fontWeight(.bold)
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.white)
-                                        .padding(.top, 20)
-                                    
-                                    Divider()
-                                        .background(Color.backgroundDarkGray2D)
-                                        .padding(.horizontal, 20)
-                                        .padding(.bottom, 18)
-                                    
-                                    List {
-                                        TransactionDetailSection(backgroundColor: .backgroundDarkGray2D,
-                                                                 listRowSeparatorTint: .backgroundDarkGray5D,
-                                                                 content: {
-                                            TransactionOverviewItem(title: "Address",
-                                                                    value: selectedBalanceChange.address.shortSignature)
-                                            
-                                            TransactionOverviewItem(title: "Balance before",
-                                                                    value: selectedBalanceChange.balanceBefore.allDecimals())
-                                            
-                                            TransactionOverviewItem(title: "Balance after",
-                                                                    value: selectedBalanceChange.balanceAfter.allDecimals())
-                                            
-                                            TransactionOverviewItem(title: "Change",
-                                                                    value: selectedBalanceChange.change, valueColor: selectedBalanceChange.change == "0" ? .white : selectedBalanceChange.change.contains("- ") ? ._red : ._green)
-                                            
-                                        })
-                                    }
-                                    .padding(.top, -40)
-                                    .scrollDisabled(true)
-                                    
-                                }
-                                .presentationDetents([.height(300)])
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                                .background(Color.backgroundDarkGray1C)
-                            }
-                            
+            if vm.isLoading {
+                LoadingView()
+            } else {
+                List {
+                    TransactionDetailSection("Overview", content: {
+                        TransactionOverviewItem(title: "Signature",
+                                                value: vm.signature.shortSignature,
+                                                valueUnderlined: true,
+                                                onTapDo: {
+                            vm.onTransactionTapDo?()
+                        })
+                        
+                        if let block = vm.block {
+                            TransactionOverviewItem(title: "Block",
+                                                    value: block)
+                        }
+                        
+                        if let date = vm.date {
+                            TransactionOverviewItem(title: "Timestamp",
+                                                    value: date)
+                        }
+                        
+                        TransactionOverviewItem(title: "Result",
+                                                value: vm.status == .success ? "Success" : "Failure",
+                                                valueColor: vm.status == .success ? ._green : ._red)
+                        
+                        if let signer = vm.signer {
+                            TransactionOverviewItem(title: "Signer",
+                                                    value: signer.shortSignature)
+                        }
+                        
+                        if let fee = vm.fee {
+                            TransactionOverviewItem(title: "Fee",
+                                                    value: fee)
                         }
                     })
-                }
-                if vm.tokenChanges.count > 0 {
-                    TransactionDetailSection("Token changes", content: {
-                        ForEach(vm.tokenChanges) { tokenChange in
-                            TransactionOverviewItem(title: tokenChange.address.shortSignature,
-                                                    value: tokenChange.change,
-                                                    valueColor: tokenChange.change == "0" ? .white : tokenChange.change.contains("- ") ? ._red : ._green,
-                                                    onTapDo: {
-                                self.selectedTokenChange = tokenChange
-                                self.presentingModal = true
-                            })
-                            .sheet(isPresented: $presentingModal) {
-                                VStack {
-                                    Text("Token Balance Change")
-                                        .fontWeight(.bold)
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.white)
-                                        .padding(.top, 20)
-                                    
-                                    Divider()
-                                        .background(Color.backgroundDarkGray2D)
-                                        .padding(.horizontal, 20)
-                                        .padding(.bottom, 18)
-                                    
-                                    List {
-                                        TransactionDetailSection(backgroundColor: .backgroundDarkGray2D,
-                                                                 listRowSeparatorTint: .backgroundDarkGray5D,
-                                                                 content: {
-                                            TransactionOverviewItem(title: "Address",
-                                                                    value: selectedTokenChange.address.shortSignature)
-                                            
-                                            TransactionOverviewItem(title: "Owner",
-                                                                    value: selectedTokenChange.owner.shortSignature)
-                                            
-                                            TransactionOverviewItem(title: "Balance before",
-                                                                    value: selectedTokenChange.balanceBefore.allDecimals())
-                                            
-                                            TransactionOverviewItem(title: "Balance after",
-                                                                    value: selectedTokenChange.balanceAfter.allDecimals())
-                                            
-                                            TransactionOverviewItem(title: "Change",
-                                                                    value: selectedTokenChange.change, valueColor: selectedTokenChange.change == "0" ? .white : selectedTokenChange.change.contains("- ") ? ._red : ._green)
-                                            
-                                            TransactionOverviewItem(title: "Token",
-                                                                    value: selectedTokenChange.token.shortSignature)
-                                        })
+                    
+                    if vm.balanceChanges.count > 0 {
+                        TransactionDetailSection("SOL Balance changes", content: {
+                            ForEach(vm.balanceChanges) { balanceChange in
+                                TransactionOverviewItem(title: balanceChange.address.shortSignature,
+                                                        value: balanceChange.change,
+                                                        valueColor: balanceChange.change == "0" ? .white : balanceChange.change.contains("- ") ? ._red : ._green,
+                                                        onTapDo: {
+                                    self.selectedBalanceChange = balanceChange
+                                    self.presentingModal = true
+                                })
+                                .sheet(isPresented: $presentingModal) {
+                                    VStack {
+                                        Text("SOL Balance Change")
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 25))
+                                            .foregroundStyle(.white)
+                                            .padding(.top, 20)
+                                        
+                                        Divider()
+                                            .background(Color.backgroundDarkGray2D)
+                                            .padding(.horizontal, 20)
+                                            .padding(.bottom, 18)
+                                        
+                                        List {
+                                            TransactionDetailSection(backgroundColor: .backgroundDarkGray2D,
+                                                                     listRowSeparatorTint: .backgroundDarkGray5D,
+                                                                     content: {
+                                                TransactionOverviewItem(title: "Address",
+                                                                        value: selectedBalanceChange.address.shortSignature)
+                                                
+                                                TransactionOverviewItem(title: "Balance before",
+                                                                        value: selectedBalanceChange.balanceBefore.allDecimals())
+                                                
+                                                TransactionOverviewItem(title: "Balance after",
+                                                                        value: selectedBalanceChange.balanceAfter.allDecimals())
+                                                
+                                                TransactionOverviewItem(title: "Change",
+                                                                        value: selectedBalanceChange.change, valueColor: selectedBalanceChange.change == "0" ? .white : selectedBalanceChange.change.contains("- ") ? ._red : ._green)
+                                                
+                                            })
+                                        }
+                                        .padding(.top, -40)
+                                        .scrollDisabled(true)
+                                        
                                     }
-                                    .padding(.top, -40)
-                                    .scrollDisabled(true)
-                                    
+                                    .presentationDetents([.height(300)])
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                                    .background(Color.backgroundDarkGray1C)
                                 }
-                                .presentationDetents([.medium])
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                                .background(Color.backgroundDarkGray1C)
+                                
                             }
-                            
-                        }
-                    })
+                        })
+                    }
+                    if vm.tokenChanges.count > 0 {
+                        TransactionDetailSection("Token changes", content: {
+                            ForEach(vm.tokenChanges) { tokenChange in
+                                TransactionOverviewItem(title: tokenChange.address.shortSignature,
+                                                        value: tokenChange.change,
+                                                        valueColor: tokenChange.change == "0" ? .white : tokenChange.change.contains("- ") ? ._red : ._green,
+                                                        onTapDo: {
+                                    self.selectedTokenChange = tokenChange
+                                    self.presentingModal = true
+                                })
+                                .sheet(isPresented: $presentingModal) {
+                                    VStack {
+                                        Text("Token Balance Change")
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 25))
+                                            .foregroundStyle(.white)
+                                            .padding(.top, 20)
+                                        
+                                        Divider()
+                                            .background(Color.backgroundDarkGray2D)
+                                            .padding(.horizontal, 20)
+                                            .padding(.bottom, 18)
+                                        
+                                        List {
+                                            TransactionDetailSection(backgroundColor: .backgroundDarkGray2D,
+                                                                     listRowSeparatorTint: .backgroundDarkGray5D,
+                                                                     content: {
+                                                TransactionOverviewItem(title: "Address",
+                                                                        value: selectedTokenChange.address.shortSignature)
+                                                
+                                                TransactionOverviewItem(title: "Owner",
+                                                                        value: selectedTokenChange.owner.shortSignature)
+                                                
+                                                TransactionOverviewItem(title: "Balance before",
+                                                                        value: selectedTokenChange.balanceBefore.allDecimals())
+                                                
+                                                TransactionOverviewItem(title: "Balance after",
+                                                                        value: selectedTokenChange.balanceAfter.allDecimals())
+                                                
+                                                TransactionOverviewItem(title: "Change",
+                                                                        value: selectedTokenChange.change, valueColor: selectedTokenChange.change == "0" ? .white : selectedTokenChange.change.contains("- ") ? ._red : ._green)
+                                                
+                                                TransactionOverviewItem(title: "Token",
+                                                                        value: selectedTokenChange.token.shortSignature)
+                                            })
+                                        }
+                                        .padding(.top, -40)
+                                        .scrollDisabled(true)
+                                        
+                                    }
+                                    .presentationDetents([.medium])
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                                    .background(Color.backgroundDarkGray1C)
+                                }
+                                
+                            }
+                        })
+                    }
                 }
+                .scrollContentBackground(.hidden)
+                .scrollIndicators(.hidden)
             }
-            .scrollContentBackground(.hidden)
-            .scrollIndicators(.hidden)
         }
         .navigationBarTitle("Transaction Detail", displayMode: .inline)
         .background(.black)

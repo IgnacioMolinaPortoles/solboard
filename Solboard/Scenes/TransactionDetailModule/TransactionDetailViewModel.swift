@@ -74,6 +74,7 @@ class TransactionDetailViewModel: ObservableObject {
     @Published var fee: String? = nil
     @Published var balanceChanges: [BalanceChange] = []
     @Published var tokenChanges: [TokenChange] = []
+    @Published var isLoading: Bool = true
     
     var onTransactionTapDo: (() -> Void)?
     
@@ -158,6 +159,8 @@ class TransactionDetailViewModel: ObservableObject {
                     self.tokenChanges.append(tokenChange)
                 }
             }
+            
+            self.isLoading = false
         }
     }
 }
