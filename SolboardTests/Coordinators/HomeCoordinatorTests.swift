@@ -23,8 +23,7 @@ class HomeCoordinatorTests: XCTestCase {
         coordinator.routeToTransactionDetail(tx: transactionHash)
         
         // Assert
-        let expectedURL = URL(string: "https://solscan.io/tx/exampleTxHash")!
-        XCTAssertTrue(mockUIApplication.openedURLs.contains(expectedURL), "Debería abrirse la URL correcta")
+        XCTAssertTrue(mockNavigationController.pushedViewControllers.count == 1, "Detail viewcontroller should be pushed into navigation")
     }
     
     func testOnAssetDetailTap_PresentsDetailsViewCorrectly() {

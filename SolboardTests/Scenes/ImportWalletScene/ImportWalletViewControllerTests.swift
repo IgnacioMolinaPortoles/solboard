@@ -76,7 +76,7 @@ extension ImportWalletViewControllerTests {
     final class AlertManagerMock: AlertManager {
         private(set) var alertShown = false
 
-        override func showAlert(_ title: String, _ message: String, actions: [UIAlertAction]?, viewController: UIViewController) {
+        override func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController) {
             alertShown = true
         }
     }

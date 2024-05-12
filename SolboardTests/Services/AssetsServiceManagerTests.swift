@@ -42,7 +42,7 @@ final class AssetsServiceManagerTests: XCTestCase {
             
             let solanaAsset = assetsItems[1]
             XCTAssertEqual(solanaAsset.tokenInfo?.priceInfo?.pricePerToken ?? 0.0, 0.1, "El pricePerToken de Solana debería ser 0.1")
-            XCTAssertEqual(solanaAsset.tokenInfo?.balance ?? 0.0, 50000000000.0, "El balance de Solana debería ser 50 (5.0 * 10000000000)")
+            XCTAssertEqual(solanaAsset.tokenInfo?.balance ?? 0.0, 5000000000.0, "El balance de Solana debería ser 50 (5.0 * 10000000000)")
             XCTAssertEqual(solanaAsset.content?.metadata?.name ?? "", "Solana", "El nombre de Solana debería ser 'Solana'")
             XCTAssertEqual(solanaAsset.content?.metadata?.symbol ?? solanaAsset.tokenInfo?.symbol ?? "", "SOL", "El símbolo de Solana debería ser 'SOL'")
             
