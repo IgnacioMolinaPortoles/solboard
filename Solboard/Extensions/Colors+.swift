@@ -32,8 +32,12 @@ extension UIColor {
         )
     }
     
-    static var backgroundDarkGray: UIColor {
+    static var backgroundDarkGray1C: UIColor {
         UIColor(hex: "1C1C1C")
+    }
+    
+    static var backgroundDarkGray2D: UIColor {
+        UIColor(hex: "#2d2d2e")
     }
     
     static var listSeparatorDarkGray: UIColor {
@@ -67,8 +71,16 @@ extension Color {
         )
     }
     
-    static var backgroundDarkGray: Color {
+    static var backgroundDarkGray1C: Color {
         Color(hex: "1C1C1C")
+    }
+    
+    static var backgroundDarkGray2D: Color {
+        Color(hex: "#2d2d2e")
+    }
+    
+    static var backgroundDarkGray5D: Color {
+        Color(hex: "#5d5c61")
     }
     
     static var listSeparatorDarkGray: Color {

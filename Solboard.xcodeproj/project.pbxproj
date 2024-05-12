@@ -70,6 +70,7 @@
 		73BEE2112BCCCE10003068A1 /* AssetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BEE2102BCCCE10003068A1 /* AssetsListView.swift */; };
 		73C1F3872BE6007C00C64F07 /* AssetItem+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1F3862BE6007C00C64F07 /* AssetItem+.swift */; };
 		73C1F38A2BE6076C00C64F07 /* HomeCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1F3892BE6076C00C64F07 /* HomeCoordinatorTests.swift */; };
+		73D0CB2D2BF04D4800668721 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D0CB2C2BF04D4800668721 /* View+.swift */; };
 		73E28F132BE205150062945B /* TransactionsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F122BE205150062945B /* TransactionsListTests.swift */; };
 		73E28F162BE206330062945B /* BarChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F152BE206330062945B /* BarChartTests.swift */; };
 		73E28F192BE209C50062945B /* AssetsListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E28F182BE209C50062945B /* AssetsListViewTests.swift */; };
@@ -162,6 +163,7 @@
 		73BEE2102BCCCE10003068A1 /* AssetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListView.swift; sourceTree = "<group>"; };
 		73C1F3862BE6007C00C64F07 /* AssetItem+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetItem+.swift"; sourceTree = "<group>"; };
 		73C1F3892BE6076C00C64F07 /* HomeCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorTests.swift; sourceTree = "<group>"; };
+		73D0CB2C2BF04D4800668721 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		73E28F122BE205150062945B /* TransactionsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListTests.swift; sourceTree = "<group>"; };
 		73E28F152BE206330062945B /* BarChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartTests.swift; sourceTree = "<group>"; };
 		73E28F182BE209C50062945B /* AssetsListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsListViewTests.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				73C1F3862BE6007C00C64F07 /* AssetItem+.swift */,
 				7351F3702BE8823F00B57D74 /* Int+.swift */,
 				739ACDB52BEC6C5A0078FB92 /* String+.swift */,
+				73D0CB2C2BF04D4800668721 /* View+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
 				7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */,
 				73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */,
+				73D0CB2D2BF04D4800668721 /* View+.swift in Sources */,
 				73BEE1FA2BC8881A003068A1 /* AssetsByOwnerResponse.swift in Sources */,
 				73BEE1F52BC8849F003068A1 /* ValidatorService.swift in Sources */,
 				73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */,

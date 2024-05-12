@@ -120,7 +120,7 @@ struct AssetsListView: View {
                             viewModel.selectAsset(asset)
                         }
                     }
-                    .listRowBackground(Color.backgroundDarkGray)
+                    .listRowBackground(Color.backgroundDarkGray1C)
                 }
                 .padding(.top, -30)
                 .padding(.leading, -3)

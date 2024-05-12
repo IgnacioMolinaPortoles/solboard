@@ -19,6 +19,21 @@ struct BalanceChange: Hashable, Identifiable {
     let balanceBefore: Double
     let balanceAfter: Double
     let change: String
+    
+    init(address: String, balanceBefore: Double, balanceAfter: Double, change: String) {
+        self.address = address
+        self.balanceBefore = balanceBefore
+        self.balanceAfter = balanceAfter
+        self.change = change
+    }
+    
+    init() {
+        self.id = UUID()
+        self.address = ""
+        self.balanceBefore = 0.0
+        self.balanceAfter = 0.0
+        self.change = ""
+    }
 }
 
 struct TokenChange: Hashable, Identifiable {
@@ -30,6 +45,24 @@ struct TokenChange: Hashable, Identifiable {
     let balanceAfter: Double
     let change: String
     let token: String
+    
+    init(address: String, owner: String, balanceBefore: Double, balanceAfter: Double, change: String, token: String) {
+        self.address = address
+        self.owner = owner
+        self.balanceBefore = balanceBefore
+        self.balanceAfter = balanceAfter
+        self.change = change
+        self.token = token
+    }
+    
+    init() {
+        self.address = ""
+        self.owner = ""
+        self.balanceBefore = 0.0
+        self.balanceAfter = 0.0
+        self.change = ""
+        self.token = ""
+    }
 }
 
 class TransactionDetailViewModel: ObservableObject {
@@ -42,11 +75,16 @@ class TransactionDetailViewModel: ObservableObject {
     @Published var balanceChanges: [BalanceChange] = []
     @Published var tokenChanges: [TokenChange] = []
     
+    var onTransactionTapDo: (() -> Void)?
+    
     var transactionService: TransactionsServiceProtocol
     
-    init(transactionService: TransactionsServiceProtocol, signature: String) {
+    init(transactionService: TransactionsServiceProtocol, 
+         signature: String,
+         onTransactionTapDo: (() -> Void)?) {
         self.transactionService = transactionService
         self.signature = signature
+        self.onTransactionTapDo = onTransactionTapDo
     }
     
     func fetch() {
@@ -78,7 +116,7 @@ class TransactionDetailViewModel: ObservableObject {
                     
                     let preBalance = Double(preBalances[index]) / Constants.lamports
                     let postBalance = Double(postBalances[index]) / Constants.lamports
-                    let change = "\((postBalance - preBalance).allDecimals(maximumFractionDigits: 6))".replacingOccurrences(of: "-", with: "- ")
+                    let change = (postBalance - preBalance) == 0.0 ? "0" : "\((postBalance - preBalance).allDecimals(maximumFractionDigits: 6))".replacingOccurrences(of: "-", with: "- ")
                     
                     let balanceChange = BalanceChange(address: addresses[index],
                                                       balanceBefore: preBalance,
@@ -107,7 +145,7 @@ class TransactionDetailViewModel: ObservableObject {
                     
                     let balanceBefore = preTokenBalance[index].uiTokenAmount?.uiAmount ?? 0.0
                     let balanceAfter = postBalanceInfo?.uiTokenAmount?.uiAmount ?? 0.0
-                    let change = "\((balanceAfter - balanceBefore).allDecimals(maximumFractionDigits: 6))"
+                    let change = (balanceAfter - balanceBefore) == 0.0 ? "0" : "\((balanceAfter - balanceBefore).allDecimals(maximumFractionDigits: 6))"
                         .replacingOccurrences(of: "-", with: "- ").includeAddSymbol
                     
                     let tokenChange = TokenChange(address: address,
@@ -123,93 +161,3 @@ class TransactionDetailViewModel: ObservableObject {
         }
     }
 }
-
-
-
-//extension TransactionDetailItemViewModel {
-//    init(from response: TransactionResponse) {
-//        let result = response.result
-//        
-//        let transaction = result.transaction
-//        self.signature = transaction.signatures.first ?? ""
-//        self.block = result.slot
-//        self.timestamp = result.blockTime
-//        self.signer = result.transaction.message.accountKeys.first ?? "Unknow"
-//        
-//        if let meta = result.meta {
-//            let status = meta.status
-//            if status.Ok != nil {
-//                self.status = "Ok"
-//                self.error = nil
-//            } else if let err = status.Err {
-//                self.status = "Err"
-//                self.error = err.InstructionError?.first?.extractErrorDescription()
-//            } else {
-//                self.status = "Unknown"
-//                self.error = nil
-//            }
-//            
-//            self.fee = Double(meta.fee ?? 0)
-//            self.balanceChanges = TransactionChangesMapper.extractBalanceChanges(meta: meta)
-//            self.tokenChanges = TransactionChangesMapper.extractTokenChanges(meta: meta)
-//        } else {
-//            self.fee = 0
-//            self.status = "Unknown"
-//            self.error = nil
-//            self.balanceChanges = []
-//            self.tokenChanges = []
-//        }
-//    }
-//}
-//
-
-//
-//extension InstructionErrorType {
-//    func extractErrorDescription() -> String {
-//        switch self {
-//        case .simple(let code):
-//            return "Error code: \(code)"
-//        case .detailed(let code, let customError):
-//            return "Error code: \(code), Custom error code: \(customError.custom)"
-//        }
-//    }
-//}
-//
-//struct TransactionChangesMapper {
-//    static func extractBalanceChanges(meta: TransactionMeta?) -> [BalanceChange] {
-//        guard let meta = meta else { return [] }
-//        
-//        let preBalances = meta.preBalances
-//        let postBalances = meta.postBalances
-//        
-//        return zip(preBalances, postBalances).enumerated().map { (index, balances) in
-//            let change = Int64(balances.1) - Int64(balances.0)
-//            return BalanceChange(
-//                address: meta.innerInstructions.first?.instructions.first?.accounts[index].description ?? "",
-//                balanceBefore: balances.0,
-//                balanceAfter: balances.1,
-//                change: change
-//            )
-//        }
-//    }
-//    
-//    static func extractTokenChanges(meta: TransactionMeta?) -> [TokenChange] {
-//        guard let meta = meta else { return [] }
-//        
-//        let preTokenBalances = meta.preTokenBalances
-//        let postTokenBalances = meta.postTokenBalances
-//        
-//        return zip(preTokenBalances, postTokenBalances).map { (preToken, postToken) in
-//            let balanceBefore = preToken.uiTokenAmount.uiAmount
-//            let balanceAfter = postToken.uiTokenAmount.uiAmount
-//            
-//            return TokenChange(
-//                mint: preToken.mint,
-//                owner: preToken.owner,
-//                balanceBefore: balanceBefore,
-//                balanceAfter: balanceAfter,
-//                change: balanceAfter - balanceBefore
-//            )
-//        }
-//    }
-//}

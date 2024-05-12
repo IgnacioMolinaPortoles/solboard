@@ -38,7 +38,14 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     
     func routeToTransactionDetail(tx: String) {
         let vm = TransactionDetailViewModel(transactionService: TransactionsService(),
-                                            signature: tx)
+                                            signature: tx, onTransactionTapDo: {
+            UIPasteboard.general.string = tx
+            
+            guard let topVC = self.navigationController.topViewController else { return }
+            
+            AlertManager().showAlert("Transaction copied to clipboard", nil, actions: [UIAlertAction(title: "Done", style: .default)], viewController: topVC)
+        })
+        
         let vc = UIHostingController(rootView: TransactionDetailView(vm: vm))
         self.navigationController.pushViewController(vc,
                                                 animated: true)
@@ -52,7 +59,7 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
         })
         let vc = UIHostingController(rootView: transactionsView)
         vc.navigationItem.title = "Transaction list"
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func routeToAssetView(assets: [AssetItem]) {

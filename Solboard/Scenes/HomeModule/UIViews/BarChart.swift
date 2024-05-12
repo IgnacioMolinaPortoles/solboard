@@ -83,7 +83,7 @@ struct BarChart: View {
                 Spacer()
             }
         }
-        .backgroundStyle(Color.backgroundDarkGray)
+        .backgroundStyle(Color.backgroundDarkGray1C)
         .background(.black)
         .onTapGesture {
             onAssetTapDo()

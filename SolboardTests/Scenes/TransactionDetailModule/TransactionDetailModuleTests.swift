@@ -158,7 +158,7 @@ extension TransactionDetailModuleTests {
     
     func makeSUT(signature: String, transactionsService: TransactionsServiceProtocol) -> TransactionDetailViewModel {
         return TransactionDetailViewModel(transactionService: transactionsService,
-                                          signature: signature)
+                                          signature: signature, onTransactionTapDo: {})
     }
     
     class TransactionServiceMock: TransactionsServiceProtocol {

@@ -55,16 +55,13 @@ final class DateParser {
         let intervalo = ahora.timeIntervalSince(fecha)
         
         if intervalo < 60 {
-            // Menos de un minuto
             return ">1 min"
         } else if intervalo < 3600 {
-            // Entre 1 minuto y 59 minutos
             let minutos = Int(intervalo / 60)
-            return "\(minutos) minutos"
+            return "\(minutos) minutes"
         } else {
-            // Más de 60 minutos
             let horas = Int(intervalo / 3600)
-            return "\(horas) horas"
+            return "\(horas) hours"
         }
     }
 }

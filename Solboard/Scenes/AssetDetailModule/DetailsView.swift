@@ -184,7 +184,7 @@ struct DetailView: View {
                     } placeholder: {
                         ProgressView()
                             .frame(width: 350, height: 350)
-                            .background(Color.backgroundDarkGray)
+                            .background(Color.backgroundDarkGray1C)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding()
                     }
@@ -230,7 +230,7 @@ struct DetailView: View {
                     }
                 }
                 .padding()
-                .background(Color.backgroundDarkGray)
+                .background(Color.backgroundDarkGray1C)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal)
                 .padding(.bottom, 20)
@@ -248,7 +248,7 @@ struct DetailView: View {
                             .padding()
                         Spacer()
                     }
-                    .background(Color.backgroundDarkGray)
+                    .background(Color.backgroundDarkGray1C)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal)
                     .padding(.bottom, 20)
@@ -291,7 +291,7 @@ struct DetailView: View {
                             .padding(.horizontal)
                         }
                         .padding(.top, 15)
-                        .background(Color.backgroundDarkGray)
+                        .background(Color.backgroundDarkGray1C)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         
                     }
@@ -351,7 +351,7 @@ struct DetailView: View {
                     }
                 }
                 .padding()
-                .background(Color.backgroundDarkGray)
+                .background(Color.backgroundDarkGray1C)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal)
                 

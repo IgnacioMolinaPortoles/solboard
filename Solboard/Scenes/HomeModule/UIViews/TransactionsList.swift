@@ -59,7 +59,7 @@ struct TransactionsList: View {
                     onTransactionDetailTapDo(transaction.signatureHash)
                 }
             }
-            .listRowBackground(Color.backgroundDarkGray)
+            .listRowBackground(Color.backgroundDarkGray1C)
             .listRowSeparatorTint(Color.listSeparatorDarkGray)
             
             if let onTapDo = onShowAllDataTapDo {
@@ -74,7 +74,7 @@ struct TransactionsList: View {
                         onTapDo()
                     }
                 }
-                .listRowBackground(Color.backgroundDarkGray)
+                .listRowBackground(Color.backgroundDarkGray1C)
             }
         }
         .padding(.top, -35)

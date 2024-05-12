@@ -106,7 +106,7 @@ enum RPCMethods {
                 "params": [
                     address,
                     [
-                        "limit": 50
+                        "limit": 1000
                     ]
                 ]
             ]

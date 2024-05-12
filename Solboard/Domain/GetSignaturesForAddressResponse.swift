@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - GetSignaturesWelcome
+// MARK: - GetSignaturesResponse
 struct GetSignaturesResponse: Codable {
     let jsonrpc: String?
     let result: [GetSignaturesResult]?
@@ -27,20 +27,27 @@ struct GetSignaturesResult: Codable {
 // MARK: - GetSignaturesErr
 struct GetSignaturesErr: Codable {
     let instructionError: [GetSignaturesInstructionErrorElement]?
+    let insufficientFundsForRent: GetSignaturesInsufficientFundsForRent?
 
     enum CodingKeys: String, CodingKey {
         case instructionError = "InstructionError"
+        case insufficientFundsForRent = "InsufficientFundsForRent"
     }
 }
 
 enum GetSignaturesInstructionErrorElement: Codable {
     case getSignaturesInstructionErrorClass(GetSignaturesInstructionErrorClass)
     case integer(Int)
+    case string(String)
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let x = try? container.decode(Int.self) {
             self = .integer(x)
+            return
+        }
+        if let x = try? container.decode(String.self) {
+            self = .string(x)
             return
         }
         if let x = try? container.decode(GetSignaturesInstructionErrorClass.self) {
@@ -57,6 +64,8 @@ enum GetSignaturesInstructionErrorElement: Codable {
             try container.encode(x)
         case .integer(let x):
             try container.encode(x)
+        case .string(let x):
+            try container.encode(x)
         }
     }
 }
@@ -67,5 +76,14 @@ struct GetSignaturesInstructionErrorClass: Codable {
 
     enum CodingKeys: String, CodingKey {
         case custom = "Custom"
+    }
+}
+
+// MARK: - GetSignaturesInsufficientFundsForRent
+struct GetSignaturesInsufficientFundsForRent: Codable {
+    let accountIndex: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case accountIndex = "account_index"
     }
 }
