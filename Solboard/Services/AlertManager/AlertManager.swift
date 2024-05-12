@@ -16,12 +16,12 @@ class AlertManager: AlertManagerProtocol {
     func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        if (actions?.isEmpty ?? false) {
-            alertController.addAction(UIAlertAction(title: "Ok", style: .default))
-        } else {
-            for action in actions ?? [] {
+        if let actions, actions.count > 0 {
+            for action in actions {
                 alertController.addAction(action)
             }
+        } else {
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default))
         }
         
         viewController.present(alertController, animated: true)

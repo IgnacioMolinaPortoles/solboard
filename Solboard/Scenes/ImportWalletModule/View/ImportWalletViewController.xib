@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportWalletViewController" customModule="Solboard" customModuleProvider="target">
             <connections>
                 <outlet property="addressTextView" destination="LSn-it-vsu" id="CCe-ZH-Dos"/>
+                <outlet property="continueButtonBottomConstraint" destination="0kz-zk-Bzq" id="koJ-Y3-Chm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -44,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LSn-it-vsu">
-                    <rect key="frame" x="22" y="295" width="349" height="65"/>
+                    <rect key="frame" x="22" y="255" width="349" height="65"/>
                     <color key="backgroundColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="hfa-q5-W4N"/>
@@ -67,7 +68,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LSn-it-vsu" secondAttribute="trailing" constant="22" id="gsu-tU-gJb"/>
                 <constraint firstItem="ZOb-g7-58B" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="kYc-Rj-6L8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wj2-KB-ylx" secondAttribute="trailing" constant="22" id="pXc-g8-Mkt"/>
-                <constraint firstItem="LSn-it-vsu" firstAttribute="top" secondItem="wj2-KB-ylx" secondAttribute="bottom" constant="80" id="sAv-IZ-Qgl"/>
+                <constraint firstItem="LSn-it-vsu" firstAttribute="top" secondItem="wj2-KB-ylx" secondAttribute="bottom" constant="40" id="sAv-IZ-Qgl"/>
                 <constraint firstItem="wj2-KB-ylx" firstAttribute="top" secondItem="ZOb-g7-58B" secondAttribute="bottom" constant="20" id="sVt-w9-sbR"/>
             </constraints>
             <point key="canvasLocation" x="122.90076335877862" y="19.718309859154932"/>

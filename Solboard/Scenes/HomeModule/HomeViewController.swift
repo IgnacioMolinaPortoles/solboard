@@ -120,8 +120,7 @@ final class HomeViewController: UIViewController {
             self?.coordinator.routeToTransactionDetail(tx: tx)
         }, onShowAllDataTapDo: { [weak self] in
             self?.coordinator.routeToAllTransactions(txs: self?.viewModel.getFetchedTransactions() ?? [])
-        },
-                                                                             tableTitle: "Signature")
+        })
         
         
         viewModel.onTransactionsFetchedDo = { transactions in

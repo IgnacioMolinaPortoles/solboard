@@ -16,97 +16,123 @@ class TransactionsListViewModel: ObservableObject, Equatable {
     }
     
     @Published var transactions: [TransactionViewModel]
+    @Published var searchText = ""
+
+    var searchBarEnabled: Bool
     
-    init(transactions: [TransactionViewModel]) {
+    var filteredTransactions: [TransactionViewModel] {
+        if searchText.isEmpty {
+            return transactions
+        } else {
+            return filterTransactionsBySearch(transactions)
+        }
+    }
+    
+    init(transactions: [TransactionViewModel], searchBarEnabled: Bool = false) {
         self.transactions = transactions
+        self.searchBarEnabled = searchBarEnabled
     }
     
     func updateTransactions(transactions: [TransactionViewModel]) {
         self.transactions = transactions
     }
+    
+    private func filterTransactionsBySearch(_ transactions: [TransactionViewModel]) -> [TransactionViewModel] {
+        return transactions.filter { tx in
+            tx.signatureHash.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 }
 
 
 struct TransactionsList: View {
-    @ObservedObject var transactionsViewModel: TransactionsListViewModel
+    @ObservedObject var vm: TransactionsListViewModel
+
     var onTransactionDetailTapDo: (String) -> Void
     var onShowAllDataTapDo: (() -> Void)?
     var tableTitle: String?
     
     var body: some View {
-        
-        if let title = tableTitle {
-            HStack {
-                Text(title)
-                    .padding(.leading, 20)
-                    .foregroundStyle(Color.textLightGray)
-                Spacer()
-            }
-        }
-        
-        List {
-            ForEach(self.transactionsViewModel.transactions) { transaction in
+        if vm.transactions.isEmpty {
+            LoadingView()
+                .padding()
+        } else {
+            if let title = tableTitle {
                 HStack {
-                    Text("\(transaction.signatureHash.shortSignature)")
-                        .foregroundStyle(.white)
-                    Spacer()
-                    Text("\(transaction.unixDate.presentableDate)")
+                    Text(title)
+                        .padding(.leading, 20)
                         .foregroundStyle(Color.textLightGray)
-                    Image(.chevronRight)
-                    
-                }
-                .onTapGesture {
-                    onTransactionDetailTapDo(transaction.signatureHash)
+                    Spacer()
                 }
             }
-            .listRowBackground(Color.backgroundDarkGray1C)
-            .listRowSeparatorTint(Color.listSeparatorDarkGray)
             
-            if let onTapDo = onShowAllDataTapDo {
-                Section() {
+            List {
+                ForEach(vm.filteredTransactions) { transaction in
                     HStack {
-                        Text("Show All Data")
+                        Text("\(transaction.signatureHash.shortSignature)")
                             .foregroundStyle(.white)
                         Spacer()
+                        Text("\(transaction.unixDate.presentableDate)")
+                            .foregroundStyle(Color.textLightGray)
                         Image(.chevronRight)
+                        
                     }
                     .onTapGesture {
-                        onTapDo()
+                        onTransactionDetailTapDo(transaction.signatureHash)
                     }
                 }
                 .listRowBackground(Color.backgroundDarkGray1C)
+                .listRowSeparatorTint(Color.listSeparatorDarkGray)
+                
+                if let onTapDo = onShowAllDataTapDo {
+                    Section() {
+                        HStack {
+                            Text("Show All Data")
+                                .foregroundStyle(.white)
+                            Spacer()
+                            Image(.chevronRight)
+                        }
+                        .onTapGesture {
+                            onTapDo()
+                        }
+                    }
+                    .listRowBackground(Color.backgroundDarkGray1C)
+                }
             }
+            .searchable(text: $vm.searchText,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: "Transaction address")
+            .padding(.top, -35)
+            .scrollDisabled(!vm.searchBarEnabled)
+            .listSectionSpacing(12)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .padding(.top, -35)
-        .scrollDisabled(false)
-        .listSectionSpacing(12)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
 #Preview {
-    let dummy = TransactionViewModel(signatureHash: "ASD SD",
+    let dummy = TransactionViewModel(signatureHash: "TX1231 SD",
                                      unixDate: Int(Date().timeIntervalSince1970))
     
     let vm =  TransactionsListViewModel(transactions: [dummy,
                                                        dummy,
-                                                       dummy] )
+                                                       dummy],
+    searchBarEnabled: true)
     
-    return TransactionsList(transactionsViewModel: vm,
+    return TransactionsList(vm: vm,
                             onTransactionDetailTapDo: {_ in },
                             onShowAllDataTapDo: {
         print("si")
-    },
-                            tableTitle: "Signatures")
+    })
 }
 
 extension UIView {
     func addTransactionList(transactions: [TransactionViewModel],
                             onTransactionDetailTapDo: @escaping (String) -> Void,
                             onShowAllDataTapDo: (() -> Void)?,
-                            tableTitle: String?) -> TransactionsListViewModel {
+                            tableTitle: String? = nil) -> TransactionsListViewModel {
         let viewModel = TransactionsListViewModel(transactions: transactions)
-        let view = TransactionsList(transactionsViewModel: viewModel,
+        let view = TransactionsList(vm: viewModel,
                                     onTransactionDetailTapDo: onTransactionDetailTapDo,
                                     onShowAllDataTapDo: onShowAllDataTapDo,
                                     tableTitle: tableTitle)

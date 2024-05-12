@@ -39,17 +39,18 @@ struct AssetItem: Codable {
     init(
         id: String,
         pricePerToken: Double,
-         balance: Double,
-         name: String,
-         symbol: String,
-         tokenType: TokenType,
-         image: String) {
+        balance: Double,
+        name: String,
+        symbol: String,
+        tokenType: TokenType,
+        image: String,
+        description: String = "") {
         // Inicializar el interface e id como valores predeterminados nulos
         self.interface = nil
         self.id = id
         
         // Inicializar AssetContent con image, name y symbol
-        let assetMetadata = AssetMetadata(attributes: nil, description: nil, name: name, symbol: symbol, tokenStandard: tokenType.rawValue)
+        let assetMetadata = AssetMetadata(attributes: nil, description: description, name: name, symbol: symbol, tokenStandard: tokenType.rawValue)
         self.content = AssetContent(schema: nil, jsonURI: nil, files: [AssetFile(uri: image, cdnURI: nil, mime: nil)], metadata: assetMetadata, links: nil)
         
         // Inicializar AssetTokenInfo con pricePerToken, balance y symbol

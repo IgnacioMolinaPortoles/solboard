@@ -19,6 +19,7 @@ struct DetailItemViewModel: Identifiable {
     var balance: Double
     var goToWebString: String
     var goToWeb: () -> Void
+    var copyAddressToClipboard: () -> Void
     
     var formattedBalance: String {
         String(format: "%.2f", balance)
@@ -56,7 +57,7 @@ struct DetailItemViewModel: Identifiable {
 }
 
 extension DetailItemViewModel {
-    init(from assetItem: AssetItem, goToWeb: @escaping () -> Void) {
+    init(from assetItem: AssetItem, goToWeb: @escaping () -> Void, copyAddressToClipboard: @escaping () -> Void) {
         self.id = assetItem.id ?? ""
         
         self.name = assetItem.content?.metadata?.name ?? ""
@@ -65,7 +66,7 @@ extension DetailItemViewModel {
         if let imageUrlString = assetItem.content?.links?.image, let url = URL(string: imageUrlString) {
             self.imageUrl = url
         } else {
-            self.imageUrl = URL(string: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756")!
+            self.imageUrl = URL(string: Constants.solanaImageURL)!
         }
         
         self.address = assetItem.id ?? ""
@@ -104,5 +105,6 @@ extension DetailItemViewModel {
         
         self.goToWebString = assetItem.getInterface() == .fungible ? "View on Solscan" : "View on Magic Eden"
         self.goToWeb = goToWeb
+        self.copyAddressToClipboard = copyAddressToClipboard
     }
 }

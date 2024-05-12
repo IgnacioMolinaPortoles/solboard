@@ -44,7 +44,7 @@ class HomeCoordinatorTests: XCTestCase {
         XCTAssertTrue(presentedViewController is UIHostingController<DetailsView>, "Debería presentarse un UIHostingController con DetailsView")
         
         if let hostingController = presentedViewController as? UIHostingController<DetailsView> {
-            let detailViewModel = hostingController.rootView.nft
+            let detailViewModel = hostingController.rootView.detailItem
             XCTAssertEqual(detailViewModel.id, assetItem.id, "El DetailItemViewModel debería tener el ID correcto")
             XCTAssertEqual(detailViewModel.name, assetItem.content?.metadata?.name, "El DetailItemViewModel debería tener el nombre correcto")
         }

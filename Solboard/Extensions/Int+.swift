@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Constants {
-    static let lamports: Double = 1000000000.0
-}
-
 extension Int {
     func parseFee() -> String {
         let solValue = Double(self) / Constants.lamports

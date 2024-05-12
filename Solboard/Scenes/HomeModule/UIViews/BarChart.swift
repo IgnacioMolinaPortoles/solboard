@@ -49,44 +49,48 @@ struct BarChart: View {
     }
 
     var body: some View {
-        GroupBox {
-            HStack {
-                Text("Asset Distribution")
-                    .bold()
-                    .foregroundStyle(.white)
-                Spacer()
-                Image(.chevronRight)
-            }
-            Spacer().frame(height: 15)
-
-            Chart(viewModel.chartData, id: \.0.id) { item, color in
-                BarMark(x: .value("Amount", 1))
-                    .foregroundStyle(color)
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .chartXAxis(.hidden)
-            .frame(height: 35)
-
-            Spacer().frame(height: 15)
-
-            HStack(spacing: 6) {
-                ForEach(viewModel.tokenTypeColors, id: \.0) { type, color in
-                    HStack {
-                        Circle()
-                            .fill(color)
-                            .frame(width: 12, height: 12)
-                        Text(type.displayableName)
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(.white)
-                    }
+        if viewModel.chartData.isEmpty {
+            LoadingView()
+        } else {
+            GroupBox {
+                HStack {
+                    Text("Asset Distribution")
+                        .bold()
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Image(.chevronRight)
                 }
-                Spacer()
+                Spacer().frame(height: 15)
+                
+                Chart(viewModel.chartData, id: \.0.id) { item, color in
+                    BarMark(x: .value("Amount", 1))
+                        .foregroundStyle(color)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .chartXAxis(.hidden)
+                .frame(height: 35)
+                
+                Spacer().frame(height: 15)
+                
+                HStack(spacing: 6) {
+                    ForEach(viewModel.tokenTypeColors, id: \.0) { type, color in
+                        HStack {
+                            Circle()
+                                .fill(color)
+                                .frame(width: 12, height: 12)
+                            Text(type.displayableName)
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    Spacer()
+                }
             }
-        }
-        .backgroundStyle(Color.backgroundDarkGray1C)
-        .background(.black)
-        .onTapGesture {
-            onAssetTapDo()
+            .backgroundStyle(Color.backgroundDarkGray1C)
+            .background(.black)
+            .onTapGesture {
+                onAssetTapDo()
+            }
         }
     }
 }

@@ -41,7 +41,8 @@ final class AssetsServiceManager: AssetsServiceManagerProtocol {
                                                  name: "Solana",
                                                  symbol: "SOL",
                                                  tokenType: .fungible,
-                                                 image: "https://assets.coingecko.com/coins/images/4128/standard/solana.png?1696504756"))
+                                                 image: Constants.solanaImageURL,
+                                                 description: "Solana is a blockchain built for mass adoption. It's a high performance network that is utilized for a range of use cases, including finance, payments, and gaming. Solana operates as a single global state machine, and is open, interoperable, and decentralized."))
                     dispatchGroup.leave()
                 }
             }

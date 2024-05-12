@@ -8,9 +8,10 @@
 import UIKit
 import Combine
 
-class ImportWalletViewController: UIViewController {
+class ImportWalletViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var addressTextView: UITextView!
+    @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
     
     private let coordinator: (Coordinator & HomeBuilding)
     private let viewModel: ImportWalletViewModel
@@ -34,8 +35,10 @@ class ImportWalletViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addressTextView.text = ""//"AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
+//        addressTextView.text = ""//"AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
         bind()
+        addObservers()
+        addressTextView.delegate = self
     }
     
     private func bind() {
@@ -55,11 +58,38 @@ class ImportWalletViewController: UIViewController {
         .store(in: &cancellables)
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification, 
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.continueButtonBottomConstraint.constant = 34 + keyboardSize.height
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        self.continueButtonBottomConstraint.constant = 34
+    }
+    
     private func showInvalidAddressAlert() {
         alertManager.showAlert("Invalid address", "Please try again", actions: nil, viewController: self)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 
     @IBAction func onContinueButtonTapDo(_ sender: Any) {
-        input.send(.verifyAddress(address: addressTextView.text))
+        input.send(.verifyAddress(address: addressTextView.text.removeWhitespace()))
     }
 }

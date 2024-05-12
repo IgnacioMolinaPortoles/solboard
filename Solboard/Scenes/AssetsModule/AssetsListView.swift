@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 let assetsArray = [
     AssetItemViewModel(address: "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
@@ -15,7 +16,7 @@ let assetsArray = [
                    symbol:"MYTCHYS",
                    tokenType: .fungible,
                    metadata: nil,
-                   image: "https://bafkreie3gbnqk4odanmu76oebzmqxzd564hxu5csws6liojjjnlgybbx3y.ipfs.nftstorage.link/"),
+                       image: Constants.solanaImageURL),
     AssetItemViewModel(address: "H2m6pFixfGiQcA7KjveiqAZTBJHysGToY5cJFewtkky8",
                    pricePerToken: 0,
                    balance: 1,
@@ -95,17 +96,21 @@ struct AssetsListView: View {
                 List {
                     ForEach(viewModel.filteredTokens, id: \.id) { asset in
                         HStack {
-                            AsyncImage(url: URL(string: asset.image ?? ""),
-                                       content: { image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 25, maxHeight: 25)
-                            },
-                                       placeholder: {
-                                ProgressView()
-                            })
-                            .frame(width: 25, height: 25)
                             
+                            if asset.image ?? "" == Constants.solanaImageURL {
+                                Image(.solana)
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                            } else {
+                                KFImage(URL(string: asset.image ?? ""))
+                                    .placeholder {
+                                        ProgressView()
+                                            .frame(maxWidth: 25, maxHeight: 25)
+                                    }
+                                    .fade(duration: 0.25)
+                                    .resizable()
+                                    .frame(maxWidth: 25, maxHeight: 25)
+                            }
                             Text(asset.tokenType == .fungible ? "\(asset.symbol ?? "")" : "\(asset.name ?? "")")
                             Spacer()
                             

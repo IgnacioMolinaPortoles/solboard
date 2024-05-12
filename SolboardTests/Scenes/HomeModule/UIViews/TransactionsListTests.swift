@@ -41,14 +41,14 @@ class TransactionsListTests: XCTestCase {
         var didTapTransaction = false
         
         // Act
-        let sut = TransactionsList(transactionsViewModel: transactionsViewModel,
+        let sut = TransactionsList(vm: transactionsViewModel,
                                    onTransactionDetailTapDo: { _ in
                                        didTapTransaction = true
                                    },
                                    tableTitle: expectedTableTitle)
         
         // Assert
-        XCTAssertEqual(sut.transactionsViewModel, transactionsViewModel, "El `TransactionsList` debería iniciarse con el `TransactionsListViewModel` proporcionado")
+        XCTAssertEqual(sut.vm, transactionsViewModel, "El `TransactionsList` debería iniciarse con el `TransactionsListViewModel` proporcionado")
         XCTAssertEqual(sut.tableTitle, expectedTableTitle, "El `TransactionsList` debería iniciarse con el título de tabla proporcionado")
         XCTAssertFalse(didTapTransaction, "La transacción no debería haberse tocado inicialmente")
     }
@@ -63,7 +63,7 @@ class TransactionsListTests: XCTestCase {
         var didTapTransaction = false
         
         // Act
-        let sut = TransactionsList(transactionsViewModel: transactionsViewModel,
+        let sut = TransactionsList(vm: transactionsViewModel,
                                    onTransactionDetailTapDo: { signature in
                                        XCTAssertEqual(signature, "signature1", "Debería haber llamado al callback con la firma correcta")
                                        didTapTransaction = true
@@ -71,7 +71,7 @@ class TransactionsListTests: XCTestCase {
                                    tableTitle: "Transactions")
         
         // Simula un tap en la transacción
-        let tapTransaction = sut.transactionsViewModel.transactions.first!
+        let tapTransaction = sut.vm.transactions.first!
         sut.onTransactionDetailTapDo(tapTransaction.signatureHash)
         
         // Assert

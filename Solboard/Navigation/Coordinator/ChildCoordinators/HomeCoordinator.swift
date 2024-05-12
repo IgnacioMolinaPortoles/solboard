@@ -39,11 +39,8 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     func routeToTransactionDetail(tx: String) {
         let vm = TransactionDetailViewModel(transactionService: TransactionsService(),
                                             signature: tx, onTransactionTapDo: {
-            UIPasteboard.general.string = tx
-            
             guard let topVC = self.navigationController.topViewController else { return }
-            
-            AlertManager().showAlert("Transaction copied to clipboard", nil, actions: [UIAlertAction(title: "Done", style: .default)], viewController: topVC)
+            topVC.copyToClipboard(tx)
         })
         
         let vc = UIHostingController(rootView: TransactionDetailView(vm: vm))
@@ -52,10 +49,10 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     }
     
     func routeToAllTransactions(txs: [TransactionViewModel]) {
-        let vm = TransactionsListViewModel(transactions: txs)
-        let transactionsView = TransactionsList(transactionsViewModel: vm, onTransactionDetailTapDo: { [weak self] tx in
+        let vm = TransactionsListViewModel(transactions: txs, 
+                                           searchBarEnabled: true)
+        let transactionsView = TransactionsList(vm: vm, onTransactionDetailTapDo: { [weak self] tx in
             self?.routeToTransactionDetail(tx: tx)
-            print(tx)
         })
         let vc = UIHostingController(rootView: transactionsView)
         vc.navigationItem.title = "Transaction list"
@@ -75,9 +72,12 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     }
     
     func onAssetDetailTap(item: AssetItem) {
-        let vc = UIHostingController(rootView: DetailsView(nft: DetailItemViewModel(from: item, goToWeb: { [weak self] in
+        let vc = UIHostingController(rootView: DetailsView(detailItem: DetailItemViewModel(from: item, goToWeb: { [weak self] in
             guard let self else { return }
             self.routeToWeb(item: item)
+        }, copyAddressToClipboard: {
+            guard let topVC = self.navigationController.topViewController else { return }
+            topVC.copyToClipboard(item.id)
         })))
         self.navigationController.pushViewController(vc, animated: true)
     }

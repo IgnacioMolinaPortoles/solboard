@@ -12,7 +12,7 @@ extension AssetItem {
         let tokenStandard = self.content?.metadata?.tokenStandard?.lowercased()
         let interface = self.interface ?? ""
         
-        if let info = self.tokenInfo, (tokenStandard == TokenType.fungible.rawValue.lowercased() || interface == "FungibleToken") {
+        if let _ = self.tokenInfo, (tokenStandard == TokenType.fungible.rawValue.lowercased() || interface == "FungibleToken") {
             return .fungible
         }
         return .nonFungible

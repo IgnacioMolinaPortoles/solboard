@@ -17,3 +17,22 @@ extension UIView {
         self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
+
+extension UIViewController {
+    func copyToClipboard(_ text: String?) {
+        let alertManager = AlertManager()
+        
+        guard let text else {
+            alertManager.showAlert("An error ocurred",
+                                     "Sorry, we cannot copy the address to the clipboard right now",
+                                     actions: [UIAlertAction(title: "Ok", style: .default)],
+                                     viewController: self)
+            return
+        }
+        UIPasteboard.general.string = text
+        alertManager.showAlert("Copied to clipboard",
+                                 nil,
+                                 actions: [UIAlertAction(title: "Done", style: .default)],
+                                 viewController: self)
+    }
+}
