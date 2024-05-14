@@ -32,7 +32,7 @@ class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
     
     func start() {
         let vc = HomeViewController(coordinator: self)
-        vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+//        vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
         navigationController.pushViewController(vc, animated: false)
     }
     

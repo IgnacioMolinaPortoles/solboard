@@ -31,6 +31,6 @@ class PresentationManager {
         }
         
         let homeVC = TabbarController(tabs: self.tabsCoordinators)
-        return homeVC
+        return self.tabsCoordinators.first!.navigationController
     }
 }
