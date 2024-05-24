@@ -49,6 +49,7 @@ enum RPCMethods {
     case getSolanaPrice
     case getSignaturesForAddress(String)
     case getTransactionDetail(String)
+    case getGenesisHash
     
     var urlParams: String {
         switch self {
@@ -59,6 +60,14 @@ enum RPCMethods {
     
     var bodyParams: [String: Any] {
         switch self {
+        case .getGenesisHash:
+            let params: [String: Any] = [
+                "jsonrpc":"2.0",
+                "id":1,
+                "method":"getGenesisHash"
+            ]
+            
+            return params
         case .getAccountInfo(let address):
             let params: [String : Any] = [
                 "jsonrpc": "2.0",
