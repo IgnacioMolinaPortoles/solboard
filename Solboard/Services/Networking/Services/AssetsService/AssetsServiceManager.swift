@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AssetsServiceManagerProtocol {
-    func getAssets(completion: @escaping ([AssetItem]) -> Void)
+    func getAssets(_ address: String, completion: @escaping ([AssetItem]) -> Void)
 }
 
 final class AssetsServiceManager: AssetsServiceManagerProtocol {
@@ -18,7 +18,7 @@ final class AssetsServiceManager: AssetsServiceManagerProtocol {
         self.assetsService = assetsService
     }
     
-    func getAssets(completion: @escaping ([AssetItem]) -> Void) {
+    func getAssets(_ address: String, completion: @escaping ([AssetItem]) -> Void) {
         var assetsItems: [AssetItem] = []
         let dispatchGroup = DispatchGroup()
         

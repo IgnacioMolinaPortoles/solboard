@@ -9,6 +9,14 @@ import SwiftUI
 import UIKit
 import Foundation
 
+protocol LogoutRouting: AnyObject {
+    func logout()
+}
+
+protocol SettingsRouting: AnyObject {
+    func routeToSettings()
+}
+
 protocol TransactionRouting: AnyObject {
     func routeToTransactionDetail(tx: String)
     func routeToAllTransactions(txs: [TransactionViewModel])
@@ -18,22 +26,50 @@ protocol AssetRouting {
     func routeToAssetView(assets: [AssetItem])
 }
 
-class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting {
+class HomeCoordinator: Coordinator, TransactionRouting, AssetRouting, SettingsRouting, LogoutRouting {
+    
     var childCoordinators = [Coordinator]()
     
     var navigationController: UINavigationController
     var uiApplication: UIApplicationURLRouterProtocol
+    var dataManager: any UserPersistenceProtocol
     
     init(navigationController: UINavigationController,
-         uiApplication: UIApplicationURLRouterProtocol = UIApplication.shared) {
+         uiApplication: UIApplicationURLRouterProtocol = UIApplication.shared,
+         dataManager: any UserPersistenceProtocol) {
         self.navigationController = navigationController
         self.uiApplication = uiApplication
+        self.dataManager = dataManager
     }
     
     func start() {
-        let vc = HomeViewController(coordinator: self)
-//        vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+        let vm = HomeViewModel(assetServiceManager: AssetsServiceManager(assetsService: AssetsService()),
+                                                      transactionsService: TransactionsService(),
+                                                      dataManager: dataManager)
+        let vc = HomeViewController(viewModel: vm, coordinator: self)
         navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func logout() {
+        navigationController.viewControllers.removeAll()
+        
+        let vc = LoginCoordinator(navigationController: UINavigationController(),
+                                                dataManager: dataManager)
+        
+        vc.start()
+        
+        guard let sceneDelegate = UIApplication.sceneDelegate else { return }
+        sceneDelegate.setRootViewController(vc.navigationController)
+    }
+    
+    func routeToSettings() {
+        let vm = SettingsViewModel(dataManager: dataManager as! UserCoreDataManager,
+                                   validatorService: ValidatorService(),
+                                   alertManager: AlertManager(),
+                                   coordinator: self)
+        
+        let vc = UIHostingController(rootView: SettingsView(vm: vm))
+        navigationController.present(vc, animated: true)
     }
     
     func routeToTransactionDetail(tx: String) {

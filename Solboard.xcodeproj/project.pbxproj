@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		730FD2742BD0CE59006A0E87 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730FD2732BD0CE59006A0E87 /* WebView.swift */; };
+		7317F2A72BFD69F2005492B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2A62BFD69F2005492B7 /* SettingsView.swift */; };
+		7317F2AA2BFE71D9005492B7 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2A92BFE71D9005492B7 /* SettingsViewModelTests.swift */; };
 		7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */; };
 		7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */; };
 		7351F36D2BE86F3800B57D74 /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */; };
@@ -17,8 +19,6 @@
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
 		7395FE652BAD198D009E40F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7395FE642BAD198D009E40F1 /* Assets.xcassets */; };
-		7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */; };
-		7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */; };
 		739ACDAE2BEC243D0078FB92 /* TransactionOverviewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */; };
 		739ACDB12BEC31590078FB92 /* TransactionDetailModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */; };
 		739ACDB32BEC31720078FB92 /* TransactionDummyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */; };
@@ -92,17 +92,12 @@
 			remoteGlobalIDString = 7395FE572BAD198C009E40F1;
 			remoteInfo = Solboard;
 		};
-		7395FE792BAD198D009E40F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7395FE502BAD198C009E40F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7395FE572BAD198C009E40F1;
-			remoteInfo = Solboard;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		730FD2732BD0CE59006A0E87 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		7317F2A62BFD69F2005492B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7317F2A92BFE71D9005492B7 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTransactionResponse.swift; sourceTree = "<group>"; };
 		7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
 		7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
@@ -115,9 +110,6 @@
 		7395FE642BAD198D009E40F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7395FE692BAD198D009E40F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SolboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITests.swift; sourceTree = "<group>"; };
-		7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		739ACDAD2BEC243D0078FB92 /* TransactionOverviewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionOverviewItemView.swift; sourceTree = "<group>"; };
 		739ACDB02BEC31590078FB92 /* TransactionDetailModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailModuleTests.swift; sourceTree = "<group>"; };
 		739ACDB22BEC31720078FB92 /* TransactionDummyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDummyFactory.swift; sourceTree = "<group>"; };
@@ -198,16 +190,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7395FE752BAD198D009E40F1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7317F2A52BFD69E0005492B7 /* SettingsModule */ = {
+			isa = PBXGroup;
+			children = (
+				7317F2A62BFD69F2005492B7 /* SettingsView.swift */,
+			);
+			path = SettingsModule;
+			sourceTree = "<group>";
+		};
+		7317F2A82BFE71C7005492B7 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				7317F2A92BFE71D9005492B7 /* SettingsViewModelTests.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		7351F3692BE8353000B57D74 /* TransactionDetailModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +249,6 @@
 			children = (
 				7395FE5A2BAD198C009E40F1 /* Solboard */,
 				7395FE712BAD198D009E40F1 /* SolboardTests */,
-				7395FE7B2BAD198D009E40F1 /* SolboardUITests */,
 				7395FE592BAD198C009E40F1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -258,7 +258,6 @@
 			children = (
 				7395FE582BAD198C009E40F1 /* Solboard.app */,
 				7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */,
-				7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,15 +292,6 @@
 				73A644C42BB5410B000E6424 /* PresentationManagerTests.swift */,
 			);
 			path = SolboardTests;
-			sourceTree = "<group>";
-		};
-		7395FE7B2BAD198D009E40F1 /* SolboardUITests */ = {
-			isa = PBXGroup;
-			children = (
-				7395FE7C2BAD198D009E40F1 /* SolboardUITests.swift */,
-				7395FE7E2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift */,
-			);
-			path = SolboardUITests;
 			sourceTree = "<group>";
 		};
 		739ACDAC2BEC242D0078FB92 /* SubViews */ = {
@@ -353,6 +343,7 @@
 		73A644952BB2719A000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7317F2A52BFD69E0005492B7 /* SettingsModule */,
 				7351F3692BE8353000B57D74 /* TransactionDetailModule */,
 				73952ECD2BD15EDC00445430 /* AssetDetailModule */,
 				73BEE20F2BCCCDEF003068A1 /* AssetsModule */,
@@ -530,6 +521,7 @@
 		73A644E02BC4A917000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7317F2A82BFE71C7005492B7 /* SettingsView */,
 				739ACDAF2BEC31420078FB92 /* TransactionDetailModule */,
 				73E28F1A2BE20C450062945B /* AssetDetailModule */,
 				73E28F172BE209AB0062945B /* AssetsModule */,
@@ -709,24 +701,6 @@
 			productReference = 7395FE6E2BAD198D009E40F1 /* SolboardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7395FE772BAD198D009E40F1 /* SolboardUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7395FE882BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardUITests" */;
-			buildPhases = (
-				7395FE742BAD198D009E40F1 /* Sources */,
-				7395FE752BAD198D009E40F1 /* Frameworks */,
-				7395FE762BAD198D009E40F1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7395FE7A2BAD198D009E40F1 /* PBXTargetDependency */,
-			);
-			name = SolboardUITests;
-			productName = SolboardUITests;
-			productReference = 7395FE782BAD198D009E40F1 /* SolboardUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -741,10 +715,6 @@
 						CreatedOnToolsVersion = 15.1;
 					};
 					7395FE6D2BAD198D009E40F1 = {
-						CreatedOnToolsVersion = 15.1;
-						TestTargetID = 7395FE572BAD198C009E40F1;
-					};
-					7395FE772BAD198D009E40F1 = {
 						CreatedOnToolsVersion = 15.1;
 						TestTargetID = 7395FE572BAD198C009E40F1;
 					};
@@ -768,7 +738,6 @@
 			targets = (
 				7395FE572BAD198C009E40F1 /* Solboard */,
 				7395FE6D2BAD198D009E40F1 /* SolboardTests */,
-				7395FE772BAD198D009E40F1 /* SolboardUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -787,13 +756,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7395FE6C2BAD198D009E40F1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7395FE762BAD198D009E40F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -856,6 +818,7 @@
 				7351F3712BE8823F00B57D74 /* Int+.swift in Sources */,
 				73A644C32BB54076000E6424 /* PresentationManager.swift in Sources */,
 				739ACDAE2BEC243D0078FB92 /* TransactionOverviewItemView.swift in Sources */,
+				7317F2A72BFD69F2005492B7 /* SettingsView.swift in Sources */,
 				7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */,
 				739E64BC2BD81C180056B02E /* AssetItemViewModel.swift in Sources */,
 				7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */,
@@ -879,17 +842,9 @@
 				73E28F192BE209C50062945B /* AssetsListViewTests.swift in Sources */,
 				73BEE1E72BC71043003068A1 /* HomeTests.swift in Sources */,
 				73E28F162BE206330062945B /* BarChartTests.swift in Sources */,
+				7317F2AA2BFE71D9005492B7 /* SettingsViewModelTests.swift in Sources */,
 				739ACDB12BEC31590078FB92 /* TransactionDetailModuleTests.swift in Sources */,
 				73A644C82BB5414B000E6424 /* DataManagerMock.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7395FE742BAD198D009E40F1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7395FE7F2BAD198D009E40F1 /* SolboardUITestsLaunchTests.swift in Sources */,
-				7395FE7D2BAD198D009E40F1 /* SolboardUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,11 +855,6 @@
 			isa = PBXTargetDependency;
 			target = 7395FE572BAD198C009E40F1 /* Solboard */;
 			targetProxy = 7395FE6F2BAD198D009E40F1 /* PBXContainerItemProxy */;
-		};
-		7395FE7A2BAD198D009E40F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7395FE572BAD198C009E40F1 /* Solboard */;
-			targetProxy = 7395FE792BAD198D009E40F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1122,42 +1072,6 @@
 			};
 			name = Release;
 		};
-		7395FE892BAD198D009E40F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86FX98RR5R;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Solboard;
-			};
-			name = Debug;
-		};
-		7395FE8A2BAD198D009E40F1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 86FX98RR5R;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nica.SolboardUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Solboard;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1184,15 +1098,6 @@
 			buildConfigurations = (
 				7395FE862BAD198D009E40F1 /* Debug */,
 				7395FE872BAD198D009E40F1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7395FE882BAD198D009E40F1 /* Build configuration list for PBXNativeTarget "SolboardUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7395FE892BAD198D009E40F1 /* Debug */,
-				7395FE8A2BAD198D009E40F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

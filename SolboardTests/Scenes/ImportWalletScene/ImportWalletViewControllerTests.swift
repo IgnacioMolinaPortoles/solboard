@@ -59,7 +59,7 @@ final class ImportWalletViewControllerTests: XCTestCase {
     }
 }
 
-extension ImportWalletViewControllerTests {
+extension XCTestCase {
     final class ImportWalletCoordinatorMock: Coordinator, HomeBuilding {
         var childCoordinators: [Solboard.Coordinator] = []
         var navigationController: UINavigationController = UINavigationController()
@@ -76,7 +76,7 @@ extension ImportWalletViewControllerTests {
     final class AlertManagerMock: AlertManager {
         private(set) var alertShown = false
 
-        override func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController) {
+        override func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController?) {
             alertShown = true
         }
     }

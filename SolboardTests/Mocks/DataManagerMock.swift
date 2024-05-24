@@ -33,7 +33,7 @@ class UserDataManagerMock: UserPersistenceProtocol {
         return hasUser
     }
     
-    func delete(id: UUID) -> Bool {
+    func delete(item: UserDataModel) -> Bool {
         return hasUser
     }
     

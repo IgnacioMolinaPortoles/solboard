@@ -13,24 +13,23 @@ class PresentationManager {
     
     private let dataManager: any UserPersistenceProtocol
     private let loginCoordinator: Coordinator
-    private let tabsCoordinators: [Coordinator]
+    private let homeCoordinator: Coordinator
     
     init(dataManager: any UserPersistenceProtocol,
          loginCoordinator: Coordinator,
-         tabsCoordinators: [Coordinator]) {
+         homeCoordinator: Coordinator) {
         self.dataManager = dataManager
         self.loginCoordinator = loginCoordinator
-        self.tabsCoordinators = tabsCoordinators
+        self.homeCoordinator = homeCoordinator
     }
     
     func getNavigation() -> UIViewController {
         guard dataManager.getUser() != nil else {
-            let loginCoordinator = self.loginCoordinator
-            loginCoordinator.start()
-            return loginCoordinator.navigationController
+            self.loginCoordinator.start()
+            return self.loginCoordinator.navigationController
         }
         
-        let homeVC = TabbarController(tabs: self.tabsCoordinators)
-        return self.tabsCoordinators.first!.navigationController
+        self.homeCoordinator.start()
+        return self.homeCoordinator.navigationController
     }
 }

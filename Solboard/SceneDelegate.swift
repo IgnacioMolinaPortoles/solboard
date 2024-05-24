@@ -22,14 +22,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            
            let userCoreDataManager = UserCoreDataManager(context: persistentContainer.viewContext)
            
-           let loginCoordinator = LoginCoordinator(navigationController: UINavigationController())
+           let loginCoordinator = LoginCoordinator(navigationController: UINavigationController(), 
+                                                   dataManager: userCoreDataManager)
            
-           //Aca se agregar mas tabs
-           let tabsCoordinators = [HomeCoordinator(navigationController: UINavigationController())]
+           let homeCoordinator = HomeCoordinator(navigationController: UINavigationController(),
+                                                 dataManager: userCoreDataManager)
            
            let presentationManager = PresentationManager(dataManager: userCoreDataManager,
                                                          loginCoordinator: loginCoordinator,
-                                                         tabsCoordinators: tabsCoordinators)
+                                                         homeCoordinator: homeCoordinator)
            
            setRootViewController(presentationManager.getNavigation())
        }

@@ -19,9 +19,11 @@ protocol HomeBuilding: AnyObject {
 class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-
-    init(navigationController: UINavigationController) {
+    var dataManager: any UserPersistenceProtocol
+    
+    init(navigationController: UINavigationController, dataManager: any UserPersistenceProtocol) {
         self.navigationController = navigationController
+        self.dataManager = dataManager
     }
 
     func start() {
@@ -48,8 +50,10 @@ class LoginCoordinator: Coordinator, ImportingWallet, HomeBuilding {
     func buildHome() {
         navigationController.viewControllers.removeAll()
         
-        let vc = TabbarController(tabs: [HomeCoordinator(navigationController: UINavigationController())])
+        let vc = HomeCoordinator(navigationController: UINavigationController(), 
+                                 dataManager: dataManager)
+        vc.start()
         guard let sceneDelegate = UIApplication.sceneDelegate else { return }
-        sceneDelegate.setRootViewController(vc)
+        sceneDelegate.setRootViewController(vc.navigationController)
     }
 }

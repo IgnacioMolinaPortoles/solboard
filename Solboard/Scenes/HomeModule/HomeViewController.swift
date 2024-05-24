@@ -8,12 +8,13 @@
 import UIKit
 import SwiftUI
 
-let address = "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
+//let address = "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
+// AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH
 
 final class HomeViewModel {
     private let assetServiceManager: AssetsServiceManagerProtocol
     private let transactionsService: TransactionsServiceProtocol
-
+    private let dataManager: UserCoreDataManager?
     
     var onTokensViewModelFetchedDo: (([TokenViewModel]?) -> Void)?
     var onBalanceFetchedDo: ((Double) -> Void)?
@@ -23,9 +24,11 @@ final class HomeViewModel {
     private var transactions: [TransactionViewModel] = []
     
     init(assetServiceManager: AssetsServiceManagerProtocol,
-         transactionsService: TransactionsServiceProtocol) {
+         transactionsService: TransactionsServiceProtocol,
+         dataManager: any UserPersistenceProtocol) {
         self.assetServiceManager = assetServiceManager
         self.transactionsService = transactionsService
+        self.dataManager = dataManager as? UserCoreDataManager
     }
     
     func getFetchedAssets() -> [AssetItem] {
@@ -37,14 +40,25 @@ final class HomeViewModel {
     }
     
     func getTransactions() {
+        guard let address = dataManager?.getUser()?.address else {
+            self.onTransactionsFetchedDo?([])
+            return
+        }
+        
         transactionsService.getSignatures(address) { [weak self] transactions in
             self?.transactions = transactions
-            self?.onTransactionsFetchedDo!(transactions)
+            self?.onTransactionsFetchedDo?(transactions)
         }
     }
 
     func getAssets() {
-        assetServiceManager.getAssets { [weak self] assets in
+        guard let address = dataManager?.getUser()?.address else {
+            self.onBalanceFetchedDo?(0.0)
+            self.onTokensViewModelFetchedDo?([])
+            return
+        }
+        
+        assetServiceManager.getAssets(address) { [weak self] assets in
             self?.assetsItems = assets
             
             let assetsVMArray = assets.map({ AssetItemViewModel(from: $0) })
@@ -63,13 +77,13 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var balanceView: UIView!
     @IBOutlet weak var transactionsLabel: UILabel!
     @IBOutlet weak var transactionsView: UIView!
+    @IBOutlet weak var userImage: UIImageView!
     
     private let viewModel: HomeViewModel
-    private let coordinator: (TransactionRouting & AssetRouting)
+    private let coordinator: (TransactionRouting & AssetRouting & SettingsRouting)
     
-    init(viewModel: HomeViewModel = HomeViewModel(assetServiceManager: AssetsServiceManager(assetsService: AssetsService()),
-                                                  transactionsService: TransactionsService()),
-         coordinator: (TransactionRouting & AssetRouting)) {
+    init(viewModel: HomeViewModel,
+         coordinator: (TransactionRouting & AssetRouting & SettingsRouting)) {
         self.coordinator = coordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -80,7 +94,7 @@ final class HomeViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        .lightContent
     }
     
     override func viewDidLoad() {
@@ -88,13 +102,44 @@ final class HomeViewController: UIViewController {
         titleScreenLabel.text = "Dashboard"
         balanceLabel.text = "Balance"
         transactionsLabel.text = "Transactions"
-        
+
         bindBalanceLabel()
         addAndBindAssetBarChart()
         addAndBindTransactionsList()
-        
+        configureUserImage()
+        addCoreDataObservers()
+        fetch()
+    }
+ 
+    func addCoreDataObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(contextDidSave(_:)),
+                                               name: Notification.Name.NSManagedObjectContextDidSave,
+                                               object: nil)
+    }
+    
+    @objc func contextDidSave(_ notification: Notification) {
+        fetch()
+    }
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func fetch() {
         viewModel.getAssets()
         viewModel.getTransactions()
+    }
+    
+    @objc func routeToSettings() {
+        coordinator.routeToSettings()
+    }
+    
+    private func configureUserImage() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(routeToSettings))
+        userImage.isUserInteractionEnabled = true
+        userImage.addGestureRecognizer(tap)
     }
     
     private func bindBalanceLabel() {
@@ -124,7 +169,7 @@ final class HomeViewController: UIViewController {
         
         
         viewModel.onTransactionsFetchedDo = { transactions in
-            transactionsViewModel.updateTransactions(transactions: Array((transactions ?? []).prefix(5)))
+            transactionsViewModel.updateTransactions(transactions: Array((transactions ?? []).prefix(6)))
         }
     }
 }

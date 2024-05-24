@@ -12,6 +12,6 @@ protocol UserPersistenceProtocol {
     
     func getUser() -> DataType?
     func create(address: String) -> Bool
-    func delete(id: UUID) -> Bool
+    func delete(item: DataType) -> Bool
     func update(item: DataType, newAddress: String) -> Bool
 }

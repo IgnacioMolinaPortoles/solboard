@@ -42,15 +42,11 @@ class UserCoreDataManager: UserPersistenceProtocol {
         }
     }
     
-    func delete(id: UUID) -> Bool {
+    func delete(item: UserDataModel) -> Bool {        
         do {
-            let users = try context.fetch(DataType.fetchRequest()) as? [UserDataModel]
+            self.context.delete(item)
             
-            guard let user = users?.filter({ $0.id == id }).first else {
-                return false
-            }
-            
-            self.context.delete(user)
+            try self.context.save()
             return true
         } catch {
             return false

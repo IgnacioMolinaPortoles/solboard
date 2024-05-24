@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 protocol AlertManagerProtocol {
-    func showAlert(_ title: String,_ message: String?, actions: [UIAlertAction]?, viewController: UIViewController)
+    func showAlert(_ title: String,_ message: String?, actions: [UIAlertAction]?, viewController: UIViewController?)
 }
 class AlertManager: AlertManagerProtocol {
     
-    func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController) {
+    func showAlert(_ title: String, _ message: String?, actions: [UIAlertAction]?, viewController: UIViewController?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         if let actions, actions.count > 0 {
@@ -22,6 +22,11 @@ class AlertManager: AlertManagerProtocol {
             }
         } else {
             alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+        }
+        
+        guard let viewController else {
+            UIApplication.topViewController()?.present(alertController, animated: true)
+            return
         }
         
         viewController.present(alertController, animated: true)

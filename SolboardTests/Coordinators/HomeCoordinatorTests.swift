@@ -16,7 +16,9 @@ class HomeCoordinatorTests: XCTestCase {
         // Arrange
         let mockUIApplication = MockUIApplication()
         let mockNavigationController = MockNavigationController()
-        let coordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: mockUIApplication)
+        let coordinator = HomeCoordinator(navigationController: mockNavigationController, 
+                                          uiApplication: mockUIApplication,
+                                          dataManager: UserDataManagerMock(hasUser: false))
         let transactionHash = "exampleTxHash"
         
         // Act
@@ -29,7 +31,9 @@ class HomeCoordinatorTests: XCTestCase {
     func testOnAssetDetailTap_PresentsDetailsViewCorrectly() {
         // Arrange
         let mockNavigationController = MockNavigationController()
-        let homeCoordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: UIApplication.shared)
+        let homeCoordinator = HomeCoordinator(navigationController: mockNavigationController, 
+                                              uiApplication: UIApplication.shared,
+                                              dataManager: UserDataManagerMock(hasUser: false))
         
         let assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
         
@@ -54,7 +58,9 @@ class HomeCoordinatorTests: XCTestCase {
         // Arrange
         let mockUIApplication = MockUIApplication()
         let mockNavigationController = MockNavigationController()
-        let coordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: mockUIApplication)
+        let coordinator = HomeCoordinator(navigationController: mockNavigationController,
+                                          uiApplication: mockUIApplication,
+                                          dataManager: UserDataManagerMock(hasUser: false))
         let assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
         
         // Act
@@ -74,7 +80,9 @@ class HomeCoordinatorTests: XCTestCase {
         // Arrange
         let mockUIApplication = MockUIApplication()
         let mockNavigationController = MockNavigationController()
-        let coordinator = HomeCoordinator(navigationController: mockNavigationController, uiApplication: mockUIApplication)
+        let coordinator = HomeCoordinator(navigationController: mockNavigationController,
+                                          uiApplication: mockUIApplication,
+                                          dataManager: UserDataManagerMock(hasUser: false))
         let assetItem = AssetItem(id: "test-id", pricePerToken: 0.5, balance: 100, name: "TestAsset", symbol: "TEST", tokenType: .fungible, image: "image")
         
         // Act

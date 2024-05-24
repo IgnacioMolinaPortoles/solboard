@@ -29,8 +29,10 @@ class PresentationManagerTests: XCTestCase {
     
     func testSetupInitialViewController_UserExists() {
         // Arrange
-        let loginCoordinator = LoginCoordinatorMock(navigationController: UINavigationController())
-        let homeCoordinator = HomeCoordinatorMock(navigationController: UINavigationController())
+        let loginCoordinator = LoginCoordinatorMock(navigationController: UINavigationController(), 
+                                                    dataManager: UserDataManagerMock(hasUser: false))
+        let homeCoordinator = HomeCoordinatorMock(navigationController: UINavigationController(),
+                                                  dataManager: UserDataManagerMock(hasUser: false))
         
         let sut = makeSUT(hasUser: true, loginCoordinator: loginCoordinator, homeCoordinator: homeCoordinator)
         
@@ -45,8 +47,10 @@ class PresentationManagerTests: XCTestCase {
     
     func testSetupInitialViewController_NoUser() {
         // Arrange
-        let loginCoordinator = LoginCoordinatorMock(navigationController: UINavigationController())
-        let homeCoordinator = HomeCoordinatorMock(navigationController: UINavigationController())
+        let loginCoordinator = LoginCoordinatorMock(navigationController: UINavigationController(),
+                                                    dataManager: UserDataManagerMock(hasUser: false))
+        let homeCoordinator = HomeCoordinatorMock(navigationController: UINavigationController(),
+                                                  dataManager: UserDataManagerMock(hasUser: false))
         
         let sut = makeSUT(hasUser: false, loginCoordinator: loginCoordinator, homeCoordinator: homeCoordinator)
         
@@ -63,7 +67,7 @@ class PresentationManagerTests: XCTestCase {
         let dataManager = UserDataManagerMock(hasUser: hasUser)
         
         return PresentationManager(dataManager: dataManager,
-                                      loginCoordinator: loginCoordinator,
-                                      tabsCoordinators: [homeCoordinator])
+                                   loginCoordinator: loginCoordinator,
+                                   homeCoordinator: homeCoordinator)
     }
 }

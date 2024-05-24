@@ -30,7 +30,7 @@ final class AssetsServiceManagerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "GetAssets completion")
         
         // Act
-        sut.getAssets { assetsItems in
+        sut.getAssets("") { assetsItems in
             // Assert
             // Verifica que se obtuvieron los elementos de AssetItem esperados
             XCTAssertEqual(assetsItems.count, 2, "Debería haber 2 elementos de AssetItem")
