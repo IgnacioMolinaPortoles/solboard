@@ -116,7 +116,9 @@ struct AssetsListView: View {
                             
                             if asset.tokenType == .fungible {
                                 let totalPrice = asset.balance ?? 0
-                                Text("\(totalPrice, specifier: "%.2f")")
+                                let specifier = String(format: "%.4f", totalPrice).prefix(4) == "0.00" ? "%.8f" : "%.2f"
+
+                                Text("\(totalPrice, specifier: specifier)")
                                     .foregroundStyle(Color.textLightGray)
                             }
                             Image(systemName: "chevron.right")

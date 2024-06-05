@@ -8,9 +8,6 @@
 import UIKit
 import SwiftUI
 
-//let address = "AUXVBHMKvW6arSPPNbjSuz8y3f6HA2p8YCcKLr8HBGdh"
-// AVUCZyuT35YSuj4RH7fwiyPu82Djn2Hfg7y2ND2XcnZH
-
 final class HomeViewModel {
     private let assetServiceManager: AssetsServiceManagerProtocol
     private let transactionsService: TransactionsServiceProtocol

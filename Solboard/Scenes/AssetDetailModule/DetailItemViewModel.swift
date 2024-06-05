@@ -22,7 +22,8 @@ struct DetailItemViewModel: Identifiable {
     var copyAddressToClipboard: () -> Void
     
     var formattedBalance: String {
-        String(format: "%.2f", balance)
+        let format = String(format: "%.4f", balance).prefix(4) == "0.00" ? "%.8f" : "%.2f"
+        return String(format: format, balance)
     }
     
     func formatNumber(_ number: Double) -> String {
