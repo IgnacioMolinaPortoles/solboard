@@ -16,7 +16,7 @@ final class SettingsViewModelTests: XCTestCase {
 
         let sut = makeSUT(dataManager: dataManager)
         
-        sut.logout()
+        sut.showConfirmLogoutAlert()
         
         XCTAssertNil(dataManager.getUser())
     }
@@ -59,7 +59,8 @@ extension SettingsViewModelTests {
                  dataManager: any UserPersistenceProtocol = MockDataManager()) -> SettingsViewModel {
         let sut = SettingsViewModel(dataManager: dataManager,
                                     validatorService: service,
-                                    alertManager: AlertManagerMock())
+                                    alertManager: AlertManagerMock(), 
+                                    coordinator: MockLogoutCoordinator())
         return sut
     }
     
@@ -70,6 +71,14 @@ extension SettingsViewModelTests {
             isValidAddressServiceCalled = true
             completion(address == "ASD123!@#")
         }
+    }
+}
+
+final class MockLogoutCoordinator: LogoutRouting {
+    private(set) var logoutCalled = false
+    
+    func logout() {
+        logoutCalled = true
     }
 }
 

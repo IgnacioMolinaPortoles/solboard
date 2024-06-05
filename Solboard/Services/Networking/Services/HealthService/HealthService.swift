@@ -26,38 +26,42 @@ class HealthService: HealthServiceProtocol {
     
     let client: HTTPClient
     
-    init(client: HTTPClient) {
+    init(client: HTTPClient = URLSession.shared) {
         self.client = client
     }
     
     
     func getStatus(completion: @escaping (APIStatus) -> Void) {
         guard let request = RPCMethods.getGenesisHash.buildRequest(node: .helius) else {
-            completion(.unavailable("Invalid request"))
+            DispatchQueue.main.async {
+                completion(.unavailable("Invalid request"))
+            }
             return
         }
         
         client.perform(request, timeout: 10.0) { data, response, error in
-            if let error {
-                completion(.unavailable(error.localizedDescription))
-                return
-            }
-            
-            guard let data else {
-                completion(.unavailable("No data"))
-                return
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(GenesisHashResponse.self, from: data)
-                
-                if let hash = response.result, hash.count > 1 {
-                    completion(.avaliable)
-                } else {
-                    completion(.unavailable("No data"))
+            DispatchQueue.main.async {
+                if let error {
+                    completion(.unavailable(error.localizedDescription))
+                    return
                 }
-            } catch let error {
-                completion(.unavailable(error.localizedDescription))
+                
+                guard let data else {
+                    completion(.unavailable("No data"))
+                    return
+                }
+                
+                do {
+                    let response = try JSONDecoder().decode(GenesisHashResponse.self, from: data)
+                    
+                    if let hash = response.result, hash.count > 1 {
+                        completion(.avaliable)
+                    } else {
+                        completion(.unavailable("No data"))
+                    }
+                } catch let error {
+                    completion(.unavailable(error.localizedDescription))
+                }
             }
         }
     }

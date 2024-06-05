@@ -11,11 +11,13 @@
 		7317F2A72BFD69F2005492B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2A62BFD69F2005492B7 /* SettingsView.swift */; };
 		7317F2AA2BFE71D9005492B7 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2A92BFE71D9005492B7 /* SettingsViewModelTests.swift */; };
 		7317F2B02C012A38005492B7 /* HealthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2AF2C012A38005492B7 /* HealthService.swift */; };
+		7317F2B32C012D81005492B7 /* ManteinanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317F2B22C012D81005492B7 /* ManteinanceView.swift */; };
 		7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */; };
 		7351F36B2BE8354800B57D74 /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */; };
 		7351F36D2BE86F3800B57D74 /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */; };
 		7351F36F2BE86F5A00B57D74 /* DetailItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F36E2BE86F5A00B57D74 /* DetailItemViewModel.swift */; };
 		7351F3712BE8823F00B57D74 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7351F3702BE8823F00B57D74 /* Int+.swift */; };
+		735643CB2C10E3FF009252D4 /* GenericEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735643CA2C10E3FF009252D4 /* GenericEmptyView.swift */; };
 		73952ED12BD15F0500445430 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73952ED02BD15F0500445430 /* DetailsView.swift */; };
 		7395FE5C2BAD198C009E40F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */; };
 		7395FE5E2BAD198C009E40F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7395FE5D2BAD198C009E40F1 /* SceneDelegate.swift */; };
@@ -100,11 +102,13 @@
 		7317F2A62BFD69F2005492B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7317F2A92BFE71D9005492B7 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		7317F2AF2C012A38005492B7 /* HealthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthService.swift; sourceTree = "<group>"; };
+		7317F2B22C012D81005492B7 /* ManteinanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManteinanceView.swift; sourceTree = "<group>"; };
 		7351F3672BE8313800B57D74 /* GetTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTransactionResponse.swift; sourceTree = "<group>"; };
 		7351F36A2BE8354800B57D74 /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
 		7351F36C2BE86F3800B57D74 /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		7351F36E2BE86F5A00B57D74 /* DetailItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailItemViewModel.swift; sourceTree = "<group>"; };
 		7351F3702BE8823F00B57D74 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		735643CA2C10E3FF009252D4 /* GenericEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericEmptyView.swift; sourceTree = "<group>"; };
 		73952ED02BD15F0500445430 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		7395FE582BAD198C009E40F1 /* Solboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Solboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7395FE5B2BAD198C009E40F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +221,14 @@
 				7317F2AF2C012A38005492B7 /* HealthService.swift */,
 			);
 			path = HealthService;
+			sourceTree = "<group>";
+		};
+		7317F2B12C012D74005492B7 /* ManteinanceModule */ = {
+			isa = PBXGroup;
+			children = (
+				7317F2B22C012D81005492B7 /* ManteinanceView.swift */,
+			);
+			path = ManteinanceModule;
 			sourceTree = "<group>";
 		};
 		7351F3692BE8353000B57D74 /* TransactionDetailModule */ = {
@@ -353,6 +365,7 @@
 		73A644952BB2719A000E6424 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				7317F2B12C012D74005492B7 /* ManteinanceModule */,
 				7317F2A52BFD69E0005492B7 /* SettingsModule */,
 				7351F3692BE8353000B57D74 /* TransactionDetailModule */,
 				73952ECD2BD15EDC00445430 /* AssetDetailModule */,
@@ -634,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				73D0CB2F2BF0591700668721 /* LoadingView.swift */,
+				735643CA2C10E3FF009252D4 /* GenericEmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -809,6 +823,7 @@
 				7351F36D2BE86F3800B57D74 /* TransactionDetailView.swift in Sources */,
 				73BEE2002BCB753C003068A1 /* Decimal+.swift in Sources */,
 				73A644BE2BB520F7000E6424 /* UserDataModel+CoreDataProperties.swift in Sources */,
+				735643CB2C10E3FF009252D4 /* GenericEmptyView.swift in Sources */,
 				7351F3682BE8313800B57D74 /* GetTransactionResponse.swift in Sources */,
 				73DE07852BF39F350062A9DB /* TokenChangeSheet.swift in Sources */,
 				73BEE1EF2BC83E0A003068A1 /* Colors+.swift in Sources */,
@@ -816,6 +831,7 @@
 				73BEE1FA2BC8881A003068A1 /* AssetsByOwnerResponse.swift in Sources */,
 				73BEE1F52BC8849F003068A1 /* ValidatorService.swift in Sources */,
 				73BEE20C2BCC6881003068A1 /* DateParser.swift in Sources */,
+				7317F2B32C012D81005492B7 /* ManteinanceView.swift in Sources */,
 				73BEE2062BCBC783003068A1 /* GetSignaturesForAddressResponse.swift in Sources */,
 				73A644D82BBE3789000E6424 /* HTTPClient.swift in Sources */,
 				739E64BF2BD81D320056B02E /* AssetsMapper.swift in Sources */,

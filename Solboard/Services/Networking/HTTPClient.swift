@@ -137,7 +137,7 @@ enum RPCMethods {
     
     var HTTPMethod: String {
         switch self {
-        case .getAccountInfo(_), .getAssetsByOwner(_), .getBalance(_), .getSignaturesForAddress(_), .getTransactionDetail(_):
+        case .getAccountInfo(_), .getAssetsByOwner(_), .getBalance(_), .getSignaturesForAddress(_), .getTransactionDetail(_), .getGenesisHash:
             return "POST"
         default:
             return "GET"

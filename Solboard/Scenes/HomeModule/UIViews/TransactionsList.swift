@@ -17,6 +17,7 @@ class TransactionsListViewModel: ObservableObject, Equatable {
     
     @Published var transactions: [TransactionViewModel]
     @Published var searchText = ""
+    @Published var isLoading = true
 
     var searchBarEnabled: Bool
     
@@ -35,6 +36,7 @@ class TransactionsListViewModel: ObservableObject, Equatable {
     
     func updateTransactions(transactions: [TransactionViewModel]) {
         self.transactions = transactions
+        self.isLoading = false
     }
     
     private func filterTransactionsBySearch(_ transactions: [TransactionViewModel]) -> [TransactionViewModel] {
@@ -53,9 +55,11 @@ struct TransactionsList: View {
     var tableTitle: String?
     
     var body: some View {
-        if vm.transactions.isEmpty {
+        if vm.isLoading {
             LoadingView()
                 .padding()
+        } else if vm.transactions.isEmpty {
+            GenericEmptyView()
         } else {
             if let title = tableTitle {
                 HStack {

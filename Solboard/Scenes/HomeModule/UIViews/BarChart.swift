@@ -12,14 +12,17 @@ import Combine
 
 class BarChartViewModel: ObservableObject {
     @Published var tokens: [TokenViewModel]
+    @Published var isLoading: Bool
     
     init(tokens: [TokenViewModel]) {
         self.tokens = tokens
+        self.isLoading = true
     }
     
     // Actualiza la lista de tokens
     func updateTokens(tokens: [TokenViewModel]) {
         self.tokens = tokens
+        self.isLoading = false
     }
     
     // Genera datos visuales para el gráfico de barras
@@ -49,8 +52,10 @@ struct BarChart: View {
     }
 
     var body: some View {
-        if viewModel.chartData.isEmpty {
+        if viewModel.isLoading {
             LoadingView()
+        } else if viewModel.chartData.isEmpty {
+            GenericEmptyView()
         } else {
             GroupBox {
                 HStack {
