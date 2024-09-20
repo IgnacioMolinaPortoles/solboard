@@ -13,6 +13,7 @@
 # Screenshots
 
 A
+<img width="250" alt="Screenshot 2024-09-20 at 5 45 22 PM" src="[https://github.com/user-attachments/assets/e950b0e7-6cd5-495e-996c-9aa880bcd992](https://github.com/user-attachments/assets/6243cfd1-3951-4c3e-8c53-aece4b9d7d44)">
 
 ![Simulator Screenshot - iPhone 16 Pro - 2024-09-20 at 17 39 20](https://github.com/user-attachments/assets/6243cfd1-3951-4c3e-8c53-aece4b9d7d44){width=25%}
 
